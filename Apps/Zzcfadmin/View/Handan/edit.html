@@ -1,0 +1,94 @@
+<include file="Public:head_iframe" />
+<div id="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{:U('Index/welcome')}"><i class="fa fa-home"></i>&nbsp;&nbsp;首页</a></li>
+        <li><a href='{:U("index",decode($parameter))}'>喊单系统</a></li>
+        <li class="active">编辑喊单</li>
+        <div class="pull-right refresh"><a href="javascript:;" onclick="refresh()"><i class="fa fa-refresh fa-xl" title="点击刷新"></i> 刷新页面</a></div>
+    </ol>
+</div>
+<div class="wrapper wrapper-content col-sm-12 animated fadeInRight">
+    <form action="" method="post" id="myform" name="myform" onsubmit="return false">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 交易平台：</div>
+                        </td>
+                        <td>
+                            <select name="pt_cid" class="form-control">
+                                {$menulist_pt}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 品种：</div>
+                        </td>
+                        <td>
+                            <select name="pz_cid" class="form-control">
+                                {$menulist_pz}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">多/空：</div>
+                        </td>
+                        <td>
+                            <select name="duokong" class="form-control">
+                                <option value="1" <eq name="data.duokong" value="1">selected="selected"</eq>>多</option>
+                                <option value="0" <eq name="data.duokong" value="0">selected="selected"</eq>>空</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 建仓点位：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="jnum" name="jnum" value="{$data.jnum}" type="text" placeholder="请输入建仓点位">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 止损点位：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="zsnum" name="zsnum" value="{$data.zsnum}" type="text" placeholder="请输入止损点位">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 止赢点位：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="zynum" name="zynum" value="{$data.zynum}" type="text" placeholder="请输入止赢点位">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"> 状态：</div>
+                        </td>
+                        <td>
+                            <select name="status" class="form-control">
+                                <option value="1" <eq name="data.status" value="1">selected="selected"</eq>>开启</option>
+                                <option value="0" <eq name="data.status" value="0">selected="selected"</eq>>关闭</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="blank15"></div>
+        <button type="button" class="btn btn-w-m btn-success" onclick='submitForm("{:U("edit")}","#myform")'>
+            <i class="fa fa-check-square-o"></i> 提交
+        </button>
+        <button type="button" class="btn btn-w-m btn-primary" onclick="history.go(-1)">
+            <i class="fa fa-chevron-circle-left"></i> 返回
+        </button>
+        <input type="hidden" name="id" value="{$data.id}">
+        <input type="hidden" name="parameter" value="{$parameter}">
+    </form>
+</div>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{:C('BASE_PINPAI')} - {$data.title}</title>
+    <meta name="keywords" content="{:C('BASE_PINPAI')} - {$data.title}" />
+    <meta name="description" content="{:C('BASE_PINPAI')} - {$data.title}" />
+    <include file="headcommon" />
+</head>
+<body class="theme-night side-nav_is-collapsed">
+<div class="l-wrap">
+    <div class="l-main">
+        <div class="l-main_wrap">
+            <div class="l-main_body">
+                <div class="jin-video-wrap jin-video-detail">
+                    <div class="jin-video-box">
+                        <div class="jin-video-box_content">
+                            <video <notempty name="data.thumb">poster="__ROOT__{$data['thumb'][0]['photo']}"<else/>poster="__REVIEW__/images/demo-lg.jpg"</notempty> controls>
+                                <source src="{$data.url}" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="jin-video-box_footer">
+                            <div class="jin-video-box_content-after"></div>
+                            <div class="jin-video-box_info">
+                                <h3>{$data.title}</h3>
+                                <p>{$data.content}</p>
+                                <div class="blank15"></div>
+                                <div class="zhubinfo"><i class="jin-icon  jin-icon_user"></i> 讲师：{$data.reviewcate.name}</div>
+                                <div class="zhubinfo"><i class="jin-icon  jin-icon_video"></i> 视频：{$vcount}</div>
+                                <div class="zhubinfo"><i class="jin-icon  jin-icon_comment1"></i> 格言：{$data.reviewcate.introduction}</div>
+                                <div class="jin-video-box_meta">
+                                    <div class="jin-video-box_meta-list">
+                                        <p><i class="jin-icon  jin-icon_video"></i><span> {$data.count}</span></p>
+                                        <p><i class="jin-icon jin-icon_calendar2"></i><span> {$data.create_time|date="Y-m-d",###}</span></p>
+                                        <notempty name="data.time">
+                                        <p><i class="jin-icon jin-icon_time"></i><span> {$data.time}</span></p>
+                                        </notempty>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="jin-video_main">
+                    <div class="l-video-wrap">
+                        <div class="jin-video-list">
+                            <notempty name="list">
+                                <ul class="jin-newsList jin-newsList-col4">
+                                    <volist name="list" id="lists" key="key">
+                                        <li class="jin-newsList__item">
+                                            <a href='{:U("/vreview_v$lists[id]")}' >
+                                                <div class="jin-newsList__img">
+                                                    <img <notempty name="lists.thumb">src="__ROOT__{$lists['thumb'][0]['thumb']}"<else/>src="__REVIEW__/images/demo.jpg"</notempty> alt="{$lists.title}">
+                                                    <div class="jin-newsList__img-layer">
+                                                        <i class="jin-icon jin-icon_play1"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="jin-newsList__content">
+                                                    <div class="jin-newsList__head">
+                                                        <div class="jin-newsList__title">{$lists.title}</div>
+                                                    </div>
+                                                    <div class="jin-newsList__count">
+                                                        <span class="jin-newsList__icon"><i class="jin-icon jin-icon_video"></i>{$lists.count}</span>
+                                                        <span class="jin-newsList__icon jin-newsList__icon-float"><i class="jin-icon jin-icon_calendar2"></i>{$lists.create_time|date="Y-m-d",###}</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </volist>
+                                </ul>
+                            </notempty>
+                        </div>
+                        <neq name="totalPages" value="1">
+                            <div class="text-center">{$showpage}</div>
+                        <else />
+                            <div class="blank15"></div>
+                        </neq>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <include file="leftmenu" />
+    <include file="foot" />
+</div>
+</body>
+</html>

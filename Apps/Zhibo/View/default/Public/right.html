@@ -1,0 +1,532 @@
+<!--right-->
+<include file="Public:sszb" />
+<div id="zhibochat" class="zhibochat">
+   <div class="zhibochatmain">
+       	<div class="touming"></div>
+       	<div class="chattop">
+         	<div style="float:left;width:90px;">
+         		<a href="javascript:;"><img src="__ZHIBO__/Picture/broadcast.png" align="" style="margin-left: 7px"/></a>
+         	</div>
+         	<div id="gbqtxt" style="float:left;color:#FFF;padding-left:15px;overflow:hidden;height:35px;line-height: 30px;">
+            	<notempty name="gbdata">
+                    <marquee loop="{$gbdata.loop}" scrollamount="{$gbdata.scrollamount}" scrolldelay="{$gbdata.scrolldelay}" onmouseenter="this.stop()" onmouseleave="this.start()" style="width: 425px; color: rgb(255, 255, 255);">{$gbdata.content}</marquee>
+                </notempty>
+            </div>
+       	</div>
+       	<div class="clear_none"></div>
+       <!--聊天列表开始-->
+       <div id="zhiboscroll">
+       		<div class="content">
+       			<volist name="usermesData" id="usermes">
+					<div class="chat" id="{$usermes.id}{$usermes.create_time}">
+						<table border="0" cellspacing="3" cellpadding="0">
+							<tbody>
+								<tr>
+									<if condition="$usermes['fromusertype'] eq 0">
+										<td valign="top">
+											<div class="jbpic">
+												<img src="__PUBLIC__/images/member/user1.gif" title="游客" class="mCS_img_loaded" />
+											</div>
+										</td>
+									<elseif condition="$usermes['fromusertype'] eq 1" />
+										<td valign="top">
+											<div class="jbpic">
+												<img src="__ROOT__{$usermes.userdata.membergroup.icon}" title="{$usermes.userdata.membergroup.name}" class="mCS_img_loaded" />
+											</div>
+										</td>
+									<elseif condition="$usermes['fromusertype'] eq 2" />
+										<td valign="top">
+											<div class="jbpic">
+												<img src="__ROOT__{$usermes.userdata.authicon}" title="{$usermes.userdata.authrole}" class="mCS_img_loaded" />
+											</div>
+										</td>
+									</if>
+									<td>
+										<div class="chatmain">
+											<div class="top">
+
+												<if condition="$usermes['fromusertype'] eq 2">
+													<div class="cname">{$usermes.userdata.authrole}</div>
+												</if>
+
+												<if condition="$usermes['fromuid'] eq $userdata['id'] && $usermes['fromusertype'] eq $userdata['usertype']">
+													<div class="cname myclass_{$to_uid}"><a href="javascript:void(0)">{$usermes.userdata.username}</a></div>
+												<else/>
+													<div class="cname"><a href="javascript:void(0)" onclick="talk({$usermes.fromuid},'{$usermes.userdata.username}',{$usermes.fromusertype})" title="对ＴＡ说">{$usermes.userdata.username}</a></div>
+												</if>
+
+												<if condition="$usermes['tousertype'] neq -1">
+													<div class="dui"></div>
+													<if condition="$usermes['touid'] eq $userdata['id'] && $usermes['tousertype'] eq $userdata['usertype']">
+														<div class="cname myclass_{$to_uid}">
+															<a href="javascript:void(0)">{$usermes.touserdata.username}</a>
+														</div>
+													<else/>
+														<div class="cname">
+															<a href="javascript:void(0)" onclick="talk({$usermes.touid},'{$usermes.touserdata.username}',{$usermes.tousertype})" title="对ＴＡ说">{$usermes.touserdata.username}</a>
+														</div>
+													</if>
+												</if>
+
+												<div class="time">
+													[{$usermes.create_time|date="H:i",###}]
+												</div>
+											</div>
+											<table border="0" cellspacing="0" cellpadding="0">
+												<tbody>
+													<tr>
+														<td valign="top"><img src="__ZHIBO__/Picture/chatleft.png" class="mCS_img_loaded" /></td>
+														<td>
+															<div class="txt">
+																<div class="cont{$usermes.fromusertype}">
+																	{:htmlspecialchars_decode($usermes['content'])}
+																</div>
+															</div>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+       			</volist>
+            </div>
+        </div>
+        <!--聊天列表结束-->
+        <!--信息发送开始-->
+   		<div id="sendbox" style="padding:3px 9px;position:relative;margin-top: 2px;border-top: 2px solid #999;">
+			<form name="formMessage" id="formMessage" method="post" action="" enctype="multipart/form-data">
+				<div style="width:100%;padding:0px;position:relative;/*overflow:hidden;*/">
+					<div style="margin:0px 0px;margin-bottom: 5px">
+						<li class="qq2">
+							<a  href="{:C('CONTENT_KEFU_QQ')}" target="_blank" class="btn btnnav btncl-1 zkh" title="VIP升级">
+								<i class="glyphicon glyphicon-user"></i> <span class="tlv-txt">VIP升级</span>
+							</a>
+						</li>
+						<li class="qq2">
+							<a href="{:C('CONTENT_KEFU_QQ1')}" target="_blank" class="btn btnnav btncl-1 zkh" title="老师助理">
+								<i class="glyphicon glyphicon-star-empty "></i> <span class="tlv-txt">老师助理</span>
+							</a>
+						</li>
+						<li class="qq2">	
+							<a href="{:C('CONTENT_KEFU_QQ2')}" target="_blank" class="btn btnnav btncl-1 zkh" title="加入战队">
+								<i class="glyphicon glyphicon-fire"></i> <span class="tlv-txt">加入战队</span>
+							</a>
+						</li>
+						<!-- <li class="qq2"><a href="{:C('CONTENT_KEFU_QQ')}" target="_blank"><img src="__ZHIBO__/Picture/kefu11.png"/></a></li>
+						<li class="qq2"><a href="{:C('CONTENT_KEFU_QQ1')}" target="_blank"><img src="__ZHIBO__/Picture/kefu15.png"/></a></li>
+						<li class="qq2"><a href="{:C('CONTENT_KEFU_QQ2')}" target="_blank"><img src="__ZHIBO__/Picture/kefu12.png"/></a></li> -->
+						<div style="cursor:pointer;position:relative;margin:6px 0;float: left">
+							<select id="nicklist" name="nicklist" style="width:110px;height:30px;position: relative;" onchange="javascript:changetalk();">
+								<option value="0" tousertype="-1">对所有人说</option>
+							</select>
+							<!-- <label style="color:white">在线人数：<span id="onlineCount" style="color:yellow" value="486"></span></label> -->
+							<label style="color:white">在线人数：<span id="onlineCount1" style="color:yellow"></span></label>
+						</div>
+						<if condition="session('?adminuid')">
+							<notempty name="robotsinfo">
+								<div style="cursor:pointer;position:relative;margin:6px 0;float: left;margin-left: 5px;">
+									<select id="robots" name="robots" style="width:93px;height:25px;position: relative;">
+										<option value="0" usertype="-1">自己发言</option>
+										<volist name="robotsinfo" id="robots">
+											<option value="{$robots.id}" usertype="1">&nbsp;&nbsp;└&nbsp;{$robots.username}（{$robots.membergroup.name}）</option>
+										</volist>
+									</select>
+								</div>
+							</notempty>
+						</if>
+						<div class="clear"></div>
+					</div>
+					<div class="clear"></div>
+					<div style="margin:0;">
+						<div style="float:left;margin-right:2px;margin-bottom:2px;cursor:pointer;">
+							<img src="__ZHIBO__/Picture/lt_zhibobq.png" border="0" class="face"/>
+						</div>
+						<!-- <if condition="session('?adminuid')">
+							<div style="float:left;margin-right:2px;cursor:pointer;">
+								<img src="__ZHIBO__/Picture/lt_caitiao.png" border="0" class="color_bar"/>
+							</div>
+						</if> -->
+						<div style="float:left;margin-right:2px;margin-bottom:2px;cursor:pointer;">
+							<img src="__ZHIBO__/Images/presentIcon.png" border="0" class="gift_bar"/>
+						</div>
+						<div style="background:url(__ZHIBO__/Images/lt_zhibotu.png) no-repeat;float:left;margin-right:2px;overflow:hidden;">
+							<input type="file" name="Filedata[]" id="uploadButton">
+						</div>
+						<!--<if condition="session('?adminuid')">
+	                        <div style="background:url(__ZHIBO__/Images/lt_zhibotu.png) no-repeat;float:left;margin-right:2px;overflow:hidden;">
+	                            <input type="file" name="Filedata[]" id="uploadButton">
+	                        </div>
+                        </if>-->
+						<div class="" style="float:left;margin-right:2px;margin-bottom:2px;cursor:pointer;"><img src="__ZHIBO__/Picture/lt_sc1.png" border="0" id="scpic" onclick="javascript:tyscpic();"/><input type="hidden" name="sc" id="sc" value="1" />
+						</div>
+						<div class="" style="float:left;cursor:pointer;margin-bottom:2px;">
+							<a href="javascript:void(0);" onclick="javascript:chat_clear();">
+								<img src="__ZHIBO__/Picture/lt_zhiboqp.png" border="0"/>
+							</a>
+						</div>
+						<div class="clear"></div>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<table border="0" cellspacing="0" cellpadding="0" class="face01_imgs" id="div3">
+					<tr>
+						<td><img title="鼓掌" class="clap" src="__ZHIBO__/Picture/11.gif" width="28" ></td>
+						<td><img title="跳" class="clap" src="__ZHIBO__/Picture/12.gif" width="28" ></td>
+						<td><img title="kiss" class="clap" src="__ZHIBO__/Picture/13.gif" width="28" ></td>
+						<td><img title="跳" class="clap" src="__ZHIBO__/Picture/14.gif" width="28" ></td>
+						<td><img title="贱笑" class="clap" src="__ZHIBO__/Picture/15.gif" width="28"></td>
+						<td><img title="陶醉" class="clap" src="__ZHIBO__/Picture/16.gif" width="28"></td>
+						<td><img title="兴奋" class="clap" src="__ZHIBO__/Picture/17.gif" width="28" ></td>
+						<td><img title="鄙视" class="clap" src="__ZHIBO__/Picture/18.gif" width="24"></td>
+						<td><img title="得意" class="clap" src="__ZHIBO__/Picture/19.gif" width="28"></td>
+					</tr>
+					<tr>
+						<td><img title="偷笑" class="clap" src="__ZHIBO__/Picture/21.gif" width="28" ></td>
+						<td><img title="挖鼻孔" class="clap" src="__ZHIBO__/Picture/22.gif" width="28" ></td>
+						<td><img title="衰" class="clap" src="__ZHIBO__/Picture/23.gif" width="28" ></td>
+						<td><img title="流汗" class="clap" src="__ZHIBO__/Picture/24.gif" width="28" ></td>
+						<td><img title="伤心" class="clap" src="__ZHIBO__/Picture/25.gif" width="28" ></td>
+						<td><img title="鬼脸" class="clap" src="__ZHIBO__/Picture/26.gif" width="28" ></td>
+						<td><img title="狂笑" class="clap" src="__ZHIBO__/Picture/27.gif" width="28" ></td>
+						<td><img title="发呆" class="clap" src="__ZHIBO__/Picture/28.gif" width="24" ></td>
+						<td><img title="害羞" class="clap" src="__ZHIBO__/Picture/29.gif" width="25" ></td>
+					</tr>
+					<tr>
+						<td><img title="可怜" class="clap" src="__ZHIBO__/Picture/31.gif" width="28" ></td>
+						<td><img title="气愤" class="clap" src="__ZHIBO__/Picture/32.gif" width="28" ></td>
+						<td><img title="惊吓" class="clap" src="__ZHIBO__/Picture/33.gif" width="28" ></td>
+						<td><img title="困了" class="clap" src="__ZHIBO__/Picture/34.gif" width="28" ></td>
+						<td><img title="再见" class="clap" src="__ZHIBO__/Picture/35.gif" width="28" ></td>
+						<td><img title="感动" class="clap" src="__ZHIBO__/Picture/36.gif" width="28" ></td>
+						<td><img title="晕" class="clap" src="__ZHIBO__/Picture/37.gif" width="28" ></td>
+						<td><img title="可爱" class="clap" src="__ZHIBO__/Picture/38.gif" width="28" ></td>
+						<td><img title="潜水" class="clap" src="__ZHIBO__/Picture/39.gif" width="28" ></td>
+					</tr>
+					<tr>
+						<td><img title="强" class="clap" src="__ZHIBO__/Picture/41.gif" width="28" ></td>
+						<td><img title="囧" class="clap" src="__ZHIBO__/Picture/42.gif" width="28" ></td>
+						<td><img title="窃笑" class="clap" src="__ZHIBO__/Picture/43.gif" width="28" ></td>
+						<td><img title="疑问" class="clap" src="__ZHIBO__/Picture/44.gif" width="28" ></td>
+						<td><img title="装逼" class="clap" src="__ZHIBO__/Picture/45.gif" width="28" ></td>
+						<td><img title="抱歉" class="clap" src="__ZHIBO__/Picture/46.gif" width="28" ></td>
+						<td><img title="鼻血" class="clap" src="__ZHIBO__/Picture/47.gif" width="28" ></td>
+						<td><img title="睡觉" class="clap" src="__ZHIBO__/Picture/48.gif" width="28" ></td>
+						<td><img title="委屈" class="clap" src="__ZHIBO__/Picture/49.gif" width="24" ></td>
+					</tr>
+					<tr>
+						<td><img title="笑哈哈" class="clap" src="__ZHIBO__/Picture/51.gif" width="22" ></td>
+						<td><img title="贱贱地笑" class="clap" src="__ZHIBO__/Picture/52.gif" width="22" ></td>
+						<td><img title="被电" class="clap" src="__ZHIBO__/Picture/53.gif" width="22" ></td>
+						<td><img title="转发" class="clap" src="__ZHIBO__/Picture/54.gif" width="22" ></td>
+						<td><img title="求关注" class="clap" src="__ZHIBO__/Picture/55.gif" width="22" ></td>
+						<td><img title="路过这儿" class="clap" src="__ZHIBO__/Picture/56.gif" width="22" ></td>
+						<td><img title="好激动" class="clap" src="__ZHIBO__/Picture/57.gif" width="22" ></td>
+						<td><img title="招财" class="clap" src="__ZHIBO__/Picture/58.gif" width="22" ></td>
+						<td><img title="加油啦" class="clap" src="__ZHIBO__/Picture/59.gif" width="22" ></td>
+					</tr>
+					<tr>
+						<td><img title="转转" class="clap" src="__ZHIBO__/Picture/61.gif" width="22" ></td>
+						<td><img title="围观" class="clap" src="__ZHIBO__/Picture/62.gif" width="22" ></td>
+						<td><img title="推撞" class="clap" src="__ZHIBO__/Picture/63.gif" width="22" ></td>
+						<td><img title="来嘛" class="clap" src="__ZHIBO__/Picture/64.gif" width="22" ></td>
+						<td><img title="啦啦啦" class="clap" src="__ZHIBO__/Picture/65.gif" width="22" ></td>
+						<td><img title="切克闹" class="clap" src="__ZHIBO__/Picture/66.gif" width="22" ></td>
+						<td><img title="给力" class="clap" src="__ZHIBO__/Picture/67.gif" width="22" ></td>
+						<td><img title="威武" class="clap" src="__ZHIBO__/Picture/68.gif" width="22" ></td>
+						<td><img title="流血" class="clap" src="__ZHIBO__/Picture/69.gif" width="22" ></td>
+					</tr>
+				</table>
+				<table class="face02_imgs" border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td><img src="__ZHIBO__/Picture/1.gif" width="180" title="顶一个" class="clap1"></td>
+					</tr>
+					<tr>
+						<td><img src="__ZHIBO__/Picture/2.gif" width="180" title="赞一个" class="clap1"></td>
+					</tr>
+					<tr>
+						<td><img src="__ZHIBO__/Picture/3.gif" width="180" title="掌声" class="clap1"></td>
+					</tr>
+					<tr>
+						<td><img src="__ZHIBO__/Picture/4.gif" width="180" title="鲜花" class="clap1"></td>
+					</tr>
+					<tr>
+						<td align="center"><img src="__ZHIBO__/Picture/5.gif" width="60" title="派红包" class="clap1"></td>
+					</tr>
+					<tr>
+						<td align="center"><img src="__ZHIBO__/Picture/6.gif" width="60" title="红包拿来" class="clap1"></td>
+					</tr>
+				</table>
+				<div class="face03_imgs" id="face03_imgs">
+                    <ul class="gift-tab">
+						<li class="on">热门<i class="dot-new"></i></li>
+						<li>豪华</li>
+					</ul>
+				    <div class="gift-con">
+						<div class="gift-group" id="gift-group">
+							<ul id="fir_gift_group">
+								<volist name="GiftsData" id="gifts">
+									<if condition='$gifts["group"] eq 1'>
+										<li <eq name="key" value="0">class="selected"</eq>>
+											<img src="__ROOT__{$gifts[thumb][0][photo]}" width="50" dataId="{$gifts.id}" class="giftsimg">
+											<div class='lastLift'>
+												<notempty name="gifts.gifthumb">
+													<img src="__ROOT__{$gifts[gifthumb][0][photo]}" alt="{$gifts.name}" width="40">
+												<else/>
+													<img src="__ROOT__{$gifts[thumb][0][photo]}" alt="{$gifts.name}" width="40">
+												</notempty>
+												<span> {$gifts.name} <label>{$gifts.money} 喵币</label></span>
+											</div>
+										</li>
+									</if>
+								</volist>
+								<div class="clear"></div>
+							</ul>
+						    <ul id="sec_gift_group">
+								<volist name="GiftsData" id="gifts">
+									<if condition='$gifts["group"] eq 2'>
+										<li>
+											<img src="__ROOT__{$gifts[thumb][0][photo]}" width="50" dataId="{$gifts.id}" class="giftsimg">
+											<div class="lastLift">
+												<notempty name="gifts.gifthumb">
+													<img src="__ROOT__{$gifts[gifthumb][0][photo]}" alt="{$gifts.name}" width="40">
+												<else/>
+													<img src="__ROOT__{$gifts[thumb][0][photo]}" alt="{$gifts.name}" width="40">
+												</notempty>
+												<span> {$gifts.name} <label>{$gifts.money} 喵币</label></span>
+											</div>
+										</li>
+									</if>
+								</volist>
+
+								<div class="clear"></div>
+						   </ul>
+						</div>
+					</div>
+					<div class="send_gift">
+                        <div class="send_teacher_area">
+							<div class="sendto pull-left"><span>送给：</span></div>
+							<div class="teacher_list pull-left" id="teacher_list">
+								<volist name="TeacherData" id="teacher">
+									<a href="javascript:;" dataId="{$teacher.id}" title="<if condition='$teacher[group] eq 1'>老师<elseif condition='$teacher[group] eq 2' />主持人</if>" <eq name="key" value="0">class="teachercur"</eq>>{$teacher.name}</a>
+								</volist>
+							</div>
+							<div class="clear"></div>
+					    </div>
+					</div>
+				    <div class="send_gift">
+                        <div class="send_gift_area">
+							<span style="top:2px;position: relative;">数量：<input type="number" id="giftNum" min="1" value="1" step="5"></span>
+							<button id="sendGift" class="btn btn-danger btn-sm" type="button">赠送</button>
+							<button id="recharge" class="btn btn-info btn-sm pull-left" type="button" onclick="dialogContent('#rechargeMoney',false,'710px','auto')">充值</button>
+							<if condition="session('?memberid')">
+								<span style="margin-left:5px;top:2px;position: relative;" class="pull-left">余额：<strong class="f60" id="leftmoney">{$leftmoney}</strong> 钻</span>
+							</if>
+					    </div>
+					</div>
+				</div>
+				<!--刷礼物-->
+				<script type="text/javascript">
+					$(function(){
+						$('#sendGift').click(function(event) {
+							var giftsimg = $("#gift-group").find('li.selected').find('img.giftsimg');
+							var teachercur = $("#teacher_list").find('a.teachercur');
+							if(giftsimg.attr('dataId') != '' && giftsimg.attr('dataId') != undefined && teachercur.attr('dataId') != '' && teachercur.attr('dataId') != undefined && $("#giftNum").val() > 0){
+								$.ajax({
+									url: '{:U("Common/sendgifts")}',
+									type: 'POST',
+									dataType: 'json',
+									data: {giftsid:giftsimg.attr('dataId'),number:$("#giftNum").val(),teacherid:teachercur.attr('dataId'),robotsid:$('#robots').val()},
+									success:function(data){
+										if(data.status){
+											$('#leftmoney').html(data.leftmoney);
+											$('#face03_imgs').css({display:'none'});
+										} else{
+											layer.msg(data.info,{icon: 0});
+										}
+									}
+								})
+							} else {
+								layer.msg('请选择礼物！',{icon: 0});
+								return false;
+							}
+						});
+					})
+				</script>
+				<!--end 刷礼物-->
+				<div class="clear"></div>
+				<div id="send_input2">
+					<input type="hidden" name="chatcontent" id="fxchat" value="">
+					<input type="hidden" name="touid" id="touid" value="0">
+					<input type="hidden" name="tousertype" id="tousertype" value="-1">
+					<div class="send_input_text"  contentEditable="true" id="msg_content" onfocus='if($("#msg_content").html()=="观望一天，不如咨询一遍"){$("#msg_content").html("")}' onblur='if($("#msg_content").html()=="" ){$("#msg_content").html("观望一天，不如咨询一遍");}'>观望一天，不如咨询一遍</div>
+					<div class="send_button" onclick="send_msg({$userdata.id})"></div>
+				</div>
+				<div style="color: #fff"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> {:C('BASE_SC_TIPS')}</div>
+			</form>
+		</div>
+       <!--信息发送结束-->
+   </div>
+</div>
+
+<!--充值-->
+<div id="rechargeMoney" style="display: none">
+	<div class="shark_tit earnings_top">
+		<p class="consume_tit"><i class="consume_tit_icon"></i>充值</p>
+		<div class="clear"></div>
+	</div>
+	<div class="u_mainbody">
+		<div class="consume_nr">
+			<form action="{:U('Pay/pay')}" method="post" target="_blank" id="subPay" <if condition="!session('?memberid')">onsubmit="return false;"</if>>
+				<ul class="price-list" id="payMoney">
+					<div class="help-block">充值商品：</div>
+					<volist name="RechargetypeData" id="rtype" mod="4">
+						<li <eq name="key" value="0">class="on"</eq> <eq name="mod" value="3">style="margin-right:0;"</eq>>
+							<em></em>
+							<p class="diamond">{$rtype.dhmoney}喵币</p>
+							<p class="money">{$rtype.money}元</p>
+							<input type="radio" value="{$rtype.id}" name="rechargeid" <eq name="key" value="0">checked="checked"</eq> class="radioid">
+							<input type="radio" name="price" value="{$rtype.money}" <eq name="key" value="0">checked="checked"</eq> class="radioid"/>
+							<input type="radio" name="dhmoney" value="{$rtype.dhmoney}" <eq name="key" value="0">checked="checked"</eq> class="radioid"/>
+						</li>
+						<eq name="mod" value="3">
+							<div class="clear"></div>
+						</eq>
+					</volist>
+					<div class="clear"></div>
+				</ul>
+				<ul class="price-list" id="payMoneyType">
+					<div class="help-block">支付方式：</div>
+					<volist name="payconfig" id="payconf" mod="4">
+						<li <eq name="key" value="0">class="on"</eq> <eq name="mod" value="3">style="margin-right:0;"</eq>>
+							<em></em>
+							<p class="diamond"><img src="__ROOT__{$payconf.THUMB}" alt="{$payconf.PAYNAME}" width="120"/></p>
+							<input type="radio" name="paytype" id="{$payconf.PAYTYPE}" value="{$payconf.PAYTYPE}" <eq name="key" value="0">checked="checked"</eq> class="radioid">
+						</li>
+						<eq name="mod" value="3">
+							<div class="clear"></div>
+						</eq>
+					</volist>
+					<div class="clear"></div>
+				</ul>
+				<div class="pay-total">
+					<volist name="RechargetypeData" id="rtype">
+						<if condition="$key eq 0">
+							实付金额： <strong><span class="price" id="money">{$rtype.money}元</span></strong>
+							<span class="stars">(<span id="diam">{$rtype.dhmoney}喵币</span>)</span>
+						</if>
+					</volist>
+				</div>
+				<input type="hidden" name="quantity" value="1" />
+				<input type="hidden" name="sn" value="{$sn}" />
+				<input class="btn-pay" type="submit" id="sub" value="确认充值">
+			</form>
+		</div>
+	</div>
+	<div class="blank25"></div>
+</div>
+<script type="text/javascript">
+var num=684;
+function changenumber(num){
+	var countnumber=document.getElementById("onlineCount");
+		var date = new Date();
+		var second = date.getSeconds();
+		var minutes = date.getMinutes();
+		var hours = date.getHours();
+			num = num  + 1 * minutes + second + parseInt(Math.random() * 2);	
+		countnumber.innerHTML=num;
+	}
+    $(function(){
+    	//价格
+    	$("#payMoney").children("li").click(function(){
+            $(this).siblings().removeClass("on").end().addClass("on");
+            $(this).siblings().find('input.radioid').prop({checked:false});
+            $(this).find('input.radioid').prop({checked:true});
+
+            $("#money").text($(this).find(".money").html());
+            $("#diam").html($(this).find("p.diamond").html());
+        });
+
+        //支付方式
+    	$("#payMoneyType").children("li").click(function(){
+            $(this).siblings().removeClass("on").end().addClass("on");
+            $(this).siblings().find('input.radioid').prop({checked:false});
+            $(this).find('input.radioid').prop({checked:true});
+        });
+
+    	//发送ajax
+        $('#sub').click(function(){
+            $("#subPay").ajaxSubmit({
+                type:'post',
+                url:'{:U("Common/checkLogin")}',
+                data:{},
+                success:function(data, textStatus, jqXHR){
+                    //跳转登陆
+                    if(data.status == -1){
+                        layer.msg(data.info,{icon: 0});
+                    } else if(data.status == 1) {
+                        layer.open({
+                            title      : '提示',
+                            content    : '请确认是否正确支付了订单？',
+                            btn        : ['支付成功', '支付失败'],
+                            icon       : 3,
+                            yes        : function(index, layero){
+                                //直接跳转到完成订单
+                                location.reload();
+                            },
+                            btn2       : function(index, layero){
+                                //直接跳转到完成订单
+                                location.reload();
+                            },
+                            closeBtn    : 0
+                        });
+                    } else {
+                        layer.msg(data.info,{icon: 0});
+                    }
+                }
+            });
+        });
+		//setInterval("changenumber(num)", 3000);		
+    })
+	
+</script>
+<!--end 充值-->
+<!--end right-->
+<script type="text/javascript">
+//消息验证地址
+var massageUrl = "{:U('Common/msgsave')}";
+
+//验证不能给自己发消息的地址
+var checkselfmsg = "{:U('Common/checkselfmsg')}";
+
+$(function(){
+	//执行滚动
+	chat_ajax();
+
+	//上传文件
+	tyupfile("uploadButton","msg_content","",'{:U("Common/tyupfile",array("type"=>"images"))}');
+});
+
+/**
+ * [tyscpic 滚屏设置]
+ * @return {[type]} [description]
+ */
+function tyscpic(){
+	aa=document.getElementById("scpic");
+	bb=document.getElementById("sc");
+	
+	if(bb.value=="0"){
+		aa.src="__ZHIBO__/Picture/lt_sc1.png";
+		bb.value="1";
+		
+		chat_ajax();
+	}else{
+		aa.src="__ZHIBO__/Picture/lt_sc0.png";
+		bb.value="0";
+		cc.value=cc.value+1;
+	}
+}
+</script>

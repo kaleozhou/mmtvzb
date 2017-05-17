@@ -1,0 +1,84 @@
+<include file="Public:head_iframe" />
+<div id="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{:U('Index/welcome')}"><i class="fa fa-home"></i>&nbsp;&nbsp;首页</a></li>
+        <li><a href='{:U("index",decode($parameter))}'>喊单系统</a></li>
+        <li class="active">喊单平仓</li>
+        <div class="pull-right refresh"><a href="javascript:;" onclick="refresh()"><i class="fa fa-refresh fa-xl" title="点击刷新"></i> 刷新页面</a></div>
+    </ol>
+</div>
+<div class="wrapper wrapper-content col-sm-12 animated fadeInRight">
+    <form action="" method="post" id="myform" name="myform" onsubmit="return false">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">交易平台：</div>
+                        </td>
+                        <td>
+                            {$data['catept']['name']}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">品种：</div>
+                        </td>
+                        <td>
+                            {$data['catepz']['name']}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">多/空：</div>
+                        </td>
+                        <td>
+                            <eq name="data.duokong" value="1">多<else/>空</eq>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">建仓点位：</div>
+                        </td>
+                        <td>
+                            {$data.jnum}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">止损点位：</div>
+                        </td>
+                        <td>
+                            {$data.zsnum}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">止赢点位：</div>
+                        </td>
+                        <td>
+                            {$data.zynum}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 平仓点位：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="pnum" name="pnum" value="{$data.pnum}" type="text" placeholder="请输入平仓点位">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="blank15"></div>
+        <button type="button" class="btn btn-w-m btn-success" onclick='submitForm("{:U("pincang")}","#myform")'>
+            <i class="fa fa-check-square-o"></i> 提交
+        </button>
+        <button type="button" class="btn btn-w-m btn-primary" onclick="history.go(-1)">
+            <i class="fa fa-chevron-circle-left"></i> 返回
+        </button>
+        <input type="hidden" name="id" value="{$data.id}">
+        <input type="hidden" name="parameter" value="{$parameter}">
+    </form>
+</div>

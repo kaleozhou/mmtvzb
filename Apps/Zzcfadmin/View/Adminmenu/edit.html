@@ -1,0 +1,133 @@
+<include file="Public:head_iframe" />
+<div id="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{:U('Index/welcome')}"><i class="fa fa-home"></i>&nbsp;&nbsp;首页</a></li>
+        <li><a href='{:U("index",decode($link_parameter))}'>系统菜单</a></li>
+        <li class="active">编辑菜单</li>
+        <div class="pull-right refresh"><a href="javascript:;" onclick="refresh()"><i class="fa fa-refresh fa-xl" title="点击刷新"></i> 刷新页面</a></div>
+    </ol>
+</div>
+<div class="wrapper wrapper-content col-sm-12 animated fadeInRight">
+    <form action="" method="post" id="myform" name="myform" onsubmit="return false">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 父级菜单：</div>
+                        </td>
+                        <td>
+                            <select name="pid" class="form-control">
+                                <option value="0">顶级菜单</option>
+                                {$menulist_a}
+                            </select>
+                            <div class="help-block">注意：第四级菜单是不会显示在相应的模块下面的</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 归属模块：</div>
+                        </td>
+                        <td>
+                            <select name="mid" class="form-control">
+                                {$rulemodule_a}
+                            </select>
+                            <div class="help-block">模块：用于区分菜单在某个模块下，便于分组显示，如果是顶级菜单跟模块没有关系</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 名称：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="name" name="name" value="{$data.name}" type="text" placeholder="请输入名称">
+                            <div class="help-block">例如：首页</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> url：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="url" name="url" value="{$data.url}" type="text" placeholder="请输入url">
+                            <div class="help-block">例如：AuthRule/index</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">参数：</div>
+                        </td>
+                        <td>
+                            <div data-toggle="popover" data-trigger="hover" data-html="true" data-container="body" data-placement='top' title="参数说明" data-content="<strong>格式：</strong><br/>thumbw=200&thumbh=150&filesize=3072&returntype=single&savedir=uploadfile&thumbfield=thumb<br/><strong>解释：</strong><br/>thumbw：缩略图宽度<br/>thumbh：缩略图高度<br/>filesize：上传文件大小（KB）<br/>returntype：上传方式，single单个上传<br/>savedir：文件上传目录<br/>thumbfield：保存数据的字段名称">
+                                <input class="form-control" id="parameter" name="parameter" value="{$data.parameter}" type="text" placeholder="请输入参数">
+                                <div class="help-block">格式：thumbw=200&thumbh=150&filesize=3072&returntype=single&savedir=uploadfile&thumbfield=thumb，请保证格式的正确性！</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"> 菜单图标：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="icon" name="icon" value="{$data.icon}" type="text" placeholder="请输入icon的class">
+                            <div class="help-block">此项填写字体库的样式，例如：fa fa-edit</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">常用菜单：</div>
+                        </td>
+                        <td>
+                            <select name="recommend" class="form-control">
+                                <option value="1" <eq name="data.recommend" value="1">selected="selected"</eq>>是</option>
+                                <option value="0" <eq name="data.recommend" value="0">selected="selected"</eq>>否</option>
+                            </select>
+                            <div class="help-block">常用菜单会显示在首页的常用菜单模块里，只对二级菜单有作用！</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">状态：</div>
+                        </td>
+                        <td>
+                            <select name="status" class="form-control">
+                                <option value="1" <eq name="data.status" value="1">selected="selected"</eq>>开启</option>
+                                <option value="0" <eq name="data.status" value="0">selected="selected"</eq>>关闭</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">描述：</div>
+                        </td>
+                        <td>
+                            <textarea name="description" class="form-control" id="description" cols="30" rows="3" placeholder="请输入描述">{$data.description}</textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 开发者：</div>
+                        </td>
+                        <td>
+                            <select name="dev" class="form-control">
+                                <option value="1" <eq name="data.dev" value="1">selected="selected"</eq>>是</option>
+                                <option value="0" <eq name="data.dev" value="0">selected="selected"</eq>>否</option>
+                            </select>
+                            <div class="help-block">只有开发者显示此菜单！</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="blank15"></div>
+        <button type="button" class="btn btn-w-m btn-success" onclick='submitForm("{:U("edit")}","#myform")'>
+            <i class="fa fa-check-square-o"></i> 提交
+        </button>
+        <button type="button" class="btn btn-w-m btn-primary" onclick="history.go(-1)">
+            <i class="fa fa-chevron-circle-left"></i> 返回
+        </button>
+        <input type="hidden" name="siteid" value="{$data.siteid}">
+        <input type="hidden" name="id" value="{$data.id}">
+        <input type="hidden" name="link_parameter" value="{$link_parameter}">
+    </form>
+</div>

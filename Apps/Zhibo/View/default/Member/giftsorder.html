@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="renderer" content="webkit">
+  <meta name="author" content="CopyLian">
+  <title>送礼物记录</title>
+  <meta name="keywords" content="送礼物记录" />
+  <meta name="description" content="送礼物记录" />
+  <include file="Public:memberhead" />
+</head>
+
+<body>
+<div class="blank15"></div>
+<div class="container" style="width: 100%">
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover" style="margin-bottom: 0;">
+            <thead>
+                <tr>
+                    <th>订单编号</th>
+                    <th>礼物名称</th>
+                    <th>接受者</th>
+                    <th>单价(钻石)</th>
+                    <th>数量</th>
+                    <th>总价(钻石)</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <volist name="data" id="datalist">
+                    <tr>
+                        <td>{$datalist.sn}</td>
+                        <td>
+                            {$datalist.gifts.name}<img src="__ROOT__{$datalist['gifts']['thumb'][0]['photo']}" width="30">
+                        </td>
+                        <td>{$datalist.teacher.name}（<if condition="$datalist['teacher']['group'] eq 1"><span class="blue">老师</span><elseif condition="$datalist['teacher']['group'] eq 2"/><span class="green">主持人</span></if>）</td>
+                        <td>{$datalist.price}</td>
+                        <td>{$datalist.number}</td>
+                        <td>{$datalist.money}</td>
+                        <td>
+                            <a class="btn btn-primary btn-sm" href="javascript:;" onclick="del('{:U('delgifts')}',{$datalist.id})"><i class="fa fa-remove"></i> 删除</a>
+                        </td>
+                    </tr>
+                </volist>
+            </tbody>
+        </table>
+    </div>
+    <div class="list-page">{$pagelist}</div>
+</div>
+</body>
+</html>

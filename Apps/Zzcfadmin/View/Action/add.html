@@ -1,0 +1,91 @@
+<include file="Public:head_iframe" />
+<div id="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{:U('Index/welcome')}"><i class="fa fa-home"></i>&nbsp;&nbsp;首页</a></li>
+        <li><a href='{:U("index",decode($parameter))}'>用户行为</a></li>
+        <li class="active">新增行为</li>
+        <div class="pull-right refresh"><a href="javascript:;" onclick="refresh()"><i class="fa fa-refresh fa-xl" title="点击刷新"></i> 刷新页面</a></div>
+    </ol>
+</div>
+<div class="wrapper wrapper-content col-sm-12 animated fadeInRight">
+    <form action="" method="post" id="myform" name="myform" onsubmit="return false">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 行为类型：</div>
+                        </td>
+                        <td>
+                            <select name="type" class="form-control">
+                                <option value="1" selected="selected">系统</option>
+                                <option value="2">会员</option>
+                            </select>
+                            <div class="help-block">用于区分行为的类型</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 名称标识：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="name" name="name" value="" type="text" placeholder="请输入名称标识">
+                            <div class="help-block">例如：adminuser_login</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 显示标题：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="title" name="title" value="" type="text" placeholder="请输入显示标题">
+                            <div class="help-block">例如：管理员登陆</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">描述：</div>
+                        </td>
+                        <td><textarea name="remark" class="form-control" id="remark" cols="30" rows="3" placeholder="请输入描述"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">行为规则：</div>
+                        </td>
+                        <td>
+                            <textarea name="rule" data-toggle="popover" data-trigger="hover" data-html="true" data-placement='top' title="说明" data-content="<strong>规则：</strong><br/>table:adminuser|field:score|condition:id=&#123;$uid&#125; AND siteid=&#123;$siteid&#125;|rule:score+10|cycle:0|max:1<br/><strong>解释：</strong><br/>table - 表名<br/>field - 字段<br/>condition - where条件<br/>rule - 执行规则<br/>cycle - 周期(单位小时)<br/>max - 当前周期最大的执行次数" placeholder="行为规则语法：table:adminuser|field:score|condition:id=&#123;$uid&#125; AND siteid=&#123;$siteid&#125;|rule:score+10|cycle:0|max:1；解释：table-表名,field-字段,condition-where条件,rule-执行规则,cycle-周期(单位小时),max-当前周期最大的执行次数" class="form-control" id="rule" cols="30" rows="3"></textarea>
+                            <div class="help-block">用户的行为产生某些操作，如：登陆积分+10</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">日志规则：</div>
+                        </td>
+                        <td><textarea name="log" class="form-control" id="log" cols="30" rows="3" placeholder="请输入日志规则"></textarea>
+                            <div class="help-block">例如：[user] 于 [date] 登陆后台系统，支持[user]、[date])</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">状态：</div>
+                        </td>
+                        <td>
+                            <select name="status" class="form-control">
+                                <option value="1" selected="selected">开启</option>
+                                <option value="0">关闭</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="blank15"></div>
+        <button type="button" class="btn btn-w-m btn-success" onclick='submitForm("{:U("add")}","#myform")'>
+            <i class="fa fa-check-square-o"></i> 提交
+        </button>
+        <button type="button" class="btn btn-w-m btn-primary" onclick="history.go(-1)">
+            <i class="fa fa-chevron-circle-left"></i> 返回
+        </button>
+        <input type="hidden" name="parameter" value="{$parameter}">
+    </form>
+</div>

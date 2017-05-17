@@ -1,0 +1,569 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="keywords" content="" />
+		<meta name="description" content="" />
+		<title>顶点财经查询平台</title>
+        <link rel="stylesheet" href="__CSS__/uikit.css" />
+		<link rel="stylesheet" href="__CSS__/iven.css" />
+		<link rel="stylesheet" href="__CSS__/responsive.css" />
+		<link rel="stylesheet" href="__CSS__/jquery.bxslider.css" />
+		<link rel="stylesheet" href="__CSS__/artdialog.css" />
+        <script src="__JS__/jquery.js"></script>
+		<script src="__JS__/main.js"></script>
+		<script type="text/javascript" src="__JS__/index.js" charset="utf-8"></script>
+		<script src="__JS__/prefixfree.min.js"></script>
+		<script src="__JS__/jquery.bxslider.min.js"></script>
+		<script src="__JS__/uikit.min.js"></script>		
+		<!--[if lt IE 9]>
+		  <script src="__JS__/respond.min.js"></script>
+		  <script src="__JS__/html5shiv.min.js"></script>
+		  <script src="__JS__/nwmatcher-1.2.5-min.js"></script>
+		<![endif]-->
+		<script type="text/javascript" src="__JQUERY__/jquery.form.js"></script>
+    	<script src="__JQUERY__/layer/layer.js"></script>
+    </head>
+	<script type="text/javascript">
+function currentTime(){
+var d = new Date(),str = '';
+ str += d.getFullYear()+'-';
+ str  += d.getMonth() + 1+'-';
+ str  += d.getDate();
+ return str;
+}
+setInterval(function(){$('#time').html(currentTime)},200);
+</script>
+
+    <body>
+		<div class="banner">
+			<div class="topbar">
+				<span class="uk-float-left">验证合法资质，远离欺诈平台！</span>
+				<div class="uk-float-right">
+					<a href="#md-2" data-uk-modal="{center:true}"><img src="__IMG__/icon-1.png"> 举报</a>
+					<a href="#md-3" data-uk-modal="{center:true}"><img src="__IMG__/icon-2.png"> 申诉</a>
+				</div>
+			</div>
+			<div class="uk-panel uk-text-center banner-content">
+				<img src="__IMG__/logo.png" style="visibility:hidden">
+				<h1 class="uk-text-bold">中国交易所资质官方查询平台</h1>
+				<h3 class="uk-margin-remove">China Exchange official qualification search platform</h3>
+			</div>
+			<div class="search-box uk-position-relative">
+				<input type="text" name="keywords" id="keywords" placeholder="在此输入企业名称/平台名称">
+				<img src="__IMG__/search.png" class="uk-position-absolute">
+				<button class="uk-position-absolute" data-uk-modal="{target:'#md-1',center:true}">在线查询</button>
+			</div>
+			<div class="query-num uk-text-center">
+				<p>已有 <span class="num_show2"></span><span id="number2"></span> 名网友查询了 <span class="num_show3"></span><span id="number3"></span> 个平台</p>
+				<p style="display:none;">拥有全国最大云数据库，已收入<span class="num_show1"></span><span id="number1">5298</span>家平台机构（截止 <b id="time" style="font-weight:500;"></b>）</p>
+			</div>
+		</div>
+
+		<div class="news">
+			<div class="uk-container uk-container-center">
+				<div class="uk-grid">
+					<div class="uk-width-medium-1-5">
+						<h2>实时鉴别动态 <img src="__IMG__/sound.jpg"></h2>
+					</div>
+					<div class="uk-width-medium-4-5">
+						<div class="sliderbox">
+						<ul class="slider1">
+																		</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<section class="content-1">
+			<div class="uk-container uk-container-center">
+				<div class="uk-grid uk-text-center">
+					<div class="uk-width-medium-1-4">
+						<img src="__IMG__/p-1.png">
+						<h4>国家信息安全认证<br>查询结果权威发布</h4>
+					</div>
+					<div class="uk-width-medium-1-4">
+						<img src="__IMG__/p-2.png">
+						<h4>7*24小时全面监控<br>自动采集违规平台</h4>
+					</div>
+					<div class="uk-width-medium-1-4">
+						<img src="__IMG__/p-3.png">
+						<h4>多国监控数据对接<br>系统信息真实可靠</h4>
+					</div>
+					<div class="uk-width-medium-1-4">
+						<img src="__IMG__/p-4.png">
+						<h4>查询结果及时反馈<br>专人专项答疑解惑</h4>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="content-2">
+			<h1 class="uk-text-center">八大对比，教您鉴别非法平台</h1>
+			<h4 class="uk-text-center uk-margin-remove">Eight contrast, teach your internet identification of illegal</h4>
+			<div class="uk-container uk-container-center">
+				<div style="height: 20px;"></div>
+				<hr>
+				<div style="height: 15px;"></div>
+				<div class="uk-grid">
+					<div class="uk-width-1-3"><h2 class="uk-text-center uk-text-bold color-white">非法平台</h2></div>
+					<div class="uk-width-1-3"><img class="uk-align-center" src="__IMG__/vs.png"></div>
+					<div class="uk-width-1-3"><h2 class="uk-text-center uk-text-bold color-yellow">正规平台</h2></div>
+				</div>
+				<div style="height: 15px;"></div>
+				<hr>
+				<div style="height: 50px;"></div>
+				<div class="uk-grid uk-flex-middle">
+					<div class="uk-width-1-3 uk-flex-middle">
+						<h4 class="color-white">非法平台是打着非法交易所购销商的旗号鼓吹宣传，没有正当的购销商资质。</h4>
+					</div>
+					<div class="uk-width-1-3"><img src="__IMG__/k-1.png" class="uk-align-center"></div>
+					<div class="uk-width-1-3 uk-flex-middle">
+						<h4 class="color-yellow">非法平台是打着非法交易所购销商的旗号鼓吹宣传，没有正当的购销商资质。</h4>
+					</div>
+				</div>
+<div style="height: 60px;"></div>
+				<div class="uk-grid uk-flex-middle">
+					<div class="uk-width-1-3 uk-flex-middle">
+						<h4 class="color-white">非法平台总是在宣传时夸大收益，刻意隐瞒风险。</h4>
+					</div>
+					<div class="uk-width-1-3"><img src="__IMG__/k-2.png" class="uk-align-center"></div>
+					<div class="uk-width-1-3 uk-flex-middle">
+						<h4 class="color-yellow">正规平台会告知投资者风险及收益，让投资者明了规则。</h4>
+					</div>
+				</div>
+<div style="height: 60px;"></div>
+				<div class="uk-grid uk-flex-middle">
+					<div class="uk-width-1-3 uk-flex-middle">
+						<h4 class="color-white">非法平台入金容易出金难。</h4>
+					</div>
+					<div class="uk-width-1-3"><img src="__IMG__/k-3.png" class="uk-align-center"></div>
+					<div class="uk-width-1-3 uk-flex-middle">
+						<h4 class="color-yellow">正规平台与银行合作，资金第三方存管，存取款自由、方便。</h4>
+					</div>
+				</div>
+<div style="height: 60px;"></div>
+				<div class="uk-grid uk-flex-middle">
+					<div class="uk-width-1-3 uk-flex-middle">
+						<h4 class="color-white">非法平台是代客操作，非法理财。</h4>
+					</div>
+					<div class="uk-width-1-3"><img src="__IMG__/k-4.png" class="uk-align-center"></div>
+					<div class="uk-width-1-3 uk-flex-middle">
+						<h4 class="color-yellow">正规平台投资者是100%客户自主交易，严禁代客操作理财。</h4>
+					</div>
+				</div>
+<div style="height: 60px;"></div>
+				<div class="uk-grid uk-flex-middle">
+					<div class="uk-width-1-3 uk-flex-middle">
+						<h4 class="color-white">非法平台是虚假报价，通过后台操作篡改行情。</h4>
+					</div>
+					<div class="uk-width-1-3"><img src="__IMG__/k-5.png" class="uk-align-center"></div>
+					<div class="uk-width-1-3 uk-flex-middle">
+						<h4 class="color-yellow">正规平台是完全真实行情，不存在任何不一致状况。</h4>
+					</div>
+				</div>
+<div style="height: 60px;"></div>
+				<div class="uk-grid uk-flex-middle">
+					<div class="uk-width-1-3 uk-flex-middle">
+						<h4 class="color-white">非法平台随意更改操盘点位，影响投资者投资收益。</h4>
+					</div>
+					<div class="uk-width-1-3"><img src="__IMG__/k-6.png" class="uk-align-center"></div>
+					<div class="uk-width-1-3 uk-flex-middle">
+						<h4 class="color-yellow">正规平台交易软件，有口皆碑，客户可以透明操作，不受任何影响。</h4>
+					</div>
+				</div>
+<div style="height: 60px;"></div>
+				<div class="uk-grid uk-flex-middle">
+					<div class="uk-width-1-3 uk-flex-middle">
+						<h4 class="color-white">非法平台是虚假喊单，以骗取投资者资金为目的。</h4>
+					</div>
+					<div class="uk-width-1-3"><img src="__IMG__/k-7.png" class="uk-align-center"></div>
+					<div class="uk-width-1-3 uk-flex-middle">
+						<h4 class="color-yellow">正规平台拥有专业导师团，为投资者保驾护航。</h4>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<footer>
+			<div class="uk-container uk-container-center">
+				<div class="uk-grid">
+					<div class="uk-width-1-2">
+						<div class="left-box">
+							<img src="__IMG__/logo.png" width="96" height="25">
+							<p>{:C("BASE_COPYRIGHT")}</p>
+						</div>
+					</div>
+					<div class="uk-width-1-2">
+						<div class="right-box">
+							<img src="__IMG__/fx.jpg"> <span>投资有风险，入市需谨慎！</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+<!-- 搜索对话框 -->
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#bm-book-btn").click(function(){
+		//提交表单
+		var keywords = $('#keywords').val();
+		$('#keywordsup').val(keywords);
+		if(!$('#title').val()){
+			$.dialog.alert("留言人姓名不能为空");
+			return false;
+		}
+		if(!$('#mobile').val()){
+			$.dialog.alert('电话不能为空');
+			return false;
+		}
+		var mobile = $("#mobile").val();
+			var partten = /^1[3-9]\d{9}$/;
+			if(!partten.test(mobile)){
+				alert("请输入正确的手机号码");
+				$('#mobile').focus();
+				return false;
+			}
+
+		//开始注册
+	    $.post("{:U('Openaccount')}", $("#bm-book").serialize(), function(data, textStatus, xhr) {
+	        //弹出消息
+	        if(data.status){
+	            layer.msg(data.info,{icon:6,time:2000,shade: [0.3,'#000']},function(){
+	                if(data.url){
+	                    location.href = data.url;
+	                } else {
+	                    location.reload();
+	                }
+	            });
+	        } else {
+	            layer.open({
+	                content:data.info,
+	                yes:function(index){
+	                    if(data.url){
+	                        location.href = data.url;
+	                    } else {
+	                        layer.close(index);
+	                    }
+	                },
+	                icon:2
+	            });
+	        }
+	    })
+	});
+});
+</script>
+<div id="md-1" class="uk-modal">
+    <div class="uk-modal-dialog">
+        <a class="uk-modal-close uk-close"></a>
+        <div style="height: 0px;"></div>
+        <h2 class="uk-text-center">请填写正确的手机号码</h2>
+        <form class="uk-form uk-form-horizontal uk-width-2-3 uk-align-center" id="bm-book">
+		<input type="hidden" id="keywordsup" name="subtitle">
+            <div class="uk-form-row">
+                <label class="uk-form-label" for="title"><span class="color-red">*</span> 姓名</label>
+                <div class="uk-form-controls">
+                    <input type="text" id="title" name="name" class="uk-width-1-1">
+                </div>
+            </div>
+            <div class="uk-form-row">
+                <label class="uk-form-label" for="mobile"><span class="color-red">*</span> 手机</label>
+                <div class="uk-form-controls">
+                    <input type="text" id="mobile" name="tel" class="uk-width-1-1">
+                </div>
+            </div>
+			            <div class="uk-form-row">
+				<br>
+				<button type="button" class="buttons hand uk-width-1-1 uk-align-center" id="bm-book-btn">立即查询</button>
+            </div>
+            <div class="uk-form-row">
+				<p class="uk-text-center">温馨提示：手机号码用于接收查询结果，请认真填写！</p>
+            </div>
+            <input type="hidden" name="source" value="查询平台合法性">
+         </form>
+    </div>
+</div>
+<!-- 举报对话框 -->
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#bm-book2-btn").click(function(){
+		//提交表单
+		if(!$('#title2').val()){
+			$.dialog.alert("留言人姓名不能为空");
+			return false;
+		}
+		if(!$('#mobile2').val()){
+			$.dialog.alert('电话不能为空');
+			return false;
+		}
+		var mobile = $("#mobile2").val();
+			var partten = /^1[3-9]\d{9}$/;
+			if(!partten.test(mobile)){
+				alert("请输入正确的手机号码");
+				$('#mobile2').focus();
+				return false;
+			}
+		if(!$('#content2').val()){
+			$.dialog.alert("举报内容不能为空");
+			return false;
+		}
+		if(!$('#dd_name').val()){
+			$.dialog.alert("平台名称不能为空");
+			return false;
+		}
+		var content='举报类型：'+$("#dd_type").val()+"；举报内容："+$("textarea[name=content]").val()+"；举报平台"+$("#dd_name").val();
+		var title=$("#title2").val();
+		var mobile=$("#mobile2").val();
+		/*$.post(
+				"queryPlartform.php",
+				{subtitle:content,
+		         source:'举报平台',
+				 title:title,
+				 mobile:mobile},
+				function (data) {
+					if(data.replace(/(^\s*)/g,"")=="success"){
+						$.dialog.alert('已经收到您的举报，我们会尽快与您联系！')
+					}else {
+						$.dialog.alert('您提交的信息出错了！')
+					}
+				}
+		);*/
+		//开始注册
+	    $.post("{:U('Openaccount')}", $("#bm-book2").serialize(), function(data, textStatus, xhr) {
+	        //弹出消息
+	        if(data.status){
+	            layer.msg(data.info,{icon:6,time:2000,shade: [0.3,'#000']},function(){
+	                if(data.url){
+	                    location.href = data.url;
+	                } else {
+	                    location.reload();
+	                }
+	            });
+	        } else {
+	            layer.open({
+	                content:data.info,
+	                yes:function(index){
+	                    if(data.url){
+	                        location.href = data.url;
+	                    } else {
+	                        layer.close(index);
+	                    }
+	                },
+	                icon:2
+	            });
+	        }
+	    })
+	});
+});
+</script>
+<script>
+	$(function(){
+		$('.choose-type span').click(function(){
+			$(this).addClass('curr').siblings().removeClass('curr');
+			$('#dd_type').val($(this).text());
+		})
+	})
+</script>
+<div id="md-2" class="uk-modal">
+    <div class="uk-modal-dialog">
+        <a class="uk-modal-close uk-close"></a>
+        <div style="height: 20px;"></div>
+        <form class="uk-form uk-form-horizontal uk-width-5-6 uk-align-center" id="bm-book2">
+            <div class="uk-form-row">
+                <label class="uk-form-label" for="dd_type">举报类型：</label>
+                <div class="uk-form-controls">
+                    <div class="choose-type"><span class="curr">贵金属</span> <span>原油</span> <span>期货</span> <span>外汇</span></div>
+					<input type="hidden" name="dd_type" id="dd_type" value="贵金属"/>
+                </div>
+            </div>
+            <div class="uk-form-row">
+                <label class="uk-form-label" for="content2">举报内容：</label>
+                <div class="uk-form-controls">
+                    <textarea rows="5" id="content2" name="content" class="uk-width-1-1"></textarea>
+                </div>
+            </div>
+            <div class="uk-form-row">
+                <label class="uk-form-label" for="dd_name">平台名称：</label>
+                <div class="uk-form-controls">
+                    <input type="text" id="dd_name" name="dd_name" class="uk-width-1-1">
+                </div>
+            </div>
+            <div class="uk-form-row">
+                <label class="uk-form-label" for="title">联系人：</label>
+                <div class="uk-form-controls">
+                    <input type="text" id="title2" name="name" class="uk-width-1-1">
+                </div>
+            </div>
+            <div class="uk-form-row">
+                <label class="uk-form-label" for="mobile2">联系电话：</label>
+                <div class="uk-form-controls">
+                    <input type="text" id="mobile2" name="tel" class="uk-width-1-1">
+                </div>
+            </div>
+			            <div class="uk-form-row">
+            	<br>
+				<button type="button" class="buttons uk-width-2-3 uk-align-center" id="bm-book2-btn">立即提交</button>
+            </div>
+             <div style="height: 20px;"></div>
+             <input type="hidden" name="source" value="查询平台合法性举报">
+         </form>
+    </div>
+</div>
+<!-- 申诉对话框 -->
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#bm-book3-btn").click(function(){
+		//提交表单
+		if(!$('#title3').val()){
+			$.dialog.alert("留言人姓名不能为空");
+			return false;
+		}
+		if(!$('#mobile3').val()){
+			$.dialog.alert('电话不能为空');
+			return false;
+		}
+		var mobile = $("#mobile3").val();
+			var partten = /^1[3-9]\d{9}$/;
+			if(!partten.test(mobile)){
+				alert("请输入正确的手机号码");
+				$('#mobile3').focus();
+				return false;
+			}
+		if(!$('#content3').val()){
+			$.dialog.alert("举报内容不能为空");
+			return false;
+		}
+		if(!$('#dd_name2').val()){
+			$.dialog.alert("平台名称不能为空");
+			return false;
+		}
+		var content='申诉类型：'+$("#dd_type2").val()+"；申诉内容："+$("textarea[name=content2]").val()+"；举报平台"+$("#dd_name2").val();
+		var title=$("#title3").val();
+		var mobile=$("#mobile3").val();
+		/*$.post(
+				"queryPlartform.php",
+				{subtitle:content,
+					source:'申诉平台',
+					title:title,
+					mobile:mobile},
+				function (data) {
+					if(data.replace(/(^\s*)/g,"")=="success"){
+						$.dialog.alert('已经收到您的申诉，我们会尽快与您联系！')
+					}else {
+						$.dialog.alert('您提交的信息出错了！')
+					}
+				}
+		);*/
+		//开始注册
+	    $.post("{:U('Openaccount')}", $("#bm-book3").serialize(), function(data, textStatus, xhr) {
+	        //弹出消息
+	        if(data.status){
+	            layer.msg(data.info,{icon:6,time:2000,shade: [0.3,'#000']},function(){
+	                if(data.url){
+	                    location.href = data.url;
+	                } else {
+	                    location.reload();
+	                }
+	            });
+	        } else {
+	            layer.open({
+	                content:data.info,
+	                yes:function(index){
+	                    if(data.url){
+	                        location.href = data.url;
+	                    } else {
+	                        layer.close(index);
+	                    }
+	                },
+	                icon:2
+	            });
+	        }
+	    })
+	});
+});
+</script>
+<script>
+	$(function(){
+		$('#choose-type2 span').click(function(){
+			$(this).addClass('curr').siblings().removeClass('curr');
+			$('#dd_type2').val($(this).text());
+		})
+	})
+</script>
+<div id="md-3" class="uk-modal">
+    <div class="uk-modal-dialog">
+        <a class="uk-modal-close uk-close"></a>
+        <div style="height: 20px;"></div>
+        <form class="uk-form uk-form-horizontal uk-width-5-6 uk-align-center" id="bm-book3">
+            <div class="uk-form-row">
+                <label class="uk-form-label" for="dd_type2">申诉类型：</label>
+                <div class="uk-form-controls">
+                    <div class="choose-type" id="choose-type2"><span class="curr">贵金属</span> <span>原油</span> <span>期货</span> <span>外汇</span></div>
+					<input type="hidden" name="dd_type" id="dd_type2" value="贵金属"/>
+                </div>
+            </div>
+            <div class="uk-form-row">
+                <label class="uk-form-label" for="content3">申诉内容：</label>
+                <div class="uk-form-controls">
+                    <textarea rows="5" id="content3" name="content2" class="uk-width-1-1"></textarea>
+                </div>
+            </div>
+            <div class="uk-form-row">
+                <label class="uk-form-label" for="dd_name2">平台名称：</label>
+                <div class="uk-form-controls">
+                    <input type="text" id="dd_name2" name="dd_name" class="uk-width-1-1">
+                </div>
+            </div>
+            <div class="uk-form-row">
+                <label class="uk-form-label" for="title3">联系人：</label>
+                <div class="uk-form-controls">
+                    <input type="text" id="title3" name="name" class="uk-width-1-1">
+                </div>
+            </div>
+            <div class="uk-form-row">
+                <label class="uk-form-label" for="mobile3">联系电话：</label>
+                <div class="uk-form-controls">
+                    <input type="text" id="mobile3" name="tel" class="uk-width-1-1">
+                </div>
+            </div>
+			            <div class="uk-form-row">
+            	<br>
+				<button type="button" class="buttons uk-width-2-3 uk-align-center" id="bm-book3-btn">立即提交</button>
+            </div>
+             <div style="height: 20px;"></div>
+             <input type="hidden" name="source" value="查询平台合法性申诉">
+         </form>
+    </div>
+</div>
+
+		<script type="text/javascript">
+			$(document).ready(function(){
+			  $('.slider1').bxSlider({
+			    slideWidth: 350,
+			    minSlides: 2,
+			    maxSlides: 2,
+			    slideMargin: 10,
+			    auto:true,
+			    pager:false
+			  });
+			});
+		</script>
+		<script type="text/javascript">
+var _py = _py || [];
+_py.push(['a', 'Ums..whkcXbMHewm_PM2LrcCjwP']);
+_py.push(['domain','stats.ipinyou.com']);
+_py.push(['e','']);
+-function(d) {
+	var s = d.createElement('script'),
+	e = d.body.getElementsByTagName('script')[0]; e.parentNode.insertBefore(s, e),
+	f = 'https:' == location.protocol;
+	s.src = (f ? 'https' : 'http') + '://'+(f?'fm.ipinyou.com':'fm.p0y.cn')+'/j/adv.js';
+}(document);
+</script>
+<noscript><img src="__IMG__/adv.gif" style="display:none;"/></noscript>
+    </body>
+</html>

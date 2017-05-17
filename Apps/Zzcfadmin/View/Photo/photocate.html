@@ -1,0 +1,80 @@
+<include file="Public:head_iframe" />
+<div id="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{:U('Index/welcome')}"><i class="fa fa-home"></i>&nbsp;&nbsp;首页</a></li>
+        <li class="active">图片分类</li>
+        <div class="pull-right refresh"><a href="javascript:;" onclick="refresh()"><i class="fa fa-refresh fa-xl" title="点击刷新"></i> 刷新页面</a></div>
+    </ol>
+</div>
+<div class="wrapper wrapper-content col-sm-12 animated fadeInRight">
+    <form name="myform" id="myform" method="post">
+        <div class="tabs-container">
+            <div class="btn-group">
+                <if condition='authCheck(MODULE_NAME."/".CONTROLLER_NAME."/photocateadd",session("uid")) eq 1'>
+                    <a href='{:U("photocateadd","linkcate_parameter=".encode($linkcate_parameter))}' class="btn btn-success"><i class="fa fa-plus"></i> 新增分类</a>
+                </if>
+                <if condition='authCheck(MODULE_NAME."/".CONTROLLER_NAME."/photocatedel",session("uid")) eq 1'>
+                    <a href="javascript:void(0)" onclick="delall('{:U('photocatedel')}')" class="btn btn-primary"><i class="fa fa-trash-o"></i> 批量删除</a>
+                </if>
+                <if condition='authCheck(MODULE_NAME."/".CONTROLLER_NAME."/photocatesort",session("uid")) eq 1'>
+                    <a href="javascript:void(0)" onclick="sort('{:U('photocatesort')}')" class="btn btn-danger"><i class="fa fa-sort"></i> 更新排序</a>
+                </if>
+            </div>
+            <div class="blank10"></div>
+            <div class="tab-content">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="tb_checkbox">
+                                    <input type="checkbox" class="i-checks selectAll_ids_list">
+                                </th>
+                                <th class="tb_sort text-center">排序</th>
+                                <th>ID</th>
+                                <th>名称</th>
+                                <th>尺寸</th>
+                                <th>状态</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <volist name="data" id="datalist">
+                                <tr>
+                                    <td>
+                                       <input type="checkbox" class="i-checks select_ids" name="ids[]" value="{$datalist.id}">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control text-center sort" dataId="{$datalist.id}" name="sort[]" value="{$datalist.sort}">
+                                    </td>
+
+                                    <td>{$datalist.id}</td>
+                                    <td>{$datalist.name}</td>
+                                    <td>{$datalist.width} × {$datalist.height}</td>
+                                    <td>
+                                        <eq name="datalist.status" value="1">
+                                            <i class="fa fa-check text-navy" title="开启"></i>
+                                        <else />
+                                            <i class="fa fa-remove" title="关闭"></i>
+                                        </eq>
+                                    </td>
+                                    <td>
+                                        <if condition='authCheck(MODULE_NAME."/".CONTROLLER_NAME."/index",session("uid")) eq 1'>
+                                            <a class="btn btn-info btn-sm" href='{:U("index","id=".$datalist["id"]."&linkcate_parameter=".encode($linkcate_parameter))}'><i class="fa fa-user"></i> 图片列表（<strong class='green'>{:count($datalist['photo'])}</strong>）</a>
+                                        </if>
+                                        <if condition='authCheck(MODULE_NAME."/".CONTROLLER_NAME."/photocateedit",session("uid")) eq 1'>
+                                            <a class="btn btn-success btn-sm" href='{:U("photocateedit","id=".$datalist["id"]."&linkcate_parameter=".encode($linkcate_parameter))}'><i class="fa fa-edit"></i> 编辑</a>
+                                        </if>
+                                        <if condition='authCheck(MODULE_NAME."/".CONTROLLER_NAME."/photocatedel",session("uid")) eq 1'>
+                                            <a class="btn btn-primary btn-sm" href="javascript:;" onclick="del('{:U('photocatedel')}',{$datalist.id})"><i class="fa fa-remove"></i> 删除</a>
+                                        </if>
+                                    </td>
+                                </tr>
+                            </volist>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="list-page">{$pagelist}</div>
+    </form>
+</div>

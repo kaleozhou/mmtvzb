@@ -1,0 +1,68 @@
+<include file="Public:head_iframe" />
+<div id="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{:U('Index/welcome')}"><i class="fa fa-home"></i>&nbsp;&nbsp;首页</a></li>
+        <li class="active">数据库还原</li>
+        <div class="pull-right refresh"><a href="javascript:;" onclick="refresh()"><i class="fa fa-refresh fa-xl" title="点击刷新"></i> 刷新页面</a></div>
+    </ol>
+</div>
+<div class="wrapper wrapper-content col-sm-12 animated fadeInRight">
+    <form name="myform" id="myform" method="post">
+        <div class="tabs-container">
+            <div class="tab-content">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="tb_checkbox">
+                                    <input type="checkbox" class="i-checks selectAll_ids_list">
+                                </th>
+                                <th>备份名称</th>
+                                <th>文件大小</th>
+                                <th>备份时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <volist name="data" id="datalist">
+                                <tr>
+                                    <td>
+                                       <input type="checkbox" class="i-checks select_ids" name="tables[]" value="{$datalist.name}">
+                                    </td>
+                                    <td>{$datalist.basename}</td>
+                                    <td>{$datalist.size|format_bytes}</td>
+                                    <td>{$datalist.create_time|date='Y-m-d H:i:s',###}</td>
+                                    <td>
+                                        <if condition='authCheck(MODULE_NAME."/".CONTROLLER_NAME."/importsql",session("uid")) eq 1'>
+                                            <a href="javascript:;"  onclick="importsql('{:U('importsql')}','{$datalist.basename}')" class="btn btn-primary btn-sm"><i class="fa fa-rotate-left"></i> 还原</a>
+                                        </if>
+                                        <if condition='authCheck(MODULE_NAME."/".CONTROLLER_NAME."/downsql",session("uid")) eq 1'>
+                                            <a  href="{:C('SYSTEM_DBBACK_PATH')}{$datalist.basename}" class="btn btn-primary btn-sm"><i class="fa fa-cloud-download"></i> 下载</a>
+                                        </if>
+                                        <if condition='authCheck(MODULE_NAME."/".CONTROLLER_NAME."/del",session("uid")) eq 1'>
+                                            <a href="javascript:;" onclick="del('{:U('del')}','{$datalist.basename}')" class="btn btn-primary btn-sm"><i class="fa fa-remove"></i> 删除</a>
+                                        </if>
+                                    </td>
+                                </tr>
+                            </volist>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+/**
+ * [importsql 删除函数]
+ * @param  {[string]} url [处理数据的url地址]
+ * @param  {[string]} ids [数据的id字符串]
+ * @return {[json]}       [返回json格式]
+ */
+function importsql(url,senddata){
+    parent.layer.confirm('确定要还原数据？如果数据量大的话，花费的时间将会比较长，请耐心等待！',{icon:3},function(index){
+        parent.layer.close(index);
+        postUrl(url,senddata);
+    });
+}
+</script>

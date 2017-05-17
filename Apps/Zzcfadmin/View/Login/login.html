@@ -1,0 +1,95 @@
+<include file="Public:head" />
+<body id="login">
+    <div class="middle-box text-center loginscreen animated fadeInDown">
+        <div class="login-wrap">
+            <h3 class="logo-name" style="padding-bottom: 10px;">欢迎使用 {:C('SYSTEM_NAME')}</h3>
+            <form action="" method="post" class="login-form"  onsubmit="return false" id="myForm">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+                        <input type="text" name="username" class="form-control" placeholder="请输入用户名" autocomplete="off">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+                        <input type="password" name="password" class="form-control" placeholder="请输入密码" autocomplete="off">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group" style="position: relative;">
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-qrcode"></span></div>
+                        <input type="text" name="verify" class="form-control" placeholder="请输入验证码" autocomplete="off" style="padding-right:64px">
+                        <a class="reloadverify" title="换一张" href="javascript:void(0)"  onclick="changeVerify('#verify_code')">换一张？</a>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <img class="verifyimg" id="verify_code" alt="点击切换" onclick="changeVerify('#verify_code')" src='{:U("verify")}' style="cursor: pointer;" title="点击刷新验证码">
+                </div>
+                <button type="submit" class="btn btn-success block full-width m-b" onclick='submitForm("{:U("login")}","#myForm")'>登 录</button>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function(){
+            //设置居中
+            if($(window).height() > $(".middle-box").outerHeight()){
+                $(".middle-box").animate({"marginTop": ($(window).height() - $(".middle-box").outerHeight())/2},500);
+            }
+            $(window).resize(function(){
+                if($(window).height() > $(".middle-box").outerHeight()){
+                    $(".middle-box").animate({"marginTop": ($(window).height() - $(".middle-box").outerHeight())/2},500);
+                }
+            });
+
+            //初始化选中用户名输入框
+            $(".login-form").find("input[name=username]").focus();
+        });
+        /**
+         * [submitForm 处理登陆表单提交]
+         * @param  {[type]} url [数据处理地址]
+         * @param  {[DOM]} obj  [表单DOM节点：#myFrom]
+         * @return {[json]}     [json格式]
+         */
+        function submitForm (url,obj) {
+           $.post(url, $(obj).serialize(), function(data, textStatus, xhr) {
+                //弹出消息
+                if(data.status){
+                    layer.msg(data.info,{icon:1,time:2000,shade: [0.3,'#000']},function(){
+                        if(data.url){
+                            location.href = data.url;
+                        } else {
+                            location.reload();
+                        }
+                    });
+                } else {
+                    changeVerify("#verify_code");
+                    layer.open({
+                        content:data.info,
+                        yes:function(index){
+                            if(data.url){
+                                location.href = data.url;
+                            } else {
+                                layer.close(index);
+                            }
+                        },
+                        icon:2
+                    });
+                    //layer.msg(data.info,{icon:2});
+                }
+            });
+        }
+
+         /**
+         * [changeVerify 刷新验证码]
+         * @param  {[object]} obj [传递的对象]
+         * @return {[void]}
+         */
+        function changeVerify(obj){
+            $(obj).attr({
+                src:"{:U('verify')}"+"&time="+Math.random()
+            });
+        }
+    </script>
+</body>
+</html>

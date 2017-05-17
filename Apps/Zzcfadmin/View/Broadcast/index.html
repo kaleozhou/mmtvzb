@@ -1,0 +1,98 @@
+<include file="Public:head_iframe" />
+<div id="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{:U('Index/welcome')}"><i class="fa fa-home"></i>&nbsp;&nbsp;首页</a></li>
+        <li class="active">实时广播</li>
+        <div class="pull-right refresh"><a href="javascript:;" onclick="refresh()"><i class="fa fa-refresh fa-xl" title="点击刷新"></i> 刷新页面</a></div>
+    </ol>
+</div>
+<div class="wrapper wrapper-content col-sm-12 animated fadeInRight">
+    <form action="" method="post" id="myform" name="myform" onsubmit="return false">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 广播内容：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="content" name="content" value="{$data.content}" type="text" placeholder="请输入广播内容">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"> 循环：</div>
+                        </td>
+                        <td>
+                            <select name="loop" class="form-control">
+                                <option value="-1" <eq name="data.loop" value="-1">selected="selected"</eq>>是</option>
+                                <option value="1" <eq name="data.loop" value="1">selected="selected"</eq>>否</option>
+                            </select>
+                            <div class="help-block">默认不循环</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"> 速度：</div>
+                        </td>
+                        <td>
+                            <select name="scrollamount" class="form-control">
+                                <option value="3" <eq name="data.scrollamount" value="3">selected="selected"</eq>>3</option>
+                                <option value="5" <eq name="data.scrollamount" value="5">selected="selected"</eq>>5</option>
+                                <option value="6" <eq name="data.scrollamount" value="6">selected="selected"</eq>>6</option>
+                                <option value="7" <eq name="data.scrollamount" value="7">selected="selected"</eq>>7</option>
+                                <option value="8" <eq name="data.scrollamount" value="8">selected="selected"</eq>>8</option>
+                                <option value="9" <eq name="data.scrollamount" value="9">selected="selected"</eq>>9</option>
+                                <option value="10" <eq name="data.scrollamount" value="10">selected="selected"</eq>>10</option>
+                                <option value="15" <eq name="data.scrollamount" value="15">selected="selected"</eq>>15</option>
+                                <option value="20" <eq name="data.scrollamount" value="20">selected="selected"</eq>>20</option>
+                                <option value="25" <eq name="data.scrollamount" value="25">selected="selected"</eq>>25</option>
+                                <option value="30" <eq name="data.scrollamount" value="30">selected="selected"</eq>>30</option>
+                            </select>
+                            <div class="help-block">数字越大速度越快，默认为6</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"> 延迟：</div>
+                        </td>
+                        <td>
+                            <select name="scrolldelay" class="form-control">
+                                <option value="70" <eq name="data.scrolldelay" value="70">selected="selected"</eq>>70</option>
+                                <option value="75" <eq name="data.scrolldelay" value="75">selected="selected"</eq>>75</option>
+                                <option value="80" <eq name="data.scrolldelay" value="80">selected="selected"</eq>>80</option>
+                                <option value="85" <eq name="data.scrolldelay" value="85">selected="selected"</eq>>85</option>
+                                <option value="90" <eq name="data.scrolldelay" value="90">selected="selected"</eq>>90</option>
+                                <option value="95" <eq name="data.scrolldelay" value="95">selected="selected"</eq>>95</option>
+                                <option value="100" <eq name="data.scrolldelay" value="100">selected="selected"</eq>>100</option>
+                                <option value="110" <eq name="data.scrolldelay" value="110">selected="selected"</eq>>110</option>
+                                <option value="120" <eq name="data.scrolldelay" value="120">selected="selected"</eq>>120</option>
+                                <option value="150" <eq name="data.scrolldelay" value="150">selected="selected"</eq>>150</option>
+                            </select>
+                            <div class="help-block">数字越大速度越慢，默认为85</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">状态：</div>
+                        </td>
+                        <td>
+                            <select name="status" class="form-control">
+                                <option value="1" <eq name="data.status" value="1">selected="selected"</eq>>开启</option>
+                                <option value="0" <eq name="data.status" value="0">selected="selected"</eq>>关闭</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="blank15"></div>
+        <button type="button" class="btn btn-w-m btn-success" onclick='submitForm("{:U("index")}","#myform")'>
+            <i class="fa fa-check-square-o"></i> 提交
+        </button>
+        <button type="button" class="btn btn-w-m btn-primary" onclick="history.go(-1)">
+            <i class="fa fa-chevron-circle-left"></i> 返回
+        </button>
+        <input type="hidden" name='id' value="{$data.id}" />
+    </form>
+</div>

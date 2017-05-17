@@ -1,0 +1,236 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+*{margin:0px 0px; padding:0px 0px; border:0px; font-size:14px; font-family:SimHei ,"MicrosoftJhengHei",华文细黑,STHeiti,MingLiu ; list-style-type:none; text-decoration:none;}
+body,html{width:100%; height:auto;}
+.clear{display:block; width:100%; height:1px; clear:both;}
+.none{display:none;}
+img{border:0px;}
+
+#top_wrap{width:100%; height:auto; background-color:#25262d;}
+
+#top{width:1200px; height:40px; position:relative; margin:0px auto;}
+#top h1{float:left; color:#a8a8ab; height:100%; line-height:40px; font-weight:normal;}
+#top ul{float:right;}
+ul#top_menu li{float:left; height:40px; width:90px;}
+ul#top_menu li a{color:#a8a8ab; display:block; text-align:center; line-height:40px; height:100%; width:100%;}
+ul#top_menu li a:hover{background:#4A4748;}
+ul#top_menu li.this{background-color:#b40000;}
+
+#top .sshq {position:relative; float:left; color:#a8a8ab; height:40px; line-height:40px; overflow:hidden;}
+#top .sshq span{color:#a8a8ab; display:inline; margin:0px;}
+
+#header{width:100%;}
+#header-auto{width:1200px;height:122px;margin:0 auto;}
+#header-auto>span{float:left;}
+#header-auto>div{width:192px;height:70px;float:left;margin:40px 0 0 10px;}
+#header-auto>div>p{font-size:24px;}
+#header-auto>b>img{margin-bottom:10px;}
+
+#full-screen-slider { width:100%; height:348px; float:left; position:relative;}
+#slides { display:block; width:100%; height:348px; list-style:none; padding:0; margin:0; position:relative; overflow:hidden;}
+#slides li { display:block; width:100%; height:100%; list-style:none; padding:0; margin:0; position:absolute;}
+#slides li a { display:block; width:100%; height:100%;}
+#pagination { display:block; list-style:none; position:absolute; left:47%; top:310px; z-index:1;  padding:5px 15px 5px 0; margin:0;}
+#pagination li { display:block; list-style:none; width:40px; height:10px; float:left; margin-left:5px; background:#CCCACA; }
+#pagination li a { display:block; width:100%; height:100%; padding:0; margin:0;  text-indent:-9999px;}
+#pagination li.current { background:#C80000;}
+
+#line{
+    border: 1px solid rgb(37,38,45);
+}
+#teacher_content{
+    width: 1200px;
+    margin: 0 auto;
+    /*border:1px solid red;*/
+}
+#teacher_content a{
+    color: #25262d;
+    font-size: 40px;
+    font-weight: bold;
+    display: inline-block;
+    padding: 15px 10px ;
+    margin-left: 29px;
+}
+.tea_intr {
+  width: 100%;
+  background-color:#f1f2f3;
+}
+.teaImg{
+  width: 400px;
+  height: 500px;
+  float: left;
+  margin: 20px 0px 0px 40px;
+  border: 3px solid white;
+}
+.intr_content{
+    width: 700px;
+    float: right;
+    margin: 20px 20px 0px 0px;
+    /*border: 1px solid red;*/
+}
+.intr_content h1{
+    color: #E5C700;
+    /*border: 1px solid red;*/
+    font-size: 45px;
+}
+.intr_content h1 span{
+    font-size: 18px;
+}
+.intr_content p{
+    line-height: 35px;
+    letter-spacing: 1px;
+    font-size: 21px;
+    color: black;
+}
+.intr_content p span{
+    font-weight: bold;
+    font-size: 22px;
+    color: red;
+}
+.intr_content p label{
+    word-break: break-all;
+    font-size: 17px;
+}
+.intr_content p .single_intr_1{
+    font-size: 25px;
+}
+.intr_content p .const_name_1{
+    font-size: 23px;
+}
+.intr_content p .style_1{
+    font-size: 21px;
+}
+.intr_content p .buy_1{
+    font-size: 19px;
+}
+.intr_content p .wast_1{
+    font-size: 18px;
+}
+.all_images{
+    height: 400px;
+    list-style: none;
+    position: relative;
+    top:35px;
+}
+.all_images li{
+    width: 580px;
+    height: 340px;
+    float: left;
+    margin-left: 10px;
+    border:3px solid black;
+}
+.score_img{
+    clear: both;
+    font-size: 40px;
+    color: #E5C700;
+    text-indent: 20px;
+    position: relative;
+    top:30px;
+}
+.footer{background:url("../Images/teacherImg/foot_bg.png"); color:#929396;padding-top:45px; float:left; width:100%;}
+.footmenu{float:left; width:109px;}
+.footmenu dt{font-size:17px; color:#FFF; line-height:36px; font-weight:normal; margin-bottom:10px;}
+.footmenu a{color:#929396; font-size:15px; line-height:28px;}
+.footer a:hover{color:#FFF;}
+.ftr{float:right; width:260px;}
+.ftr p b{font-size:24px;}
+.link{margin-top:30px; position:relative; height:50px;}
+.linkback{background:#000; width:100%; height:50px; position:absolute; opacity:0.2; filter:alpha(opacity=20);}
+.linkbox{position:absolute; width:100%; line-height:50px;}
+.linkbox .main{font-size:16px; color:#929396;}
+.link a{font-size:14px; color:#929396;}
+.left{float:left;}
+.right{float:right;}
+.copyright{width:100%; line-height:24px; font-size:14px; margin-top:10px; float:left;}
+.copyright a{color:#929396; text-decoration:none;}
+.copyright p{float:left; width:100%;}
+.copyright .cnzz{text-align:right; margin-top:10px;}
+#gotop{position:fixed;bottom:50px;right:50px;background:url("../Images/gotop.png");width:37px;height:37px;display:none;}
+#gotop:hover{background-position:-37px 0;}
+.main{width:1100px; margin:0 auto;}
+.service{
+    width: 200px;
+    height: 450px;
+    background-color: lightsalmon;
+    position: absolute;
+    right:0px;
+    top:150px;
+}
+.service h1{
+    color: #333;
+    font-size: 30px;
+    text-align: center;
+    padding: 5px 5px 5px 0;
+    text-shadow: 1px 1px 1px black;
+}
+
+#demo1{
+    width: 85%;
+    height: 390px;
+    margin: 10px auto;
+    background-color: white;
+    overflow: hidden;
+}
+#demo2{
+    height: 2000px;
+    position: relative;
+    top:0px;
+}
+#demo2 ul li{
+    height: 170px;
+    width: 150px;
+    text-align: center;
+    margin: 5px auto;
+
+}
+#demo2 ul li span{
+    text-decoration: underline;
+    color: white;
+    transition: all 1s ease-in 0s;
+    border:1px solid black;
+    padding: 0 53px;
+    background-color: black
+ }
+#demo2 ul li:hover span{
+    color: #F53218;
+}
+.tea_erweima{
+    width: 300px;
+    height: 300px;
+    margin: 20px 0 0 90px;
+    float: left;
+}
+.tea_bar{
+    width: 1100px;
+    clear: both;
+    margin:0 auto;
+    padding-top: 30px;
+}
+.tea_bar_1{
+   width: 1075px;
+   margin-left: 25px;
+   margin-top: 15px;
+   font-size: 16px;
+   line-height: 30px;
+}
+.tea_bar_1>span{
+    color: #FF5A00;
+    font-size: 30px;
+    font-weight: bolder;
+}
+.tea_score{
+    width: 1100px;
+    margin:21px auto 0px;
+}
+#owl-demo {
+    margin-top: 10px;
+}
+#owl-demo .item{
+  margin: 3px;
+}
+#owl-demo .item img{
+  display: block;
+  width: 100%;
+  height: auto;
+}

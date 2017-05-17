@@ -1,0 +1,963 @@
+﻿<!DOCTYPE html >
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{:C('BASE_WEBNAME')}</title>
+	<meta name="keywords" content="{:C('BASE_KEYWORDS')}" />
+	<meta name="description" content="{:C('BASE_DESCRIPTION')}" />
+    <link rel="stylesheet" href="__JQUERY__/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="__JQUERY__/jquery-scrollbar/jquery.mCustomScrollbar.css" />
+	<link rel="stylesheet" type="text/css" href="__ZHIBO__/Css/cssy.css">
+	<link rel="stylesheet" type="text/css" href="__ZHIBO__/Css/mobile.css">
+    <link rel="stylesheet" type="text/css" href="__CSS__/base.css">
+    <script src="__JQUERY__/jquery-2.0.3.min.js"></script>
+    <script src="__JQUERY__/bootstrap/js/bootstrap.min.js"></script>
+    <script src="__JQUERY__/jquery-scrollbar/js/uncompressed/jquery.mousewheel-3.0.6.js"></script>
+    <script src="__JQUERY__/jquery-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script type="text/javascript" src="__ZHIBO__/Scripts/jquery.superslide.2.1.1.js"></script>
+    <script type="text/javascript" src="__ZHIBO__/Scripts/jquery.easing-1.3.pack.js"></script>
+    <script type="text/javascript" src="__ZHIBO__/Scripts/jquery.rotate.min.js"></script>
+    <script type="text/javascript" src="__JQUERY__/jquery.form.js"></script>
+    <script src="__JQUERY__/layer/layer.js"></script>
+    <!-- <script src="__JQUERY__/layer/mobile/layer.js"></script> -->
+    <!-- <script type="text/javascript">
+		layer.config({
+    		skin: 'layer-ext-seaning',
+    		extend: 'seaning/style.css'
+		});
+	</script> -->
+	<!--[if lte IE 8 ]>
+	<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+	<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+	<script src="__JQUERY__/amazeui/js/amazeui.ie8polyfill.min.js"></script>
+	<![endif]-->
+	<script src="__JQUERY__/jquery.fixedsSerializeArray.js"></script>
+    <script type="text/javascript" src="__ZHIBO__/Scripts/zhibo1.js"></script>
+    <script src="__JS__/base.js"></script>
+	<if condition="C('VIDEO_STATUS') eq 1">
+		<if condition="C('VIDEO_TYPE') eq 2">
+			<script type="text/javascript" charset="utf-8" src="http://yuntv.letv.com/player/live/blive.js"></script>
+			<elseif condition="C('VIDEO_TYPE') eq 3"/>
+			<script type="text/javascript" src="http://cdn.aodianyun.com/lss/aodianplay/player.js"></script>
+			<elseif condition="C('VIDEO_TYPE') eq 4"/>
+			<script type="text/javascript" src="http://static.gensee.com/webcast/static/sdk/js/gssdk.js"></script>
+		</if>
+	</if>
+
+<script type="text/javascript">
+/**
+ * [checkOnline 验证上线用户]
+ * @return {[type]} [description]
+ */
+function checkOnline() {
+    $.ajax({
+        url: "{:U('Common/checkonline')}",
+        type: 'POST',
+        dataType: 'json',
+        data:{},
+        success:function(data){
+
+        }
+    });
+}
+    
+$(function(){
+
+
+	$.ajax({
+        url: "http://wap.yy.com/mobileweb/74453847/74453847#!/live/room",
+        type: 'GET',
+        dataType: 'html',
+        data:{},
+        success:function(data){
+        	alert(data);
+        }
+    });
+
+	$(".mjj").mCustomScrollbar({theme:"light"});
+	$("#zhiboscroll").mCustomScrollbar({theme:"light"});
+	$("#login_Reg").mCustomScrollbar({theme:"light"});
+
+	//执行视频
+	getvideo();
+
+	//窗口
+	Dimensions2();
+
+	/*$(function(){
+		if($(window).width() > 960){
+			location.href = "{:U('/')}";
+		}
+		$(window).resize(function(){
+			if($(window).width() >= 960){
+				location.href = "{:U('/')}";
+			}
+		});
+	})*/
+    //用户上线
+    setTimeout(checkOnline,2000);
+
+	//弹窗注册
+	setTimeout(function() {
+		$("#loginreg_id").css({display:'block'});
+		layer.open({
+			type: 1,
+			title:'请注册',
+			closeBtn:0,
+			offset: ['', ''],
+			content: $('#login_Reg') //这里content是一个DOM
+		});
+		$('#gotoreg').trigger('click');
+	},60000);
+});
+
+/**
+* [getvideo 读取视频]
+* @return {[type]} [description]
+*/
+function getvideo(){
+<?php echo getvideo()."\n";?>
+}
+
+/**
+ * [Dimensions2 窗口函数]
+ */
+function Dimensions2(){
+ var ttw = $(window).width();
+ var tth = $(window).height();
+ var vih = 240;
+ var zbh=tth-vih;
+ var zbw=360;
+
+ if(ttw<tth){
+	 ttw = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+	 tth = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+	 vih = Math.ceil(ttw*10/16);
+	 zbh = tth - vih;
+	 zbw = ttw;
+	   }
+	$(".zhibobox").outerWidth(zbw);
+	$(".zhibobox").outerHeight(tth);
+	$("#player").outerWidth(zbw);
+	$("#player").outerHeight(vih);
+	$(".zhibonews").outerHeight(zbh);
+	$("#zhiboscroll").outerHeight(zbh-79);
+	$(".mjj").outerHeight(zbh-30);
+	$(".scroll-wrapper").outerHeight(zbh-30);
+	$(".send_input_text").outerWidth(140);
+}
+</script>
+
+<script src='http://cdn.bootcss.com/socket.io/1.3.7/socket.io.js'></script>
+<script type="text/javascript">
+    $(function(){
+        // 连接服务端
+        var socket = io('http://'+document.domain+':2120');
+        //用户id
+        var uid = '{$to_uid}';
+        // 连接后登录
+        socket.on('connect', function(){
+            socket.emit('login', uid);
+        });
+        // 后端推送来消息时
+        socket.on('new_msg', function(msg){
+        	$("#zhiboscroll .content").append($('<div/>').html(msg).text());
+        	chat_ajax();
+            //console.log("收到消息："+msg);
+        });
+        // 后端推送来在线数据时
+	    /*socket.on('update_online_count', function(online_stat){
+	        console.log(online_stat);
+	    });*/
+    })
+</script>
+<style>
+	/* 聊天框当前用户的样式 */
+	.chat .chatmain .top .myclass_{$to_uid} a{
+		font-weight: bold;
+		color: #FF0;
+	}
+</style>
+</head>
+<body>
+<!-- <img id="imgbg" src="__ZHIBO__/Picture/20161004055406508.jpg" width="100%" height="100%" style="right: 0; bottom: 0; position: absolute; top: 0; left: 0; z-index: -1" /> -->
+<notempty name="skinData">
+	<img id="imgbg" src="__ROOT__{$skinData['thumb'][0]['photo']}" width="100%" height="100%" style="position:absolute;top:0;left:0;z-index: -1" />
+<else/>
+	<img id="imgbg" src="__ZHIBO__/Picture/test.jpg" width="100%" height="100%" style="position:absolute;top:0;left:0;z-index: -1" />
+</notempty>
+
+<div class="zhibobox" style="width:360px;margin:0px auto;">
+	<div class="mzhibovideo">	
+        <div class="mzhibovideomain" id="player"></div>
+	</div>
+	    <div class="mzhibonews">
+        <div class="touming"></div>
+		<!-- <div class="hd"><ul>
+			<li>聊天室</li>
+		            <li>公司介绍</li>
+		            <li>联系我们</li>
+		            <li><if condition="session('?adminuid')">账号中心<elseif condition="session('?memberid')"/>会员中心<else/>用户中心</if></li>
+		        </ul>
+		</div> -->
+		<div class="main_right_nav hd">
+			<ul> 
+				<li>
+					<span class="on" style="margin-left:0px;" href="javascript:;" id="right_nav1" onclick="RightNav(this.id);">聊天室<i></i>
+					</span>
+				</li>
+				<li>
+					<span style="margin-left:0px;" href="javascript:;" id="right_nav2" onclick="RightNav(this.id);" class="">公司介绍<i></i>
+					</span>
+				</li>
+				<li>
+					<span style="margin-left:0px;" href="javascript:;" id="right_nav3" onclick="RightNav(this.id);" class="">联系我们<i></i></span>
+				</li>
+				<li>
+					<span style="margin-left:0px;" href="javascript:;" id="right_nav4" onclick="RightNav(this.id);" class=""><if condition="session('?adminuid')">账号中心<elseif condition="session('?memberid')"/>会员中心<else/>用户中心</if><i></i></span>
+				</li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+	    	function RightNav(id){
+				$(".main_right_nav li span").removeClass("on");
+				$("#"+id).addClass("on");
+				/*$('.main_right_content').hide();
+				$('#'+id+'_content').show();*/
+			}
+	    </script>
+		<div class="clear_none"></div>
+        <div class="bd">
+        	<ul>
+           <!--聊天列表开始-->
+                <div id="zhiboscroll">
+                	<div class="content">
+                        <volist name="usermesData" id="usermes">
+							<div class="chat" id="{$usermes.id}{$usermes.create_time}">
+								<table border="0" cellspacing="3" cellpadding="0">
+									<tbody>
+										<tr>
+											<if condition="$usermes['fromusertype'] eq 0">
+												<td valign="top">
+													<div class="jbpic">
+														<img src="__PUBLIC__/images/member/user1.gif" title="游客" class="mCS_img_loaded" />
+													</div>
+												</td>
+											<elseif condition="$usermes['fromusertype'] eq 1" />
+												<td valign="top">
+													<div class="jbpic">
+														<img src="__ROOT__{$usermes.userdata.membergroup.icon}" title="{$usermes.userdata.membergroup.name}" class="mCS_img_loaded" />
+													</div>
+												</td>
+											<elseif condition="$usermes['fromusertype'] eq 2" />
+												<td valign="top">
+													<div class="jbpic">
+														<img src="__ROOT__{$usermes.userdata.authicon}" title="{$usermes.userdata.authrole}" class="mCS_img_loaded" />
+													</div>
+												</td>
+											</if>
+
+											<td>
+												<div class="chatmain">
+													<div class="top">
+
+														<if condition="$usermes['fromusertype'] eq 2">
+															<div class="cname">{$usermes.userdata.authrole}</div>
+														</if>
+
+														<if condition="$usermes['fromuid'] eq $userdata['id'] && $usermes['fromusertype'] eq $userdata['usertype']">
+															<div class="cname myclass_{$to_uid}"><a href="javascript:void(0)">{$usermes.userdata.username}</a></div>
+														<else/>
+															<div class="cname"><a href="javascript:void(0)" onclick="talk({$usermes.fromuid},'{$usermes.userdata.username}',{$usermes.fromusertype})" title="对ＴＡ说">{$usermes.userdata.username}</a></div>
+														</if>
+
+														<if condition="$usermes['tousertype'] neq -1">
+															<div class="dui"></div>
+															<if condition="$usermes['touid'] eq $userdata['id'] && $usermes['tousertype'] eq $userdata['usertype']">
+																<div class="cname myclass_{$to_uid}">
+																	<a href="javascript:void(0)">{$usermes.touserdata.username}</a>
+																</div>
+															<else/>
+																<div class="cname">
+																	<a href="javascript:void(0)" onclick="talk({$usermes.touid},'{$usermes.touserdata.username}',{$usermes.tousertype})" title="对ＴＡ说">{$usermes.touserdata.username}</a>
+																</div>
+															</if>
+														</if>
+
+														<div class="time">
+															[{$usermes.create_time|date="H:i",###}]
+														</div>
+													</div>
+													<table border="0" cellspacing="0" cellpadding="0">
+														<tbody>
+															<tr>
+																<td valign="top"><img src="__ZHIBO__/Picture/chatleft.png" class="mCS_img_loaded" /></td>
+																<td>
+																	<div class="txt">
+																		<div class="cont{$usermes.fromusertype}">
+																			{:htmlspecialchars_decode($usermes['content'])}
+																		</div>
+																	</div>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+		       			</volist>
+                    </div>
+                </div>
+           <!--聊天列表结束-->
+            <div id="sendbox" style="width:100%; height:90px;z-index:20;position:relative;">
+                              <table border="0" cellspacing="0" cellpadding="0" class="face01_imgs" id="div3" style="display:;">
+						<tr>
+							<td><img title="鼓掌" class="clap" src="__ZHIBO__/Picture/11.gif" width="28" ></td>
+							<td><img title="跳" class="clap" src="__ZHIBO__/Picture/12.gif" width="28" ></td>
+							<td><img title="kiss" class="clap" src="__ZHIBO__/Picture/13.gif" width="28" ></td>
+							<td><img title="跳" class="clap" src="__ZHIBO__/Picture/14.gif" width="28" ></td>
+							<td><img title="贱笑" class="clap" src="__ZHIBO__/Picture/15.gif" width="28"></td>
+							<td><img title="陶醉" class="clap" src="__ZHIBO__/Picture/16.gif" width="28"></td>
+							<td><img title="兴奋" class="clap" src="__ZHIBO__/Picture/17.gif" width="28" ></td>
+							<td><img title="鄙视" class="clap" src="__ZHIBO__/Picture/18.gif" width="24"></td>
+							<td><img title="得意" class="clap" src="__ZHIBO__/Picture/19.gif" width="28"></td>
+						</tr>
+						<tr>
+							<td><img title="偷笑" class="clap" src="__ZHIBO__/Picture/21.gif" width="28" ></td>
+							<td><img title="挖鼻孔" class="clap" src="__ZHIBO__/Picture/22.gif" width="28" ></td>
+							<td><img title="衰" class="clap" src="__ZHIBO__/Picture/23.gif" width="28" ></td>
+							<td><img title="流汗" class="clap" src="__ZHIBO__/Picture/24.gif" width="28" ></td>
+							<td><img title="伤心" class="clap" src="__ZHIBO__/Picture/25.gif" width="28" ></td>
+							<td><img title="鬼脸" class="clap" src="__ZHIBO__/Picture/26.gif" width="28" ></td>
+							<td><img title="狂笑" class="clap" src="__ZHIBO__/Picture/27.gif" width="28" ></td>
+							<td><img title="发呆" class="clap" src="__ZHIBO__/Picture/28.gif" width="24" ></td>
+							<td><img title="害羞" class="clap" src="__ZHIBO__/Picture/29.gif" width="25" ></td>
+						</tr>
+						<tr>
+							<td><img title="可怜" class="clap" src="__ZHIBO__/Picture/31.gif" width="28" ></td>
+							<td><img title="气愤" class="clap" src="__ZHIBO__/Picture/32.gif" width="28" ></td>
+							<td><img title="惊吓" class="clap" src="__ZHIBO__/Picture/33.gif" width="28" ></td>
+							<td><img title="困了" class="clap" src="__ZHIBO__/Picture/34.gif" width="28" ></td>
+							<td><img title="再见" class="clap" src="__ZHIBO__/Picture/35.gif" width="28" ></td>
+							<td><img title="感动" class="clap" src="__ZHIBO__/Picture/36.gif" width="28" ></td>
+							<td><img title="晕" class="clap" src="__ZHIBO__/Picture/37.gif" width="28" ></td>
+							<td><img title="可爱" class="clap" src="__ZHIBO__/Picture/38.gif" width="28" ></td>
+							<td><img title="潜水" class="clap" src="__ZHIBO__/Picture/39.gif" width="28" ></td>
+						</tr>
+						<tr>
+							<td><img title="强" class="clap" src="__ZHIBO__/Picture/41.gif" width="28" ></td>
+							<td><img title="囧" class="clap" src="__ZHIBO__/Picture/42.gif" width="28" ></td>
+							<td><img title="窃笑" class="clap" src="__ZHIBO__/Picture/43.gif" width="28" ></td>
+							<td><img title="疑问" class="clap" src="__ZHIBO__/Picture/44.gif" width="28" ></td>
+							<td><img title="装逼" class="clap" src="__ZHIBO__/Picture/45.gif" width="28" ></td>
+							<td><img title="抱歉" class="clap" src="__ZHIBO__/Picture/46.gif" width="28" ></td>
+							<td><img title="鼻血" class="clap" src="__ZHIBO__/Picture/47.gif" width="28" ></td>
+							<td><img title="睡觉" class="clap" src="__ZHIBO__/Picture/48.gif" width="28" ></td>
+							<td><img title="委屈" class="clap" src="__ZHIBO__/Picture/49.gif" width="24" ></td>
+						</tr>
+						<tr>
+							<td><img title="笑哈哈" class="clap" src="__ZHIBO__/Picture/51.gif" width="22" ></td>
+							<td><img title="贱贱地笑" class="clap" src="__ZHIBO__/Picture/52.gif" width="22" ></td>
+							<td><img title="被电" class="clap" src="__ZHIBO__/Picture/53.gif" width="22" ></td>
+							<td><img title="转发" class="clap" src="__ZHIBO__/Picture/54.gif" width="22" ></td>
+							<td><img title="求关注" class="clap" src="__ZHIBO__/Picture/55.gif" width="22" ></td>
+							<td><img title="路过这儿" class="clap" src="__ZHIBO__/Picture/56.gif" width="22" ></td>
+							<td><img title="好激动" class="clap" src="__ZHIBO__/Picture/57.gif" width="22" ></td>
+							<td><img title="招财" class="clap" src="__ZHIBO__/Picture/58.gif" width="22" ></td>
+							<td><img title="加油啦" class="clap" src="__ZHIBO__/Picture/59.gif" width="22" ></td>
+						</tr>
+						<tr>
+							<td><img title="转转" class="clap" src="__ZHIBO__/Picture/61.gif" width="22" ></td>
+							<td><img title="围观" class="clap" src="__ZHIBO__/Picture/62.gif" width="22" ></td>
+							<td><img title="推撞" class="clap" src="__ZHIBO__/Picture/63.gif" width="22" ></td>
+							<td><img title="来嘛" class="clap" src="__ZHIBO__/Picture/64.gif" width="22" ></td>
+							<td><img title="啦啦啦" class="clap" src="__ZHIBO__/Picture/65.gif" width="22" ></td>
+							<td><img title="切克闹" class="clap" src="__ZHIBO__/Picture/66.gif" width="22" ></td>
+							<td><img title="给力" class="clap" src="__ZHIBO__/Picture/67.gif" width="22" ></td>
+							<td><img title="威武" class="clap" src="__ZHIBO__/Picture/68.gif" width="22" ></td>
+							<td><img title="流血" class="clap" src="__ZHIBO__/Picture/69.gif" width="22" ></td>
+						</tr>
+				</table>
+              <form name="formMessage" id="formMessage" method="post" action="" enctype="multipart/form-data">
+                	<input type="hidden" name="chatcontent" id="fxchat" value="">
+                	<input type="hidden" name="sc" id="sc" value="1" />
+                	<input type="hidden" name="mob" id="mob" value="1" />
+					<input type="hidden" name="touid" id="touid" value="0">
+					<input type="hidden" name="tousertype" id="tousertype" value="-1">
+	                <div id="send" class="row" style="width:100%; height:50px; background-color:rgba(80,159,198,0.3);z-index:20;overflow:auto;text-align: center;margin: 0">
+	                	<div class="col-xs-2" style="padding: 0">
+	                    	<div style="display: inline-block; height:35px; margin:10px 0px 0px 0px;cursor:pointer;"><img src="__ZHIBO__/Picture/biaoqin.gif" width="30" height="30" border="0" class="face" /></div>
+	                    </div>
+	                	<div class="col-xs-7" style="padding-left: 0">
+	                		<div class="send_input_text form-controll" contentEditable="true" id="msg_content" style="text-align: left"></div>
+	                	</div>
+	                	<!-- <div style="display:inline-block ; height:35px; margin:10px 0px 0px 10px;"><img src="__ZHIBO__/Picture/send.png" onclick="send_msg({$userdata.id})" style="cursor:pointer;" /></div> -->
+	                	<div class="col-xs-3" style="padding:0">
+	                		<button type="button" class="btn btn-warning" onclick="send_msg({$userdata.id})" style="display: inline-block; margin:8px 0px 0px 0px;cursor:pointer;"><span class="glyphicon glyphicon-send" aria-hidden="true"></span>&nbsp;&nbsp;发 送</button>
+	                	</div>
+	                </div>
+              </form>
+            </div>
+            <script type="text/javascript">
+			//消息验证地址
+			var massageUrl = "{:U('Common/msgsave')}";
+
+			//验证不能给自己发消息的地址
+			var checkselfmsg = "{:U('Common/checkselfmsg')}";
+
+			$(function(){
+				//执行滚动
+				chat_ajax();
+			});
+			</script>
+           <!--信息发送结束-->
+           </ul>
+           <ul>
+				<div class="mjj">
+					<p>
+						<span id="companyInfo">{:htmlspecialchars_decode($CompanyInfoData['content'])}</span>
+					</p>
+				</div>
+           </ul>
+           <ul class="lianxiwom">
+				<div class="mjj" style="text-align:center;"><!-- <br /><br /><br /> -->
+ 
+                  <!-- <a href="http://wpa.qq.com/msgrd?v=3&uin={$CompanyInfoData.qq}&site=qq&menu=yes" target="_blank"><img src="__ZHIBO__/Picture/kefu.png" /></a> -->
+                  <p><img src="__ZHIBO__/Picture/erweima.png"></p>
+                  <p>电话：{$CompanyInfoData.phone}</p>
+				  <p>Q Q：<a href="http://wpa.qq.com/msgrd?v=3&uin={$CompanyInfoData.qq}&site=qq&menu=yes" target="_blank"><img src="__ZHIBO__/Picture/qq.png"></a></p>
+				  <p>市场有风险 投资需谨慎</p>
+                </div>
+           </ul>
+           <ul id="loginreg_id">
+           		<script>
+           			$(function(){
+           				$('#gotoreg').click(function(event) {
+           					$("#loginFace").hide();
+           					$("#regFace").show();
+           				});
+           				$('#gotologin').click(function(event) {
+           					$("#loginFace").show();
+           					$("#regFace").hide();
+           				});
+           			})
+           		</script>
+				<div class="scroll-wrapper" id="login_Reg">
+                <if condition="session('adminuid')">
+					<div class="row" id="ucenter" style="margin: 0">
+						<div class="blank15"></div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for="name">管理员账号</label>
+								<div class="input-group">
+									<div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+									<input type="text" class='form-control' value="{$userdata.username}" readonly="readonly">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="name">管理员角色</label>
+								<div class="input-group">
+									<div class="input-group-addon"><span class="glyphicon glyphicon-eye-open"></span></div>
+									<input type="text" class='form-control' value="{$userdata.authrole}" readonly="readonly">
+								</div>
+							</div>
+							<div class="blank15"></div>
+					    </div>
+					</div>
+				<else />
+					<if condition="session('memberid')">
+						<div class="row" id="ucenter" style="margin: 0">
+							<div class="blank15"></div>
+							<div class="col-xs-12">
+								<div class="form-group">
+									<label for="name">会员昵称</label>
+									<div class="input-group">
+										<div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+										<input type="text" class='form-control' value="{$userdata.username}" readonly="readonly">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="name">会员分组</label>
+									<div class="input-group">
+										<div class="input-group-addon" style="padding-top:0;padding-bottom: 0;"><img src="__ROOT__{$userdata.membergroup.icon}" alt="{$userdata.membergroup.name}"></div>
+										<input type="text" class='form-control' value="{$userdata.membergroup.name}" readonly="readonly">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="name">手机号码</label>
+									<div class="input-group">
+										<div class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></div>
+										<input type="text" class='form-control' value="{$userdata.mobile}" readonly="readonly">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="name">喵喵币</label>
+									<div class="input-group">
+										<div class="input-group-addon"><span class="glyphicon glyphicon-yen"></span></div>
+										<input type="text" class='form-control' value="{$userdata.money}" readonly="readonly">
+									</div>
+								</div>
+								<div class="row" >
+									<div class="col-xs-3">
+										<button type="button" class="btn btn-info" onclick="loginout()">退出登录</button>
+									</div>
+								</div>
+								<div class="blank15"></div>
+						    </div>
+						</div>
+						<!--loginout-->
+						<script>
+						function loginout(){
+							$.post("{:U('Common/loginout')}", {}, function(data, textStatus, xhr) {
+						        location.reload();
+						    });
+						}
+						</script>
+						<!--end loginout-->
+					<else/>
+						<!--登陆框-->
+						<div class="row" id="loginFace" style="margin: 0">
+							<div class="blank15"></div>
+							<div class="col-xs-12">
+								<form id="submitLogin">
+									<div class="form-group">
+										<label for="name">会员昵称</label>
+										<div class="input-group">
+											<div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+											<input type="text" class='form-control' name="loginName" id="loginname" style="background-image: none" placeholder="请输入昵称 / 手机号">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="password">会员密码</label>
+										<div class="input-group">
+											<div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+											<input type="password" class='form-control' name="loginPwd" id="loginpassword" style="background-image: none" placeholder="请输入密码">
+										</div>
+									</div>
+									<div class="row" >
+										<div class="col-xs-3">
+											<button type="button" class="btn btn-info" onclick="checkLogin()">登陆</button>
+										</div>
+										<div class="col-xs-9 text-right">
+											<button type="button" class="btn btn-success" id="gotoreg">去注册</button>
+										</div>
+									</div>
+								</form>
+								<div class="blank15"></div>
+						    </div>
+						</div>
+						<!--login-->
+						<script>
+
+						/**
+						 * [checkLogin 验证登录]
+						 * @return {[type]} [description]
+						 */
+						function checkLogin() {
+							var loginname = $('#loginname');
+							var loginpassword = $('#loginpassword');
+							//var logincode = $('#logincode');
+							if(loginname.val() == ''){
+								layer.msg('请输入昵称或手机号！',{icon: 0});
+								//loginname.focus();
+								/*layer.open({
+								  content: '请输入昵称或手机号！',
+								  time: 3,
+								  skin: 'msg'
+								});*/
+								return false;
+							}
+							if(loginpassword.val() == ''){
+								layer.msg('请输入密码！',{icon: 0});
+								//loginpassword.focus();
+								/*layer.open({
+								  content: '请输入密码！',
+								  time: 3,
+								  skin: 'msg'
+								});*/
+								return false;
+							}
+							/*if(logincode.val() == ''){
+								layer.msg('请输入验证码！',{icon: 0});
+								logincode.focus();
+								return false;
+							}*/
+
+							//开始登录
+							//submitForm("{:U('Common/login')}","#submitLogin");
+							$.post("{:U('Common/login')}", $("#submitLogin").serialize(), function(data, textStatus, xhr) {
+						        //弹出消息
+						        if(data.status){
+						            layer.msg(data.info,{icon:6,time:2000},function(){
+						                if(data.url){
+						                    location.href = data.url;
+						                } else {
+						                    location.reload();
+						                }
+						            });
+						            /*layer.open({
+									  content: data.info,
+									  time: 3,
+									  skin: 'msg'
+									});
+									setTimeout(function(){
+										if(data.url){
+						                    location.href = data.url;
+						                } else {
+						                    location.reload();
+						                }
+									},3000);*/
+						        } else {
+						            /*layer.open({
+						                content:data.info,
+						                yes:function(index){
+						                    if(data.url){
+						                        location.href = data.url;
+						                    } else {
+						                        layer.close(index);
+						                    }
+						                },
+						                icon:2
+						            });*/
+						            layer.msg(data.info,{icon:0,time:2000},function(){
+						                if(data.url){
+						                    location.href = data.url;
+						                } else {
+						                    //location.reload();
+						                }
+						            });
+						            /*layer.open({
+									  content: data.info,
+									  time: 3,
+									  skin: 'msg'
+									});
+									setTimeout(function(){
+										if(data.url){
+						                    location.href = data.url;
+						                }
+									},3000);*/
+						            //$('#codeImg').trigger('click');
+						            //layer.msg(data.info,{icon:2});
+						        }
+						    });
+						}
+						</script>
+						<!--end login-->
+	                    <!--注册框-->
+						<div class="row" id="regFace" style="margin: 0;display: none">
+							<div class="blank15"></div>
+							<div class="col-xs-12">
+								<form id="regForm" style="padding: 0;height: auto;">
+									<div class="form-group">
+										<label for="name">会员昵称</label>
+										<div class="input-group">
+											<div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+											<input class="form-control" type="text" name="username" id="regUser" placeholder="请输入昵称">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="password">会员密码</label>
+										<div class="input-group">
+											<div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+											<input class="form-control" type="password" name="password" id="regPwd" placeholder="请输入密码">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="password">确认密码</label>
+										<div class="input-group">
+											<div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+											<input class="form-control" type="password" name="RetypePassword" name="password2" id="regPwd2" placeholder="请输入确认密码">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="password">手机号码</label>
+										<div class="input-group">
+											<div class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></div>
+											<input class="form-control" type="text" name="mobile" id="regTel" placeholder="请输入手机号">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="password">邀请代码</label>
+										<div class="input-group">
+											<div class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></div>
+											<input class="form-control" type="text" name="regcode" id="registerCode" placeholder="请输入邀请代码" maxlength="4">
+										</div>
+										<div class="help-black" style="color: #fff;padding: 5px 0;">如果没有邀请代码，请输入：8888</div>
+									</div>
+									<div class="form-group">
+										<label for="password">手机验证码</label>
+										<div class="input-group">
+											<div class="input-group-addon"><span class="glyphicon glyphicon-comment"></span></div>
+											<input class="form-control" type="text" id="regyz" name="code" placeholder="验证码" style="display: inline-block;">
+											<div class="reg_nav" id="Checkyz2" style="margin-left: 3px"><input style="height: 34px;margin: 0" type="button" value="发送验证码" class="tybu" id="regCode" onclick='sendCode($("#regTel").val())'></div>
+										</div>
+									</div>
+									<div class="row" >
+										<div class="col-xs-3">
+											<button type="button" class="btn btn-info" onclick="checkRegister()">注册</button>
+										</div>
+										<div class="col-xs-9 text-right">
+											<button type="button" class="btn btn-success" id="gotologin">去登录</button>
+										</div>
+									</div>
+								</form>
+								<div class="blank15"></div>
+						    </div>
+						    <!--register-->
+							<script>
+							var iTime = 59;
+							var Account;
+							//控制时间
+							function RemainTime(buttonDom){
+							    $(buttonDom).prop('disabled', true);
+							    var iSecond,sSecond="",sTime="";
+							    if (iTime >= 0){
+							        iSecond = parseInt(iTime%60);
+							        iMinute = parseInt(iTime/60)
+							        if (iSecond >= 0){
+							            if(iMinute>0){
+							                sSecond = iMinute + "分" + iSecond + "秒";
+							            }else{
+							                sSecond = iSecond + "秒";
+							            }
+							        }
+							        sTime=sSecond;
+							        if(iTime==0){
+							            clearTimeout(Account);
+							            sTime='发送验证码';
+							            iTime = 59;
+							            $(buttonDom).prop('disabled', false);
+							        }else{
+							            Account = setTimeout("RemainTime('"+buttonDom+"')",1000);
+							            iTime=iTime-1;
+							        }
+							    }else{
+							        sTime='没有倒计时';
+							    }
+							    $(buttonDom).val(sTime);
+							}
+
+							/**
+							 * [telsendyz 获取手机验证码]
+							 * @param  {[type]} a [description]
+							 * @return {[type]}   [description]
+							 */
+							function sendCode(a){
+								if(a == "" || a == '请输入您的手机号码'){
+									layer.msg('请先输入手机号码！',{icon: 0});
+									//$('#regTel').focus();
+									/*layer.open({
+									   content: '请先输入手机号码！',
+									   time: 3,
+									   skin: 'msg'
+									});*/
+									return false;
+								} else if(!/1[345678]{1}\d{9}$/.test(a)){
+									layer.msg('手机格式不正确！',{icon: 0});
+									//$('#regTel').focus();
+									/*layer.open({
+									   content: '手机格式不正确！',
+									   time: 3,
+									   skin: 'msg'
+									});*/
+									return false;
+								} else{
+									$.ajax({
+								        type:"POST",
+								        dataType:"json",
+								        data:{mobile:a,source:'注册验证码'},
+								        url:"{:U('Common/getMessage')}",
+								        success:function(data){
+										    if(data.status){
+										   		RemainTime('#regCode');
+										    } else {
+										    	layer.msg(data.info,{icon: 0});
+										    }
+								        }
+							  		});
+								}
+							}
+
+							/**
+							 * [checkRegister 验证注册]
+							 * @return {[type]} [description]
+							 */
+							function checkRegister() {
+								var regUser = $('#regUser');
+								var regPwd = $('#regPwd');
+								var regPwd2 = $('#regPwd2');
+								var regTel = $('#regTel');
+								var regyz = $('#regyz');
+								var registerCode = $('#registerCode');
+
+								if(regUser.val() == ''){
+									layer.msg('请输入昵称！',{icon: 0});
+									//regUser.focus();
+									/*layer.open({
+									   content: '请输入昵称！',
+									   time: 3,
+									   skin: 'msg'
+									});*/
+									return false;
+								}
+								if(regUser.val().length < 2){
+									layer.msg('昵称长度必须是2位字符以上！',{icon: 0});
+									//regUser.focus();
+									/*layer.open({
+									   content: '昵称长度必须是2位字符以上！',
+									   time: 3,
+									   skin: 'msg'
+									});*/
+									return false;
+								}
+								if(regPwd.val() == ''){
+									layer.msg('请输入密码！',{icon: 0});
+									//regPwd.focus();
+									/*layer.open({
+									   content: '请输入密码！',
+									   time: 3,
+									   skin: 'msg'
+									});*/
+									return false;
+								}
+								if(regPwd.val().length < 6){
+									layer.msg('密码必须是6位字符以上！',{icon: 0});
+									//regPwd.focus();
+									/*layer.open({
+									   content: '密码必须是6位字符以上！',
+									   time: 3,
+									   skin: 'msg'
+									});*/
+									return false;
+								}
+								if(regPwd2.val() != regPwd.val()){
+									layer.msg('确认密码不正确！',{icon: 0});
+									//regPwd2.focus();
+									/*layer.open({
+									   content: '确认密码不正确！',
+									   time: 3,
+									   skin: 'msg'
+									});*/
+									return false;
+								}
+								if(regTel.val() == '' ){
+									layer.msg('请输入手机号！',{icon: 0});
+									//regTel.focus();
+									/*layer.open({
+									   content: '请输入手机号！',
+									   time: 3,
+									   skin: 'msg'
+									});*/
+									return false;
+								}
+								if(!/1[345678]{1}\d{9}$/.test(regTel.val())){
+									layer.msg('手机格式不正确！',{icon: 0});
+									//regTel.focus();
+									/*layer.open({
+									   content: '手机格式不正确！',
+									   time: 3,
+									   skin: 'msg'
+									});*/
+									return false;
+								}
+								if(registerCode.val() == ''){
+									layer.msg('请输入邀请码！',{icon: 0});
+									//registerCode.focus();
+									/*layer.open({
+									   content: '请输入验证码！',
+									   time: 3,
+									   skin: 'msg'
+									});*/
+									return false;
+								}
+								if(regyz.val() == ''){
+									layer.msg('请输入验证码！',{icon: 0});
+									//regyz.focus();
+									/*layer.open({
+									   content: '请输入验证码！',
+									   time: 3,
+									   skin: 'msg'
+									});*/
+									return false;
+								}
+
+								//开始注册
+								$.post("{:U('Common/register')}", $("#regForm").serialize(), function(data, textStatus, xhr) {
+							        //弹出消息
+							        if(data.status){
+							            layer.msg(data.info,{icon:6,time:2000},function(){
+							                $('#gotologin').trigger('click');
+							               /* if(data.url){
+							                    location.href = data.url;
+							                } else {
+							                    //location.reload();
+							                }*/
+							                //layer.closeAll('page');
+							            });
+							            /*layer.open({
+										   content: data.info,
+										   time: 3,
+										   skin: 'msg'
+										});
+										setTimeout(function(){
+											if(data.url){
+							                    location.href = data.url;
+							                } else {
+							                	$('#gotologin').trigger('click');
+							                	//location.reload();
+							                }
+										},3000);*/
+							        } else {
+							            layer.msg(data.info,{icon:0,time:2000},function(){
+							                if(data.url){
+							                    location.href = data.url;
+							                } else {
+							                	//$('#gotologin').trigger('click');
+							                    //location.reload();
+							                }
+							            });
+							            /*layer.open({
+										   content: data.info,
+										   time: 3,
+										   skin: 'msg'
+										});
+										setTimeout(function(){
+											if(data.url){
+							                    location.href = data.url;
+							                } else {
+							                	//location.reload();
+							                }
+										},3000);*/
+							            /*layer.open({
+							                content:data.info,
+							                yes:function(index){
+							                    if(data.url){
+							                        location.href = data.url;
+							                    } else {
+							                        layer.close(index);
+							                    }
+							                },
+							                icon:2
+							            });*/
+							            //$('#codeImg').trigger('click');
+							            //layer.msg(data.info,{icon:2});
+							        }
+							    });
+							}
+							</script>
+							<!--end register-->
+						</div>
+					</if>
+				</if>
+                </div>
+           </ul>
+        </div>
+   </div>
+   <script type="text/javascript"> jQuery(".mzhibonews").slide({titCell:".hd li",mainCell:".bd",trigger:"click"});</script>
+</div>
+</body>
+</html>

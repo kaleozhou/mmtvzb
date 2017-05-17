@@ -1,0 +1,127 @@
+<include file="Public:head_iframe" />
+<div id="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{:U('Index/welcome')}"><i class="fa fa-home"></i>&nbsp;&nbsp;首页</a></li>
+        <li class="active">老师管理</li>
+        <div class="pull-right refresh"><a href="javascript:;" onclick="refresh()"><i class="fa fa-refresh fa-xl" title="点击刷新"></i> 刷新页面</a></div>
+    </ol>
+</div>
+<div class="wrapper wrapper-content col-sm-12 animated fadeInRight">
+    <form name="myform" id="myform" method="post">
+        <div class="tabs-container">
+            <div class="btn-group">
+                <if condition='authCheck(MODULE_NAME."/".CONTROLLER_NAME."/add",session("uid")) eq 1'>
+                    <a href='{:U("add",$parameter."&parameter=".encode($parameter))}' class="btn btn-success"><i class="fa fa-plus"></i> 新增老师</a>
+                </if>
+                <if condition='authCheck(MODULE_NAME."/".CONTROLLER_NAME."/del",session("uid")) eq 1'>
+                    <a href="javascript:void(0)" onclick="delall('{:U('del')}')" class="btn btn-primary"><i class="fa fa-trash-o"></i> 批量删除</a>
+                </if>
+                <if condition='authCheck(MODULE_NAME."/".CONTROLLER_NAME."/sort",session("uid")) eq 1'>
+                    <a href="javascript:void(0)" onclick="sort('{:U('sort')}')" class="btn btn-danger"><i class="fa fa-sort"></i> 更新排序</a>
+                </if>
+            </div>
+            <div class="blank10"></div>
+            <div class="tab-content">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="tb_checkbox">
+                                    <input type="checkbox" class="i-checks selectAll_ids_list">
+                                </th>
+                                <th class="tb_sort text-center">排序</th>
+                                <th>ID</th>
+                                <th>身份</th>
+                                <th>名称</th>
+                                <th>头像</th>
+                                <th>喵币</th>
+                                <th>折合人民币(80%)</th>
+                                <th>最近结算时间</th>
+                                <th>结算人</th>
+                                <th>状态</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <volist name="data" id="datalist">
+                                <tr>
+                                    <td>
+                                       <input type="checkbox" class="i-checks select_ids" name="ids[]" value="{$datalist.id}">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control text-center sort" dataId="{$datalist.id}" name="sort[]" value="{$datalist.sort}">
+                                    </td>
+                                    <td>{$datalist.id}</td>
+                                    <td>
+                                        <if condition="$datalist['group'] eq 1">
+                                            <span class="blue">老师</span>
+                                        <elseif condition="$datalist['group'] eq 2" />
+                                            <span class="green">主持人</span>
+                                        </if>
+                                    </td>
+                                    <td>{$datalist.name}</td>
+                                    <td>
+                                        <neq name="datalist.thumb" value="">
+                                            <div data-toggle="popover" data-trigger="hover" data-html="true" data-container="body" data-placement="left" title="图标" data-content="<img src='__ROOT__{$datalist[thumb][0][thumb]}' class='img-circle' width='80' />"><img src="__ROOT__{$datalist['thumb'][0]['thumb']}" alt="{$datalist.name}" style="height: 25px"></div>
+                                        </neq>
+                                    </td>
+                                    <td>{$datalist.money}</td>
+                                    <td>{$datalist.zhrmb} 元</td>
+                                    <td>
+                                        <notempty name="datalist.last_js_time">
+                                            <div data-toggle="popover" data-trigger="hover" data-html="true" data-container="body" data-placement="top" title="结算信息" data-content="现金：{$datalist.last_js_money} 元<br>IP：{$datalist.last_js_ip}<br>地区：{$datalist.last_js_area.area} {$datalist.last_js_area.country}"><a href="javascript:;">{$datalist.last_js_time|date="Y-m-d H:i:s",###}</a></div>
+                                        </notempty>
+                                    </td>
+                                    <td>
+                                        <notempty name="datalist.adminuser">
+                                            {$datalist.adminuser.username}
+                                        </notempty>
+                                    </td>
+                                    <td>
+                                        <eq name="datalist.status" value="1">
+                                            <i class="fa fa-check text-navy" title="开启"></i>
+                                        <else />
+                                            <i class="fa fa-remove" title="关闭"></i>
+                                        </eq>
+                                    </td>
+                                    <td>
+                                        <if condition='authCheck(MODULE_NAME."/".CONTROLLER_NAME."/jiesuan",session("uid")) eq 1'>
+                                            <a class="btn btn-info btn-sm" href="javascript:;" onclick="jiesuan('{:U('jiesuan')}',{$datalist.id},'<if condition="$datalist['group'] eq 1">老师<elseif condition="$datalist['group'] eq 2" />主持人</if>','{$datalist.name}','{$datalist.zhrmb}')"><i class="fa fa-money"></i> 结算</a>
+                                        </if>
+                                        <if condition='authCheck(MODULE_NAME."/".CONTROLLER_NAME."/edit",session("uid")) eq 1'>
+                                            <a class="btn btn-success btn-sm" href='{:U("edit",$parameter."&id=".$datalist["id"]."&parameter=".encode($parameter))}'><i class="fa fa-edit"></i> 编辑</a>
+                                        </if>
+                                        <if condition='authCheck(MODULE_NAME."/".CONTROLLER_NAME."/del",session("uid")) eq 1'>
+                                            <a class="btn btn-primary btn-sm" href="javascript:;" onclick="del('{:U('del')}',{$datalist.id})"><i class="fa fa-remove"></i> 删除</a>
+                                        </if>
+                                    </td>
+                                </tr>
+                            </volist>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="list-page">{$pagelist}</div>
+    </form>
+</div>
+<script type="text/javascript">
+/**
+ * [jiesuan 结算]
+ * @param  {[type]} url     [结算url]
+ * @param  {[type]} id      [数据id]
+ * @param  {[type]} shenfen [身份]
+ * @param  {[type]} name    [名称]
+ * @param  {[type]} zhrmb   [人民币值]
+ * @return {[type]}         [description]
+ */
+function jiesuan(url, id, shenfen, name, zhrmb) {
+    if(zhrmb <= 0){
+        layer.msg('账户余额不足，无需提现结算！',{icon:0});
+        return false;
+    }
+    parent.layer.confirm('将为'+shenfen+'：<strong style="color:red">'+name+'</strong>，结算现金 <strong style="color:red">'+zhrmb+'</strong> 元，喵币数将会被清空，确定要结算？',{icon:3},function(index){
+        postUrl(url,{id:id,zhrmb:zhrmb});
+    });
+}
+</script>

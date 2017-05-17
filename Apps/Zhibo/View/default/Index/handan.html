@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="renderer" content="webkit">
+  <meta name="author" content="CopyLian">
+  <title>喊单系统</title>
+  <meta name="keywords" content="喊单系统" />
+  <meta name="description" content="喊单系统" />
+  <link rel="stylesheet" type="text/css" href="__ZHIBO__/Css/cssy.css">
+  <script src="__JQUERY__/jquery-2.0.3.min.js"></script>
+  <style>
+  .a1{float:left;width:60px;height:30px;text-align:center;line-height:30px;margin:0 0 0 10px;border:1px solid #36C;background:#FFF;color:#900;}
+  .a1 a{color:#900;}
+  .a2{float:left;width:60px;height:30px;text-align:center;line-height:30px;margin:0 0 0 10px;border:1px solid #36C;color:#FFF;}
+  .a2 a{color:#FFF;}
+</style>
+</head>
+<body>
+<if condition="session('adminuid') || (session('memberid') && $userdata['gid'] gt 2)">
+    <img id="imgbg" src="__ZHIBO__/Images/zbhdbg.png" width="100%" height="100%" style="right: 0; bottom: 0; position: absolute; top: 0; left: 0; z-index: -1" />
+    <table width="93%" style="margin:120px auto 10px auto;padding:0px 30px;background:#09C;" class="tabw td5">
+       <tbody>
+       <tr>
+          <td width="30" height="30" align="center" class="td4 fontb">No</td>
+          <td width="80" align="center" class="td4 fontb">分析师</td>
+          <td width="80" align="center" class="td4 fontb">交易平台</td>
+          <td width="80" align="center" class="td4 fontb">交易品种</td>
+          <td width="60" align="center" class="td4 fontb">多/空</td>
+          <td width="90" align="center" class="td4 fontb">建仓时间</td>
+          <td width="80" align="center" class="td4 fontb">建仓点位</td>
+          <td width="80" align="center" class="td4 fontb">止损点位</td>
+          <td width="80" align="center" class="td4 fontb">止盈点位</td>
+          <td width="80" align="center" class="td4 fontb">平仓点位</td>
+          <!-- <td width="90" align="center" class="td4 fontb">平仓时间</td> -->
+          <td width="90" align="center" class="td4 fontb">嬴利点数</td>
+       </tr>
+        <volist name="handandata" id="datalist">
+            <tr>
+                <td height="40" align="center" class="td4">{$datalist.id}</td>
+                <td align="center" class="td4">{$datalist['adminuser']['username']}</td>
+                <td align="center" class="td4">{$datalist['catept']['name']}</td>
+                <td align="center" class="td4">{$datalist['catepz']['name']}</td>
+                <td align="center" class="td4">
+                    <eq name="datalist.duokong" value="1">
+                        多
+                    <else/>
+                        空
+                    </eq>
+                </td>
+                <td align="center" class="td4">{$datalist.jtime|date="m-d H:i",###}</td>
+                <td align="center" class="td4">{$datalist.jnum}</td>
+                <td align="center" class="td4">{$datalist.zsnum}</td>
+                <td align="center" class="td4">{$datalist.zynum}</td>
+                <td align="center" class="td4">{$datalist.pnum}</td>
+                <!-- <td align="center" class="td4">
+                    <notempty name="datalist.pnum">
+                    {$datalist.ptime|date="m-d H:i",###}
+                    </notempty>
+                </td> -->
+                <td align="center" class="td4">
+                    <if condition="$datalist['zhiyindian'] lt 0">
+                        <span class="green"><strong>{$datalist.zhiyindian}</strong></span>
+                    <elseif condition="$datalist['zhiyindian'] gt 0"/>
+                        <span class="red">{$datalist.zhiyindian}</span>
+                    <else/>
+                        {$datalist.zhiyindian}
+                    </if>
+                </td>
+            </tr>
+        </volist>
+    </tbody>
+    </table>
+<else/>
+    <img id="imgbg" src="__ZHIBO__/Images/login_bg_kk.jpg" width="100%" height="100%" style="right: 0; bottom: 0; position: absolute; top: 0; left: 0; z-index: -1" />
+    <if condition="!session('memberid')">
+        <table width="60%" style="margin:200px 50px 10px 190px;padding:0px 30px;background:white;" class="tabw td5">
+           <tr>
+              <td height="240" align="center" class="td5 fontb font18">
+              成功注册会员才能看到操作建议！<br /><br /><br /><a href="javascript:;" id="login_kk" onclick="Clogin()"><img src="__ZHIBO__/Images/qxlogin.png" border="0" /></a>  <a href="javascript:;" onclick="Cregister()" id="jumpToLogin" class="register"><img src="__ZHIBO__/Images/qxreg.png" border="0" /></a>
+              </td>
+           </tr>
+        </table>
+        <script>
+        function Clogin(){
+          $(window.parent.document).find("#toLogin a").trigger('click');
+        }
+        function Cregister(){
+          $(window.parent.document).find("#toReg a").trigger('click');
+        }
+        </script>
+    <elseif condition="$userdata['gid'] elt 2" />
+        <table width="100%" class="tabw td4"><tr><td height="300" align="center" class="td4 fontb font18" style="color:#000">
+          只有更高级别用户才能看！
+        </td></tr></table>
+    </if>
+</if>
+
+</body>
+</html>

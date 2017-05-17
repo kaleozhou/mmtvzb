@@ -1,0 +1,129 @@
+<include file="Public:head_iframe" />
+<div id="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{:U('Index/welcome')}"><i class="fa fa-home"></i>&nbsp;&nbsp;首页</a></li>
+        <li class="active">系统配置</li>
+        <div class="pull-right refresh"><a href="javascript:;" onclick="refresh()"><i class="fa fa-refresh fa-xl" title="点击刷新"></i> 刷新页面</a></div>
+    </ol>
+</div>
+<div class="wrapper wrapper-content col-sm-12 animated fadeInRight">
+    <form name="myform" id="myform" method="post">
+        <div class="tabs-container">
+            <div class="btn-group">
+                <if condition='authCheck(MODULE_NAME."/".CONTROLLER_NAME."/add",session("uid")) eq 1'>
+                    <a href='{:U("add",$parameter."&parameter=".encode($parameter))}' class="btn btn-success"><i class="fa fa-plus"></i> 新增配置</a>
+                </if>
+                <if condition="in_array(session('uid'),C('SUPERADMIN'))">
+                    <if condition='authCheck(MODULE_NAME."/".CONTROLLER_NAME."/del",session("uid")) eq 1'>
+                        <a href="javascript:void(0)" onclick="delall('{:U('del')}')" class="btn btn-primary"><i class="fa fa-trash-o"></i> 批量删除</a>
+                    </if>
+                </if>
+                <if condition='authCheck(MODULE_NAME."/".CONTROLLER_NAME."/sort",session("uid")) eq 1'>
+                    <a href="javascript:void(0)" onclick="sort('{:U('sort')}')" class="btn btn-danger"><i class="fa fa-sort"></i> 更新排序</a>
+                </if>
+            </div>
+            <div class="blank10"></div>
+            <ul class="nav nav-tabs">
+                <li class="active" data-toggle="popover" data-trigger="hover" data-html="true" data-placement='top' title="说明" data-content="名称前缀：BASE_">
+                    <a data-toggle="tab" href="#tab-1" aria-expanded="true">基本配置</a>
+                </li>
+                <li data-toggle="popover" data-trigger="hover" data-html="true" data-placement='top' title="说明" data-content="名称前缀：CONTENT_">
+                    <a data-toggle="tab" href="#tab-2" aria-expanded="false">内容配置</a>
+                </li>
+                <li data-toggle="popover" data-trigger="hover" data-html="true" data-placement='top' title="说明" data-content="名称前缀：USER_">
+                    <a data-toggle="tab" href="#tab-3" aria-expanded="false">用户配置</a>
+                </li>
+                <li data-toggle="popover" data-trigger="hover" data-html="true" data-placement='top' title="说明" data-content="名称前缀：SYSTEM_">
+                    <a data-toggle="tab" href="#tab-4" aria-expanded="false">系统配置</a>
+                </li>
+                <li data-toggle="popover" data-trigger="hover" data-html="true" data-placement='top' title="说明" data-content="名称前缀：CACHE_">
+                    <a data-toggle="tab" href="#tab-5" aria-expanded="false">缓存配置</a>
+                </li>
+                <li data-toggle="popover" data-trigger="hover" data-html="true" data-placement='top' title="说明" data-content="名称前缀：OTHER_">
+                    <a data-toggle="tab" href="#tab-6" aria-expanded="false">其他配置</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <notempty name="newData">
+                    <volist name="newData" id="tabkey" key="key">
+                        <div id="tab-{$tabkey}" <if condition="$tabkey eq 1">class="tab-pane active"<else/>class="tab-pane"</if>>
+                            <div class="panel-body">
+                                <div class="float-e-margins">
+                                    <div class="table-responsive">
+                                        <if condition="!empty($data)">
+                                            <table class="table table-striped table-hover">
+                                                <if condition="!empty($newData_thead[$tabkey])">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="tb_checkbox">
+                                                                <input type="checkbox" class="i-checks selectAll_ids">
+                                                            </th>
+                                                            <th class="tb_sort text-center">排序</th>
+                                                            <th class="tb_title text-right">显示标题</th>
+                                                            <th class="tb_conent">配置内容</th>
+                                                            <th>状态</th>
+                                                            <th>操作</th>
+                                                        </tr>
+                                                    </thead>
+                                                </if>
+                                                <tbody>
+                                                    <volist name="data" id="datalist" key="key_data">
+                                                        <if condition="$datalist['group'] eq $tabkey">
+                                                            <tr>
+                                                                <td>
+                                                                    <input type="checkbox" class="i-checks select_ids" name="ids[]" value="{$datalist.id}">
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" class="form-control text-center sort" dataId="{$datalist.id}" name="sort[]" value="{$datalist.sort}">
+                                                                </td>
+                                                                <td class="text-right">
+                                                                    <strong title="{$datalist.name}">{$datalist.title}</strong>
+                                                                </td>
+                                                                <td>
+                                                                    <switch name="datalist.type">
+                                                                        <case value="1">
+                                                                            <input class="form-control" id="{$datalist.name}" name="config[{$datalist.id}]" value="{$datalist.value}" type="text" <if condition="$tabkey eq 4 && !in_array(session('uid'),C('ADMINISTRATOR'))">disabled="disabled" </if> <neq name="datalist.remark" value="">data-toggle="popover" data-trigger="hover" data-html="true" data-placement='top' title="说明" data-content="{$datalist.remark}"</neq> placeholder="请输入{$datalist.title}">
+                                                                        </case>
+                                                                        <case value="2">
+                                                                            <textarea name="config[{$datalist.id}]" class="form-control" id="{$datalist.name}" cols="30" rows="3" <if condition="$tabkey eq 4 && !in_array(session('uid'),C('ADMINISTRATOR'))">disabled="disabled" </if> <neq name="datalist.remark" value="">data-toggle="popover" data-trigger="hover" data-html="true" data-placement='top' title="说明" data-content="{$datalist.remark}"</neq> placeholder="请输入{$datalist.title}">{$datalist.value}</textarea>
+                                                                        </case>
+                                                                    </switch>
+                                                                </td>
+                                                                <td>
+                                                                    <eq name="datalist.status" value="1">
+                                                                        <i class="fa fa-check text-navy" title="开启"></i>
+                                                                    <else />
+                                                                        <i class="fa fa-remove" title="关闭"></i>
+                                                                    </eq>
+                                                                </td>
+                                                                <td>
+                                                                    <if condition="$tabkey neq 4 || in_array(session('uid'),C('ADMINISTRATOR'))">
+                                                                        <if condition='authCheck(MODULE_NAME."/".CONTROLLER_NAME."/edit",session("uid")) eq 1'>
+                                                                            <a href='{:U("edit",$parameter."&id=".$datalist["id"]."&parameter=".encode($parameter))}' class="btn btn-success btn-sm"><i class="fa fa-edit"></i> 编辑</a>
+                                                                        </if>
+                                                                        <if condition='authCheck(MODULE_NAME."/".CONTROLLER_NAME."/del",session("uid")) eq 1'>
+                                                                            <a href="javascript:;" onclick="del('{:U('del')}',{$datalist.id})" class="btn btn-primary btn-sm"><i class="fa fa-remove"></i> 删除</a>
+                                                                        </if>
+                                                                    </if>
+                                                                </td>
+                                                            </tr>
+                                                        </if>
+                                                    </volist>
+                                                </tbody>
+                                            </table>
+                                        </if>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </volist>
+                </notempty>
+            </div>
+        </div>
+        <div class="blank15"></div>
+        <button type="button" class="btn btn-w-m btn-success" onclick='submitForm("{:U("setConfig")}","#myform")'>
+            <i class="fa fa-check-square-o"></i> 生成配置
+        </button>
+        <div class="help-block inline">（添加完配置请生成文件，否则无法使用新增配置项）</div>
+    </form>
+</div>

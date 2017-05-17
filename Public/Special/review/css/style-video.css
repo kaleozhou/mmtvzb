@@ -1,0 +1,131 @@
+﻿.jin-video-box_info h4 .jin-icon,.jin-video-box_info h4 span {display:inline-block}
+.jin-video-box .jin-video-slider,.jin-video-box_info,.jin-video-box_play,.jin-video-slider_btn,.jin-video-slider_content,.jin-video-slider_mask,.jin-video-slider_mask .jin-icon,.jin-videoIndex__img img,.jin-videoList__left {position:absolute}
+.jin-video-box_content,.jin-video-box_footer,.jin-video-slider,.jin-video-slider .jin-video-slider_item,.jin-video-slider_link,.jin-video_main .l-video-wrap,.jin-videoIndex__img,.jin-videoList,.jin-videoList__blockInfo {position:relative}
+.jin-video-box_info h4 .jin-icon,.jin-video-box_info h4 span {vertical-align:middle}
+.jin-video-box:after,.jin-video-box:before,.jin-video-slider_list:after,.jin-video-slider_list:before,.jin-videoIndex_list:after,.jin-videoIndex_list:before {content:"";display:table}
+.jin-video-box:after,.jin-video-slider_list:after,.jin-videoIndex_list:after {clear:both}
+.jin-video-box {background-color:#101017}
+.jin-video-box_content {width:62%;float:left}
+.jin-video-box_footer {margin-left:1.6%;width:36.19%;float:left}
+.jin-video-box_content-before {padding-top:56.52%}
+.jin-video-box_content-after {padding-top:96.86%}
+.jin-video-box_play {top:0;left:0;width:100%;height:100%;background-color:#000}
+.jin-video-box_info {top:0;left:0;padding:15px}
+.jin-video-box_info h4 {margin-bottom:4px;font-weight:400}
+.jin-video-box_info h4 .jin-icon,.jin-video-box_info h4 span {color:#fff}
+.jin-video-box_info h4 .jin-icon {line-height:1;font-size:32px}
+.jin-video-box_info h3 {margin-bottom:6px;line-height:1.2;font-size:28px;font-weight:700}
+.jin-video-box_info h3,.jin-video-box_info h3 a {color:#fff}
+.jin-video-box_info h3 a:hover {color:#5a9df7}
+.jin-video-box_info p {color:#fff}
+.jin-video-box_meta {padding-top:20px}
+.jin-video-box_meta-list p {display:inline-block;padding-right:14px;margin-right:12px;border-right:1px solid #404045;line-height:1}
+.jin-video-box_meta-list p:last-child {border-right:0}
+.jin-video-box_meta-list p,.jin-video-box_meta-list p a {color:#fff}
+.jin-video-box_meta-list .jin-icon_comment {margin-right:5px}
+.jin-video-box_meta-list .jin-icon_time {font-size:18px}
+.jin-video-box_meta-list .jin-icon_collect {margin-right:2px;font-size:16px}
+.jin-video-box_meta-list .jin-icon_download {font-size:18px}
+.jin-video-box .jin-video-slider {left:0;bottom:0;width:100%;background-color:#101017}
+@media only screen and (max-width:1080px) {.jin-video-box_content,.jin-video-box_footer {width:100%;float:none}
+.jin-video-box_footer {margin-left:0}
+.jin-video-box_content-after {padding-top:0}
+.jin-video-box .jin-video-slider,.jin-video-box_info {position:relative}
+.jin-video-box_info {margin-bottom:20px}
+}
+@media only screen and (max-width:750px) {.jin-video-box_info h3 {font-size:20px}
+}
+.jin-video-slider {overflow:hidden;height:145px;}
+.jin-video-slider.swiper-container-horizontal {height:auto;display:block}
+.jin-video-slider_item {float:left}
+.jin-video-slider_link {display:block;margin-right:13px}
+.jin-video-slider_link:hover .jin-video-slider_mask {background-color:rgba(0,0,0,.45)}
+.jin-video-slider_link.is-play .jin-video-slider_mask .jin-icon {display:block}
+.jin-video-slider .jin-video-slider_item,.jin-video-slider_link {width:237px;height:145px;color:#fff;font-size:12px}
+.jin-video-slider_img img {width:100%}
+.jin-video-slider_content {width:100%;left:0;bottom:0;padding-left:6px;padding-bottom:10px}
+.jin-video-slider_title {padding-left:5px;border-left:2px solid #5a9df7;font-weight:400}
+.jin-video-slider_meta span {margin-right:39px}
+.jin-video-slider_meta .jin-icon {margin-right:5px}
+.jin-video-slider_meta .jin-icon_comment {font-size:12px}
+.jin-video-slider_btn {top:50%;width:28px;line-height:28px;margin-top:-14px;background-color:#60626b;text-align:center;font-family:SimSun;color:#fff;font-weight:700;z-index:2}
+.jin-video-slider_btn:hover {opacity:.5}
+.jin-video-slider_btn.swiper-button-disabled {opacity:.17}
+.jin-video-slider_prev {left:0}
+.jin-video-slider_next {right:0}
+.jin-video-slider_mask {top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,.6);transition:background .2s cubic-bezier(.23,1,.32,1)}
+.jin-video-slider_mask .jin-icon {top:50%;left:50%;margin-left:-30px;margin-top:-50px;display:none;line-height:1;font-size:60px;color:#fff}
+@media only screen and (max-width:1080px) {.jin-video-slider.swiper-container-horizontal {height:145px}
+}
+.jin-videoIndex {width:100%;margin:70px auto 42px 0}
+.jin-videoIndex__item {width:23%;background-color:#23232b;margin:0 1%;float:left}
+.jin-videoIndex__item a {color:#fff}
+.jin-videoIndex__img:before {content:'';display:block;padding-top:36.36%}
+.jin-videoIndex__img img {top:0;left:0;width:100%;height:100%}
+.jin-videoIndex__info {width:100%;padding:4.6%}
+.jin-videoIndex__title {font-weight:700;margin-bottom:10px}
+.jin-videoIndex__follow {display:inline-block;float:right;color:#000;font-weight:700;border-radius:5px;background:#fff;font-size:12px;padding:5px 8px 6px 13px;position:relative;top:-5px;letter-spacing:2px}
+.jin-videoIndex__description {font-size:14px;margin:0 0 7px;height:40px;overflow:hidden;line-height:1.4}
+.jin-videoIndex__count {font-size:12px}
+.jin-videoIndex__split {margin:0 4px}
+.jin-videoList {min-height:548px;padding-top:36px;padding-bottom:36px;background-repeat:no-repeat;background-position:40%;background-size:cover}
+.jin-videoList:last-child {border-bottom:0}
+.jin-videoList-11 {background-image:url(../images/xinwenshe.jpg)}
+.jin-videoList-20 {background-image:url(../images/shishixinshuo.jpg)}
+.jin-videoList-9 {background-image:url(../images/babala.jpg)}
+.jin-videoList-16 {background-image:url(../images/huaerjie.jpg)}
+.jin-videoList-17 {background-image:url(../images/jiefang.jpg)}
+.jin-videoList-10 {background-image:url(../images/jinshiyixun.jpg)}
+.jin-videoList-8 {background-image:url(../images/caijingrili.jpg)}
+.jin-videoList-12 {background-image:url(../images/guowaijingxuan.jpg)}
+.jin-videoList-21 {background-image:url(../images/jinshizaobao.jpg)}
+.jin-videoList__left {left:10px;top:50%;height:300px;margin-top:-150px}
+.jin-videoList__right {padding-left:294px}
+.jin-videoList__blockTitle {font-size:25px;font-weight:700;display:inline-block;margin:0 18px 0 0}
+.jin-videoList__blockCount {margin:4px 0 11px}
+.jin-videoList__infoSplit {margin:0 5px}
+.jin-videoList__blockButton .jin-btn {padding-left:23px;padding-right:23px;line-height:1.8;font-size:18px}
+@media only screen and (max-width:1070px) {.jin-newsList__icon {margin-right:3px;font-size:12px}
+.jin-videoList__right {padding-left:240px}
+}
+@media only screen and (max-width:1010px) {.m-align-center-wrap {display:block}
+.jin-videoList {background-position:30%}
+.jin-videoList__left {position:static;height:auto;margin-top:0}
+.jin-videoList__right {padding-left:0}
+.jin-videoList__blockInfo {height:auto;padding-left:10px}
+.jin-videoList__blockButton {position:absolute;top:18%;right:15px;margin-top:-16px}
+}
+@media only screen and (max-width:700px) {.jin-video-list {/*overflow-x:auto*/}
+.jin-video-list .jin-newsList {/*width:910px*/}
+.jin-videoList__right {overflow-x:auto}
+.jin-videoList .jin-newsList {/*width:1370px*/}
+.jin-video-list .jin-newsList__item,.jin-videoList .jin-newsList__item {width:49%;}
+}
+.jin-video-detail {max-width:1168px;margin-left:auto;margin-right:auto;padding-left:20px;padding-right:20px}
+.jin-video-detail .jin-video-box_content,.jin-video-detail .jin-video-box_footer {width:100%;float:none}
+.jin-video-detail .jin-video-box_footer {margin-left:0}
+.jin-video-detail .jin-video-box_content-after {padding-top:0}
+.jin-video-detail .jin-video-box .jin-video-slider,.jin-video-detail .jin-video-box_info {position:relative}
+.jin-video-detail .jin-video-box_info h3 {margin-bottom:10px}
+.jin-video-detail .jin-video-box_meta {padding-top:15px}
+.jin-video-wrap {padding-bottom:20px}
+.jin-video-wrap .l-video-wrap,.l-footer {max-width:1400px}
+.jin-video_main .l-video-wrap {max-width:1168px}
+.l-main_info {float:none;width:0}
+.l-footer,.l-video-wrap {padding-left:10px;padding-right:10px;margin-left:auto;margin-right:auto}
+body{
+	height: 100%;
+    overflow-x: hidden;
+}
+
+.mCSB_scrollTools{
+	width：8px;
+}
+
+.mCSB_inside > .mCSB_container {
+    margin-right: 8px;
+}
+
+.blank15{
+	height:15px;
+}

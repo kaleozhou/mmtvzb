@@ -1,0 +1,90 @@
+<include file="Public:head_iframe" />
+<div id="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{:U('Index/welcome')}"><i class="fa fa-home"></i>&nbsp;&nbsp;首页</a></li>
+        <li><a href='{:U("index",decode($parameter))}'>录播视频</a></li>
+        <li class="active">新增视频</li>
+        <div class="pull-right refresh"><a href="javascript:;" onclick="refresh()"><i class="fa fa-refresh fa-xl" title="点击刷新"></i> 刷新页面</a></div>
+    </ol>
+</div>
+<div class="wrapper wrapper-content col-sm-12 animated fadeInRight">
+    <form action="" method="post" id="myform" name="myform" onsubmit="return false">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 标题：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="title" name="title" value="" type="text" placeholder="请输入视频标题">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 视频url：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="url" name="url" value="" type="text" placeholder="请输入视频url">
+                            <div class="help-block">仅支持mp4格式，例如：http://www.copylian.com/a.mp4</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">预览图：</div>
+                        </td>
+                        <td>
+                            <include file="Uploadfile:fileadd" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">视频简介：</div>
+                        </td>
+                        <td>
+                            <textarea class="form-control" id="content" name="content" placeholder="请输入视频简介"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">视频时长：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="time" name="time" value="" type="text" placeholder="请输入视频时长">
+                            <div class="help-block">格式：01:01:10</div>
+                        </td>
+                    </tr>
+                    <script type="text/javascript" src="__PUBLIC__/jqueryui/layer/extendplugin/laydate/laydate.js"></script>
+                    <script src="__PUBLIC__/js/date_select_one.js" type="text/javascript"></script>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">发布时间：</div>
+                        </td>
+                        <td>
+                            <input class="laydate-icon form-control" id="onetime" name="create_time" value="" type="text" placeholder="请选择发布时间">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"> 状态：</div>
+                        </td>
+                        <td>
+                            <select name="status" class="form-control">
+                                <option value="1" selected="selected">开启</option>
+                                <option value="0">关闭</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="blank15"></div>
+        <button type="button" class="btn btn-w-m btn-success" onclick='submitForm("{:U("add")}","#myform")'>
+            <i class="fa fa-check-square-o"></i> 提交
+        </button>
+        <button type="button" class="btn btn-w-m btn-primary" onclick="history.go(-1)">
+            <i class="fa fa-chevron-circle-left"></i> 返回
+        </button>
+        <input type="hidden" name="parameter" value="{$parameter}">
+    </form>
+</div>

@@ -1,0 +1,198 @@
+/**
+ * Author：[ CopyLian ]
+ * Date：2016-11-07
+ * Description：[ iframe内页css ]
+ */
+body{
+    font-family: '微软雅黑',"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px/1.5;
+    color:#3c3e40;
+    padding-top:48px;
+}
+
+[class*="col-"]{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.clear{
+    clear: both;
+    overflow: hidden;
+    font-size:0;
+    line-height: 0;
+}
+
+.blank5{
+    height: 5px;
+    font-size: 0;
+    line-height: 0;
+    overflow: hidden;
+}
+
+.blank10{
+    height: 10px;
+    font-size: 0;
+    line-height: 0;
+    overflow: hidden;
+}
+
+.blank15{
+    height: 15px;
+    font-size: 0;
+    line-height: 0;
+    overflow: hidden;
+}
+
+.blank20{
+    height: 20px;
+    font-size: 0;
+    line-height: 0;
+    overflow: hidden;
+}
+
+.blank25{
+    height: 25px;
+    font-size: 0;
+    line-height: 0;
+    overflow: hidden;
+}
+
+.blank30{
+    height: 30px;
+    font-size: 0;
+    line-height: 0;
+    overflow: hidden;
+}
+
+.blank35{
+    height: 35px;
+    font-size: 0;
+    line-height: 0;
+    overflow: hidden;
+}
+
+.tb_checkbox{
+    width: 50px;
+}
+
+.tb_sort{
+    width: 80px;
+}
+
+.tb_title{
+    width: 11%;
+}
+
+.tb_conent{
+    width: 62%;
+    min-width: 180px;
+}
+
+.icheckbox_square-green, .iradio_square-green{
+    width: 23px;
+    height: 23px;
+}
+
+@media (min-width: 1200px){
+    .float-e-margins .btn{
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 768px){
+    .float-e-margins .btn{
+        margin-bottom: 0;
+    }
+}
+
+.table{
+    margin-bottom: 0;
+}
+
+.help-block{
+    color:green;
+    margin-bottom: 5px;
+}
+
+.td_add_edit{
+    width: 10%;
+}
+
+.required_icon{
+    color: #f60;
+}
+
+.popover {
+    max-width: 1000px;
+}
+
+.green{
+    color: green;
+}
+
+.red{
+    color: red;
+}
+
+#search {
+    padding: 15px;
+}
+
+.rulelist{
+    padding: 5px 24px;
+}
+
+#shouquan li{
+    list-style: none;
+}
+
+#headimg{
+    cursor: pointer;
+}
+
+#breadcrumb{
+    padding: 12px 5px;
+    padding-left: 20px;
+    border-bottom: 1px solid #e7eaec;
+    margin-bottom: 5px;
+    top:0;
+    position: fixed;
+    width: 100%;
+    background: #fff;
+    z-index: 999;
+}
+
+#breadcrumb i.fa-home{
+    font-size: 16px;
+}
+
+.refresh{
+    padding-right: 15px;
+    cursor: pointer;
+}
+
+.refresh a{
+    color: #1c84c6;
+}
+
+#shouquan .label{
+    padding: 4px 9px;
+    font-weight: normal;
+}
+
+input.laydate-icon{
+    height: 34px;
+    border: 1px solid #e5e6e7;
+}
+
+.inline-block{
+    display: inline-block;
+}
+
+.blue{
+    color: #1c84c6;
+}
+
+#webinfo .ibox{
+    margin-bottom: 15px;
+}

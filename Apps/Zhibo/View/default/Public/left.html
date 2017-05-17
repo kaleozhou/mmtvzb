@@ -1,0 +1,71 @@
+<!-- left -->
+<div class="zhibolist">
+	<div id="modules">
+        <ul id="modules-box">
+            <li>
+				<a id="rltckkk" href="{:U('/vreview')}" target="_blank"><img src="__ZHIBO__/Picture/shiping.jpg"><span>精彩回顾</span><i class="hotImg"></i></a>
+			</li>
+            <li id="icoNav1" class="custom">
+            	<a href="{:U('/vrecord')}" target="_blank" id="hdxtnew"><img src="__ZHIBO__/Picture/handan.jpg"><span>财经视频</span><i class="newImg"></i></a>
+            	<div class="cjsp_block">
+            		<div class="cjs_link"><a href="{:U('/vrecord_v2')}" target="_blank" rel="nofollow">财经日历</a></div>
+					<div class="cjs_link" style="margin-bottom: 0;"><a href="{:U('/vrecord_v3')}" target="_blank" rel="nofollow">热点思考</a></div>
+            	</div>
+            	<script type="text/javascript">
+            		$(function(){
+            			$("#icoNav1").hover(function() {
+            				$('.cjsp_block').slideDown();
+            			}, function() {
+            				$('.cjsp_block').slideUp();
+            			});
+            		})
+            	</script>
+           	</li>
+           	<li id="icoNav2" class="custom">
+           		<a href="javascript:void(0)" onclick="dialogIframe('{:U('teacher')}',false,'1030px','600px')"><img src="__ZHIBO__/Picture/zhandui.png"><span>老师战队</span></a>
+           	</li>
+			<li>
+				<a id="schedule" href="{:U('/sp/host')}" target="_blank"><img src="__ZHIBO__/Picture/kecheng.png"><span>美女主持</span></a>
+			</li>
+        </ul>
+    </div>
+    <div class="zhibodata" style="overflow:hidden;background-color: rgba(240,240,240,0.2);height: 350px">
+      <img src="__ZHIBO__/Picture/userdo_1.png" style="display: block;margin: 0 auto;">
+      <div class="scrollNews" >
+        <ul>
+        <notempty name="todaydata">
+          <volist name="todaydata" id="today">
+         <li>【{$today.create_time|date="Y-m-d H:i",###}】{$today.title}</li>
+          </volist>
+        </notempty>
+        </ul>
+      </div>
+   </div>
+   <div class="blank15"></div>
+	<div style="position: relative;height:150px;color:#fff;overflow:auto" class="erweimanewdiv" id="erweimanewdiv1">
+	    <notempty name="online_user_list">
+          <volist name="online_user_list" id="online">
+         <li style="color:#fff;text-align:left"><if condition="$online['usertype'] eq 0"><img src="__ZHIBO__/Picture/User14.png"><elseif condition="$online['usertype'] eq 1"/><img src="__ZHIBO__/Picture/User12.png"><elseif condition="$online['usertype'] eq 2"/><img src="__ZHIBO__/Picture/User3.png"></if>【在线】{$online.username}</li>
+          </volist>
+        </notempty>
+    	<!--<img src="__ZHIBO__/Picture/erweima.jpg" alt="" style="border-radius: 10px" class="erweimanew">-->
+	</div>
+	<div style="position: relative;" class="erweimanewdiv">
+	<a href="javascript:void(0)" onclick="dialogIframe('{:U('teacher')}',false,'1030px','600px')"><img src="/Public/Zhibo/zhibo/Picture/button.png" border="0" style="margin-left:-20px;"</a>
+    	
+	</div>
+	
+	<!-- <div class="zhibodata" style="overflow:hidden;background-color: rgba(240,240,240,0.2)">
+	    <img src="__ZHIBO__/Picture/userdo.png" style="width: 100%; height: 33px">
+	    <div class="scrollNews" >
+		    <ul>
+        <notempty name="todaydata">
+          <volist name="todaydata" id="today">
+			   <li>【{$today.create_time|date="Y-m-d H:i",###}】{$today.title}</li>
+          </volist>
+        </notempty>
+		    </ul>
+	    </div>
+   </div> -->
+</div>
+<!-- end left -->

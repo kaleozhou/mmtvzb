@@ -1,0 +1,83 @@
+<include file="Public:head_iframe" />
+<div id="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{:U('Index/welcome')}"><i class="fa fa-home"></i>&nbsp;&nbsp;首页</a></li>
+        <li><a href='{:U("membergroup",decode($linkcate_parameter))}'>会员组管理</a></li>
+        <li class="active">编辑会员组</li>
+        <div class="pull-right refresh"><a href="javascript:;" onclick="refresh()"><i class="fa fa-refresh fa-xl" title="点击刷新"></i> 刷新页面</a></div>
+    </ol>
+</div>
+<div class="wrapper wrapper-content col-sm-12 animated fadeInRight">
+    <form action="" method="post" id="myform" name="myform" onsubmit="return false" enctype="multipart/form-data">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 名称：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="name" name="name" value="{$data.name}" type="text" placeholder="请输入名称">
+                            <div class="help-block">例如：普通会员</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">图标：</div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="iconimg"><img src="__ROOT__{$data.icon}" alt="{$data.name}" style="max-height: 21px"></span>
+                                <select name="icon" class="form-control" id="icon">
+                                    <option value="__PUBLIC__/images/member/user1.gif" <eq name="data.icon" value="__PUBLIC__/images/member/user1.gif">selected="selected"</eq>>游客</option>
+                                    <option value="__PUBLIC__/images/member/user2.gif" <eq name="data.icon" value="__PUBLIC__/images/member/user2.gif">selected="selected"</eq>>会员</option>
+                                    <option value="__PUBLIC__/images/member/user3.gif" <eq name="data.icon" value="__PUBLIC__/images/member/user3.gif">selected="selected"</eq>>白银</option>
+                                    <option value="__PUBLIC__/images/member/user4.gif" <eq name="data.icon" value="__PUBLIC__/images/member/user4.gif">selected="selected"</eq>>黄金</option>
+                                    <option value="__PUBLIC__/images/member/user5.gif" <eq name="data.icon" value="__PUBLIC__/images/member/user5.gif">selected="selected"</eq>>紫金</option>
+                                    <option value="__PUBLIC__/images/member/user6.gif" <eq name="data.icon" value="__PUBLIC__/images/member/user6.gif">selected="selected"</eq>>铂金</option>
+                                    <option value="__PUBLIC__/images/member/user7.gif" <eq name="data.icon" value="__PUBLIC__/images/member/user7.gif">selected="selected"</eq>>至尊</option>
+                                    <option value="__PUBLIC__/images/member/user8.gif" <eq name="data.icon" value="__PUBLIC__/images/member/user8.gif">selected="selected"</eq>>主持人</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    <script type="text/javascript">
+                        $(function(){
+                            $('#icon').change(function(event) {
+                                $('#iconimg').find('img').attr({
+                                    src: $(this).val()
+                                });
+                            });
+                        })
+                    </script>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">描述：</div>
+                        </td>
+                        <td><textarea name="description" class="form-control" id="description" cols="30" rows="3" placeholder="请输入描述">{$data.description}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">状态：</div>
+                        </td>
+                        <td>
+                            <select name="status" class="form-control">
+                                <option value="1" <eq name="data.status" value="1">selected="selected"</eq>>开启</option>
+                                <option value="0" <eq name="data.status" value="0">selected="selected"</eq>>关闭</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="blank15"></div>
+        <button type="button" class="btn btn-w-m btn-success" onclick='submitForm("{:U("membergroupedit")}","#myform")'>
+            <i class="fa fa-check-square-o"></i> 提交
+        </button>
+        <button type="button" class="btn btn-w-m btn-primary" onclick="history.go(-1)">
+            <i class="fa fa-chevron-circle-left"></i> 返回
+        </button>
+        <input type="hidden" name="id" value="{$data.id}">
+        <input type="hidden" name="linkcate_parameter" value="{$linkcate_parameter}">
+    </form>
+</div>

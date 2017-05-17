@@ -1,0 +1,65 @@
+<div class="row border-bottom">
+    <nav class="navbar navbar-inverse">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#topmenuBar" aria-expanded="false">
+                <span class="sr-only">显示菜单</span>
+                <a class="btn btn-success" href="#"><i class="fa fa-bars"></i></a>
+            </button>
+            <h1 class="topbar-logo navbar-minimalize minimalize-styl-2 ">
+                <a class="btn btn-success" href="#"><i class="fa fa-bars"></i></a>
+            </h1>
+        </div>
+
+        <div class="collapse navbar-collapse" id="topmenuBar">
+            <ul class="nav navbar-nav">
+                <li><a class="on" href="{:U('Index/index')}">首页</a></li>
+                <volist name="menumain" id="menu" offset="0" length='8'>
+                    <li><a <eq name="menu.class" value="current">class="on"</eq> <if condition="!preg_match('/^(http|https):\/\//',$menu['url'])"> onclick="getMenu('{:U("Common/getMenusLeft")}',{$menu.id})" <else/>href='{$menu.url}' target="_blank"</if>>{$menu.name}</a></li>
+                </volist>
+                <if condition="count($menumain) gt 8">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">导航<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <volist name="menumain" id="menu" offset="8">
+                                <li><a <eq name="menu.class" value="current">class="on"</eq>  <if condition="!preg_match('/^(http|https):\/\//',$menu['url'])"> onclick="getMenu('{:U("Common/getMenusLeft")}',{$menu.id})" <else/>href='{$menu.url}' target="_blank"</if>>{$menu.name}</a></li>
+                            </volist>
+                        </ul>
+                    </li>
+                </if>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <notempty name="site">
+                    <li>
+                        <a href='{$site.url}' target="_blank"><i class="fa fa-home"></i> {$site.name}</a>
+                    </li>
+                </notempty>
+                <li>
+                    <a href='{:U("Login/loginout")}'><i class="fa fa-sign-out"></i> 退出</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    </div>
+    <div class="row content-tabs">
+    <button class="roll-nav roll-left J_tabLeft">
+        <i class="fa fa-backward"></i></button>
+    <nav class="page-tabs J_menuTabs">
+        <div class="page-tabs-content">
+            <a href="javascript:;" class="active J_menuTab" data-id="{:U('Index/welcome')}">首页</a>
+        </div>
+    </nav>
+    <button class="roll-nav roll-right J_tabRight">
+        <i class="fa fa-forward"></i>
+    </button>
+    <div class="btn-group roll-nav roll-right">
+        <button class="dropdown J_tabClose" data-toggle="dropdown">
+            关闭操作<span class="caret"></span>
+        </button>
+        <ul role="menu" class="dropdown-menu dropdown-menu-right">
+            <li class="J_tabShowActive"><a>定位当前选项卡</a></li>
+            <li class="divider"></li>
+            <li class="J_tabCloseAll"><a>关闭全部选项卡</a></li>
+            <li class="J_tabCloseOther"><a>关闭其他选项卡</a></li>
+        </ul>
+    </div>
+</div>

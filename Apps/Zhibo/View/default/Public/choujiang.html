@@ -1,0 +1,154 @@
+<script type="text/javascript">
+/**
+ * [cjcheck 验证]
+ * @return {[type]} [description]
+ */
+function cjcheck(){
+	$("#cjtel").css("display","block");
+}
+
+/**
+ * [telregcheck 抽奖]
+ * @return {[type]} [description]
+ */
+function telregcheck(){
+	var telephone = $("#cjphone").val();
+	var validate = $("#cjyan").val();
+
+	var isTelephone = /1[345678]{1}\d{9}$/.test(telephone);
+	if(!isTelephone){
+		layer.msg('手机号不正确！',{icon: 0});
+		$('#cjphone').focus();
+		return false;
+	} else if(validate == ''){
+		layer.msg('验证码必须填写！',{icon: 0});
+		$('#cjyan').focus();
+		return false;
+	} else {
+		$.ajax({
+			type:"POST",
+			url:"{:U('Luckcheck')}",
+			dataType:"json",
+			data:{tel:telephone,code:validate},
+			success:function(data){
+				if(data.status){
+					$("#cjphone").val("");
+					$("#cjyan").val("");
+					$("#cjtel").css("display","none");
+
+					//处理抽奖
+					$("#cjstartbtn").unbind('click').css("cursor","default");
+		            var a = data.angle; //角度
+		            var p = data.prize; //奖项
+		            $("#cjzhuanpan").rotate({
+		                duration:8000, //转动时间
+		                angle: 0,
+		                animateTo:3600+360-a, //转动角度
+		                easing: $.easing.easeOutSine,
+		                callback: function(){
+							layer.open({
+							    title:'恭喜你中奖啦！',
+							    content:data.info,
+							    yes:function(index){
+							        if(data.url){
+							            location.href = data.url;
+							        } else {
+							            layer.close(index);
+							        }
+							    },
+							    icon:6
+							});
+		                }
+		            });
+				} else {
+					layer.msg(data.info,{icon: 0});
+					return false;
+				}
+			}
+		});
+	}
+}
+
+/**
+ * [telsendyz 获取手机验证码]
+ * @param  {[type]} a [description]
+ * @return {[type]}   [description]
+ */
+function telsendyz(a){
+	if(a == "" || a == '请输入您的手机号码'){
+		layer.msg('请先输入手机号码！',{icon: 0});
+		$('#cjphone').focus();
+		return false;
+	}else{
+		$("#Checkyz").html("<div class='btxt3'>正在发送</div>");
+		$.ajax({
+	        type:"POST",
+	        dataType:"json",
+	        data:{mobile:a,source:'抽奖验证码'},
+	        url:"{:U('Common/getMessage')}",
+	        success:function(data){
+			    if(data.status){
+			   		$("#Checkyz").html("<div class='btxt3'>"+data.info+"</div>");
+			    } else {
+			    	layer.msg(data.info,{icon: 0});
+			    }
+	        }
+  		});
+	}
+}
+
+/**
+ * [cjshow 显示抽奖]
+ * @return {[type]} [description]
+ */
+function cjshow(){
+	$(".cjdesk").css("display","block");
+}
+
+/**
+ * [cjclose 隐藏抽奖]
+ * @return {[type]} [description]
+ */
+function cjclose(){
+	$(".cjdesk").css("display","none");
+}
+</script>
+<div id="luckdraw">
+	<div class="cjdesk" style="display: none" id="cjdeskId">
+		<script>$(function(){$("#cjstartbtn").click(function(){cjcheck();}); });</script>
+		<div id="cjclose" onclick="cjclose();"></div>
+		<div id="cjzhuanpan"></div>
+		<div id="cjstart"><img src="__IMG__/red/cjpoint.png" id="cjstartbtn"></div>
+		<div style="position:absolute;left:491px;top:100px;font-size:24px;font-weight:bold;font-family:'微软雅黑';color:#FFF;">中奖用户名单</div>
+		<div class="cjlist">
+			<div id="cjslide">
+				<div class="tempWrap" style="overflow:hidden; position:relative;">
+					<ul style="position: relative; padding: 0px; margin: 0px; ">
+						<volist name="luckdraws" id="luckdraw">
+							<li style="height: 30px;">{:hiddenemail($luckdraw['tel'],2,5)}&nbsp;&nbsp;&nbsp;{$luckdraw.lname}</li>
+						</volist>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<script>jQuery(".cjlist").slide({mainCell:"#cjslide ul",autoPlay:true,effect:"topMarquee",vis:10,interTime:50});</script>
+
+		<div id="cjtel" style="display:none;position: absolute; background: rgb(255, 255, 255); width: 314px; height: 187px; left: 463px; top: 221px; border-radius: 7px;">
+			<form name="form1" id="form1" action="" method="post">
+				<div style="position:absolute;left:34px;top:13px;font-size:16px;font-family:'微软雅黑';color:#F00;width:260px;text-align:center;">正确输入手机号后，方可抽奖！</div>
+				<div style="position:absolute;top:48px;left:50px;width:260px;height:35px;">
+					<input id="cjphone" name="cjphone" type="text" value="" style="width:200px;height:35px;border:1px solid #C0C0C0;background:#FFF;line-height:35px;padding:0px 10px;" placeholder="请输入您的手机号码">
+				</div>
+				<div style="position:absolute;top:100px;left:50px;width:80px;height:35px;">
+					<input id="cjyan" name="cjyan" type="text" value="" style="width:80px;height:35px;border:1px solid #C0C0C0;background:#FFF;line-height:35px;padding:0px 10px;" placeholder="验证码">
+				</div>
+				<div id="Checkyz" style="position:absolute;top:106px;left:170px;width:100px;height:35px;color:#F00;">
+					<a href="javascript:void(0)" onclick="javascript:telsendyz($('#cjphone').val())"><img src="__IMG__/red/cjyan.png" border="0"></a>
+				</div>
+				<div style="position:absolute;top:151px;left:50px;width:120px;height:40px;">
+					<a href="javascript:void(0)" onclick="javascript:telregcheck()"><img src="__IMG__/red/cjbu.png" border="0"></a>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

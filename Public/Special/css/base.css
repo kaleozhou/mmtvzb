@@ -1,0 +1,233 @@
+/* 
+* Author: [ Copy Lian ]
+* Date: [ 2015.05.14 ]
+* Description [ 基础css ]
+*/
+.clear{
+    clear: both;
+    overflow: hidden;
+    font-size:0;
+    line-height: 0;
+}
+
+.blank5{
+    height: 5px;
+    font-size: 0;
+    line-height: 0;
+    overflow: hidden;
+}
+
+.blank10{
+    height: 10px;
+    font-size: 0;
+    line-height: 0;
+    overflow: hidden;
+}
+
+.blank15{
+    height: 15px;
+    font-size: 0;
+    line-height: 0;
+    overflow: hidden;
+}
+
+.blank20{
+    height: 20px;
+    font-size: 0;
+    line-height: 0;
+    overflow: hidden;
+}
+
+.blank25{
+    height: 25px;
+    font-size: 0;
+    line-height: 0;
+    overflow: hidden;
+}
+
+.blank30{
+    height: 30px;
+    font-size: 0;
+    line-height: 0;
+    overflow: hidden;
+}
+
+/* login_layer */
+
+#login_layer{
+    padding:20px;
+    min-width: 300px
+}
+
+/* end login_layer */
+
+.require-red{
+    color:red;
+    padding:0px 5px 0px 0;
+    vertical-align:middle
+}
+
+.label{
+    color:#000
+}
+
+.label span{
+    vertical-align: middle;
+    padding: 0 5px;
+    margin-top: -5px;
+    position: relative;
+    display: inline-block;
+}
+
+/* formguide */
+
+.layer-images-demo{
+    margin:10px 0;
+}
+
+.layer-images-demo img{
+    /*width: 180px;*/
+    border-radius: 5px;
+    /*height: 120px*/
+}
+
+.layer-images-demo .images_list{
+    float: left;
+    /*width: 180px;*/
+    /*height: 200px;*/
+    overflow: hidden;
+    position: relative;
+    margin: 6px;
+}
+
+.layer-images-demo .images_name input{
+    margin-top:5px;
+    width: 180px;
+    text-align: center;
+}
+
+.layer-images-demo .images_sort input{
+    margin-top:5px;
+    width: 180px;
+    text-align: center;
+}
+
+.layer-images-demo  .images_list:hover .imgdel{
+    background: url(/Public/images/uploadfile/icons.png) no-repeat right top;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right:10px;
+    top: 10px;
+    cursor: pointer;
+}
+
+.layer-files-demo{
+    margin:10px 0;
+}
+
+.layer-files-demo img{
+    border-radius: 5px;
+    height: 120px;
+}
+
+.layer-files-demo .images_list img{
+    width: 180px;
+    border-radius: 5px;
+    height: 120px
+}
+
+.layer-files-demo .files_list,.layer-files-demo .images_list{
+    float: left;
+    /*width: 180px;
+    height: 200px;*/
+    overflow: hidden;
+    margin: 6px;
+    text-align: center;
+    position: relative;
+}
+
+.layer-files-demo  .images_list:hover .imgdel{
+    background: url(/Public/images/uploadfile/icons.png) no-repeat right top;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right:10px;
+    top: 10px;
+    cursor: pointer;
+}
+
+.layer-files-demo  .files_list:hover .filesdel{
+    background: url(/Public/images/uploadfile/icons.png) no-repeat right top;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right:10px;
+    top: 10px;
+    cursor: pointer;
+}
+
+.layer-files-demo .files_name input,.layer-files-demo .images_name input{
+    width: 170px;
+    text-align: center;
+}
+
+.layer-files-demo .files_sort input,.layer-files-demo .images_sort input{
+    width: 170px;
+    text-align: center;
+}
+
+span.imgupload{
+    cursor: pointer;
+    background: url(../images/image.png) no-repeat;
+    display: inline-block;
+    width: 90px;
+    height: 80px;
+}
+
+span.imgupload input[type="file"]{
+    opacity: 0;
+    width: 90px;
+    height: 80px;
+    cursor: pointer;
+}
+
+.layer-images-demo .images_single_list{
+    max-width:200px;
+    max-height: 180px;
+    margin-right:10px;
+    height:auto
+}
+
+.layer-images-demo img,.layer-images-demo .images_single_list img{
+    max-width:200px;
+    max-height: 180px;
+    border-radius:5px;
+}
+
+.layer-fiels-demo .files_single_list{
+    max-width:200px;
+    max-height: 180px;
+    margin-right:10px;
+    height:auto
+}
+
+.layer-files-demo img,.layer-files-demo .files_single_list img{
+    max-width:200px;
+    max-height: 180px;
+    width:auto;
+    border-radius:5px;
+}
+/* end formguide */
+
+.green{
+    color:green;
+}
+
+.red{
+    color:red;
+}
+
+.f60{
+    color:#f60;
+}

@@ -1,0 +1,65 @@
+<include file="Public:head_iframe" />
+<div id="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{:U('Index/welcome')}"><i class="fa fa-home"></i>&nbsp;&nbsp;首页</a></li>
+        <li><a href='{:U("index",decode($parameter))}'>充值商品</a></li>
+        <li class="active">新增商品</li>
+        <div class="pull-right refresh"><a href="javascript:;" onclick="refresh()"><i class="fa fa-refresh fa-xl" title="点击刷新"></i> 刷新页面</a></div>
+    </ol>
+</div>
+<div class="wrapper wrapper-content col-sm-12 animated fadeInRight">
+    <form action="" method="post" id="myform" name="myform" onsubmit="return false">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 金额：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="money" name="money" value="1" min="1" type="number" step="10" placeholder="请输入金额">
+                            <div class="help-block">例如：10，单位：元</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 喵币数量：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="dhmoney" name="dhmoney" value="10" min="1" type="number" step="10"  placeholder="请输入喵币数量" min='1'>
+                            <div class="help-block">以上金额兑换的喵币数量</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">说明：</div>
+                        </td>
+                        <td>
+                            <textarea class="form-control" id="description" name="description" cols="30" rows="3" placeholder="请输入说明"></textarea>
+                            <div class="help-block">例如：1元人民币兑换100个喵币</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"> 状态：</div>
+                        </td>
+                        <td>
+                            <select name="status" class="form-control">
+                                <option value="1" selected="selected">开启</option>
+                                <option value="0">关闭</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="blank15"></div>
+        <button type="button" class="btn btn-w-m btn-success" onclick='submitForm("{:U("add")}","#myform")'>
+            <i class="fa fa-check-square-o"></i> 提交
+        </button>
+        <button type="button" class="btn btn-w-m btn-primary" onclick="history.go(-1)">
+            <i class="fa fa-chevron-circle-left"></i> 返回
+        </button>
+        <input type="hidden" name="parameter" value="{$parameter}">
+    </form>
+</div>

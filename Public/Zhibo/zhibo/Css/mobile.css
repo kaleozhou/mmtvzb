@@ -1,0 +1,87 @@
+.mzhibovideo{width:100%;position:relative;;}
+.mzhibovideomain{width:100%;height:240px; #000;}
+.mzhibovideofoot{width:100%;color:#eee;text-align:center;background:#785438;height:28px;line-height:30px;}
+.mzhibonews{width:100%;position:relative;overflow:hidden;}
+.mzhibonews .hd ul{height:30px;}
+.mzhibonews .hd ul li{float:left;width:25%;/* height:30px; */border-bottom:1px solid #FC0;font-family:'微软雅黑';color:#FFF;text-align:center;line-height:30px;cursor:pointer;}
+.mzhibonews .hd ul .kefu{float:left;width:25%;height:30px;border-bottom:1px solid #FC0;font-family:'微软雅黑';color:#FFF;text-align:center;line-height:30px;cursor:pointer;}
+.mzhibonews .hd ul li.on{float:left;/* border-bottom:1px solid #C00; */}
+.mzhibonews .bd ul li{width:100%;height:100%;overflow-y:auto;overflow-x:hidden;}
+.mzhibonews .mjj{padding:10px;}
+.mzhibonews .mjj p{font-size:14px;font-family:'微软雅黑';color:#FFF;line-height:30px;text-align:justify;text-justify:inter-ideograph;}
+
+.mzhibonews .scroll-wrapper { -webkit-overflow-scrolling: touch; overflow: hidden;}
+.mzhibonews .scroll-wrapper iframe {width:100%;height:100%;}
+.send_input_text{display: inline-block;border:1px solid #f0ad4e;width:100%  !important;border-radius:3px;height:35px;margin:7px 0 0 0px;color:#fff;line-height:35px;}
+#login_Reg{
+    // background-color: #52b0e1;
+    position: relative;
+}
+#loginFace{
+   /*  position: absolute;
+   top:30px;
+   display: block; */
+}
+#loginFace label{
+    color: white;
+}
+#loginFace #login_title{
+    font-size: 16px;
+    line-height: 28px;
+    color: #fff;
+    font-weight: bold;
+}
+#toReg{
+    font-size: 16px;
+    text-decoration: underline;
+    color: #555555;
+}
+#toReg:hover{
+    color: white;
+}
+#regFace{
+    /* position: absolute;
+    top:30px;
+    display: none; */
+}
+
+#regFace label{
+    color: white;
+}
+
+input#loginname{
+    color: #555;
+}
+
+.layui-m-layer-msg .layui-m-layercont{
+    color:#fff;
+}
+
+#ucenter label{
+    color: white;
+}
+
+.mzhibonews .lianxiwom .mjj p{
+    text-align: center;
+}
+
+
+.mCSB_scrollTools{
+    width: 6px;
+}
+
+.mCSB_inside > .mCSB_container{
+    margin-right: 15px;
+}
+
+.main_right_nav ul li{
+    width: 90px;
+}
+
+.main_right_nav{
+    margin-top: 0;
+}
+
+.main_right_nav ul li span.on{
+    color: #f0ad4e;
+}

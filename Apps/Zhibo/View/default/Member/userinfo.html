@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="renderer" content="webkit">
+  <meta name="author" content="CopyLian">
+  <title>用户资料</title>
+  <meta name="keywords" content="用户资料" />
+  <meta name="description" content="用户资料" />
+  <include file="Public:memberhead" />
+</head>
+
+<body>
+<div class="blank15"></div>
+<div class="container" style="width: 100%">
+<form action="" method="post" id="myform" name="myform" onsubmit="return false" enctype="multipart/form-data">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">用户名：</div>
+                        </td>
+                        <td>
+                            {$data.username}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">会员组：</div>
+                        </td>
+                        <td>
+                            <img src="__ROOT__{$data.membergroup.icon}" alt="{$data.membergroup.name}" title="{$data.membergroup.name}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">手机：</div>
+                        </td>
+                        <td>
+                            {$data.mobile}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">喵喵币：</div>
+                        </td>
+                        <td>
+                            {$data.money}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 密码：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="password" name="password" value="" type="password" placeholder="请输入密码">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 确认密码：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="ckpassword" name="ckpassword" value="" type="password" placeholder="请输入确认密码">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">头像：</div>
+                        </td>
+                        <td>
+                            <include file="Uploadfile:fileedit" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">邮件：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="email" name="email" value="{$data.email}" type="email" placeholder="请输入邮件">
+                        </td>
+                    </tr>
+                    <script type="text/javascript" src="__JQUERY__/layer/extendplugin/laydate/laydate.js"></script>
+                    <script type="text/javascript">
+                        $(function(){
+                            var start = {
+                                elem: '#birthday',
+                                format: 'YYYY/MM/DD hh:mm:ss',
+                                //min: laydate.now(), //设定最小日期为当前日期
+                                max: '2099-06-16 23:59:59', //最大日期
+                                istime: true,
+                                //istoday: true,
+                                choose: function(datas){
+                                    //end.min = datas; //开始日选好后，重置结束日的最小日期
+                                    //end.start = datas //将结束日的初始值设定为开始日
+                                }
+                            };
+                            laydate(start);
+                        });
+                    </script>
+                    <style type='text/css'>
+                        .laydate-icon{
+                            height: 34px;
+                        }
+                    </style>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">生日：</div>
+                        </td>
+                        <td>
+                            <notempty name="data.birthday">
+                                <input class="laydate-icon form-control" id="birthday" name="birthday" value="{$data.birthday|date='Y/m/d H:i:s',###}" type="text" placeholder="请输入生日">
+                             <else />
+                                <input class="laydate-icon form-control" id="birthday" name="birthday" value="{$data.birthday}" type="text" placeholder="请输入生日">
+                            </notempty>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">Q Q：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="qq" name="qq" value="{$data.qq}" type="text" placeholder="请输入Q Q">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">性别：</div>
+                        </td>
+                        <td>
+                            <select name="sex" class="form-control">
+                                <option value="0" <eq name="data.sex" value="0">selected="selected"</eq>>保密</option>
+                                <option value="1" <eq name="data.sex" value="1">selected="selected"</eq>>男</option>
+                                <option value="2" <eq name="data.sex" value="2">selected="selected"</eq>>女</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <button type="button" class="btn btn-w-m btn-success" onclick='submitForm("{:U("userinfo")}","#myform")'>
+            <i class="fa fa-check-square-o"></i> 提交
+        </button>
+        <input type="hidden" name="id" value="{$data.id}">
+    </form>
+</div>
+</body>
+</html>

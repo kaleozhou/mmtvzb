@@ -1,0 +1,209 @@
+<!--客服-->
+<div class="yicefin_float_right">
+	<div class="yicefin_float_right1">
+		<img src="__ZHIBO__/Images/right_kefu.png" width="36" height="124" />
+	</div>
+	<!-- <div class="yicefin_float_right2">
+		<a href="javascript:void(0)"><img src="__ZHIBO__/Images/right_close.png" width="8" height="7" /></a>
+	</div> -->
+	<div class="yicefin_float_right3" style="display: none;">
+		<ul>
+			<li><a href="{:C('CONTENT_LIVE_URL')}" target="_blank" rel="nofollow">行情策略</a></li>
+			<li><a href="{:C('CONTENT_LIVE_URL')}" target="_blank" rel="nofollow">在线咨询</a></li>
+			<li><a href="{:C('CONTENT_LIVE_URL')}" target="_blank" rel="nofollow">会员注册</a></li>
+			<li><a href="{:C('CONTENT_LIVE_URL')}" target="_blank" rel="nofollow">一对一服务</a></li>
+			<li><a href="{:C('CONTENT_LIVE_URL')}" target="_blank" rel="nofollow">波段布局</a></li>
+		</ul>
+	</div>
+</div>
+<!--end 客服-->
+{:htmlspecialchars_decode(C('BASE_EXT_JS'))}
+<!--送礼物弹幕-->
+<div class="dm">
+	<div class="d_screen">
+		<div class="d_show">
+		</div>
+	</div>
+</div>
+<style>
+/*d_screen start*/
+ .dm{width:100%;height: auto;position:absolute;top:0;left:0;display:block;z-index: 100000000000}
+ .dm .d_screen .d_show{position: relative;z-index:2;}
+ .dm .d_screen .d_show div{font-size:22px;line-height:36px;width: 100%;font-weight:500;color:#fff;position:absolute;left:0;top:0;}
+  /*end d_scree*/
+</style>
+<script type="text/javascript">
+function init_screen(){
+	var _top = 50;
+	$(".d_show").find("div").show().each(function(){
+		var _left = $(window).width();
+		var _height = $(window).height();
+
+		_top = _top+76;
+		if(_top >= _height - 100){
+			_top = 0;
+		}
+
+		$(this).css({left:_left,top:_top,color:getReandomColor()});
+		var time = 30000;
+		if($(this).index() % 2 == 0){
+			time = 30000;
+		}
+		$(this).animate({left:"-"+_left+"px"},time,function(){
+			$(this).remove();
+		});
+	});
+}
+
+//随机获取颜色值
+function getReandomColor(){
+	/*return '#'+(function(h){
+		return new Array(7-h.length).join("0")+h
+	})((Math.random()*0x1000000<<0).toString(16));*/
+	return "#fff";
+}
+</script>
+<!--end 送礼物弹幕-->
+<!--红包雨-->
+<script type="text/javascript">
+
+/**
+ * [checkHongbaoTime 验证红包雨时间]
+ * @return {[type]} [description]
+ */
+function checkHongbaoTime(){
+	$.ajax({
+        type:"POST",
+        dataType:"json",
+        url:'{:U("Common/checkHongbaoTime")}',
+        success:function(data){
+		 	if(data.status){
+		 		$('#hongbaorain').show();
+		 	} else {
+		 		$('#hongbaorain').hide();
+		 	}
+        }
+  });
+}
+$(function(){
+	setInterval(checkHongbaoTime,5000);
+});
+</script>
+<div id="hongbaorain" style="display: none">
+	<link rel="stylesheet" href="__ZHIBO__/hongbao/css/rain.css" />
+	<script>
+	/**
+	 * [shuffle 数组随机]
+	 * @param  {[type]} v [description]
+	 * @return {[type]}   [description]
+	 */
+	function shuffle(v){ 
+		for(var j, x, i = v.length; i; j = parseInt(Math.random() * i), x = v[--i], v[i] = v[j], v[j] = x); 
+		return v; 
+	};
+
+	function hongbao(){
+		//设置钱包金额数组
+		var moneyArr = [];
+		for (var i = 0; i <= 20; i++) {
+			moneyArr[i] = 0;
+		}
+		moneyArr.push(1000,500,200,100,50);
+		moneyArr = shuffle(moneyArr);
+
+		for(var i=0;i<4;i++){
+			var m=parseInt(Math.random()*700+100);
+			var j2=parseInt(Math.random()*300+1200);
+			var j=parseInt(Math.random()*1600+000);
+			var j1=parseInt(Math.random()*300+300);
+			var n=parseInt(Math.random()*10+(-10));
+			$('.hongbao').prepend('<div class="hongbaodd" data-money="'+moneyArr[i]+'"></div>');
+			$('.hongbao').children('div').eq(0).css({'left':j,'top':n-100});
+			//$('.hongbao').children('div').eq(0).animate({'left':j-j1,'top':$(window).height()+20},5000);
+			$('.hongbao').children('div').eq(0).animate({'top':$(window).height()+20},8000);
+		}
+	}
+
+	$(function(){
+		var Timerr = setInterval(hongbao,1000);
+		var removepackage = setInterval(function(){
+			for(var jj=0;jj<$('.hongbao>div').size()/10;jj++){
+				$('.hongbao>div').eq($('.hongbao>div').size()-jj).remove();
+			}
+		},1000);
+		//点击红包
+		$(document).on('click', '.hongbaodd', function(){
+			var dataMoney = $(this).attr('data-money');
+			var hongbobj = $(this);
+			//验证是否登录，如果未登录，提示登录
+			$.ajax({
+				url: '{:U("Common/checkLogin")}',
+				type: 'POST',
+				dataType: 'json',
+				success:function(data){
+					if(data.status == -1){
+						$("#toLogin").find('a').trigger('click');
+					} else {
+						hongbobj.css("background-position","0 -100px");
+						if(dataMoney != 0){
+							$(".chuai_box").show();
+							$(".chuai_box").find('.chuai').attr({'data-money':dataMoney});
+							//clearInterval(Timerr,20);
+						}
+					}
+				}
+			});
+		});
+
+		//拆红包
+		$(".chuai_box").find('.chuai').click(function(){
+			$.ajax({
+				url: '{:U("Common/hongbao")}',
+				type: 'POST',
+				dataType: 'json',
+				data:{hongbao:$(this).attr('data-money')},
+				success:function(data){
+					if(data.status){
+						layer.alert(data.info,{icon: 6},function(index){
+							$(".chuai_box").hide();
+							$("#hongbaorain").hide();
+							layer.close(index);
+						});
+					} else {
+						layer.msg(data.info,{icon: 0},function(){
+							$(".chuai_box").hide();
+							$("#hongbaorain").hide();
+						});
+					}
+				}
+			});
+		});
+
+		//关闭红包雨
+		$("#closehongbao").click(function(event) {
+			$(".chuai_box").hide();
+			$("#hongbaorain").hide();
+			$.ajax({
+				url: '{:U("Common/hongbaomemberid")}',
+				type: 'POST',
+				dataType: 'json',
+				data:{uid:<if condition="session('memberid')">{:session('memberid')}<else/>{:session('guestid')}</if>},
+				success:function(data){
+					
+				}
+			});
+		});
+	});
+	</script>
+	<div class="page_rain">
+		<div id="closehongbao"><img src="__ZHIBO__/Images/close.png" alt=""></div>
+		<div class="hongbao bg_2"></div>
+		<div class="chuai_box" style="display: none;">
+			<div class="chuai" data-money="0">
+				<p>顶点财经直播间红包</p>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

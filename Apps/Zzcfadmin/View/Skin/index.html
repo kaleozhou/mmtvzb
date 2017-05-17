@@ -1,0 +1,60 @@
+<include file="Public:head_iframe" />
+<div id="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{:U('Index/welcome')}"><i class="fa fa-home"></i>&nbsp;&nbsp;首页</a></li>
+        <li class="active">直播室皮肤</li>
+        <div class="pull-right refresh"><a href="javascript:;" onclick="refresh()"><i class="fa fa-refresh fa-xl" title="点击刷新"></i> 刷新页面</a></div>
+    </ol>
+</div>
+<div class="wrapper wrapper-content col-sm-12 animated fadeInRight">
+    <form action="" method="post" id="myform" name="myform" onsubmit="return false">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">上传皮肤：</div>
+                        </td>
+                        <td>
+                            <include file="Uploadfile:fileadd" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="blank15"></div>
+        <button type="button" class="btn btn-w-m btn-success" onclick='submitForm("{:U("index")}","#myform")'>
+            <i class="fa fa-check-square-o"></i> 提交
+        </button>
+        <button type="button" class="btn btn-w-m btn-primary" onclick="history.go(-1)">
+            <i class="fa fa-chevron-circle-left"></i> 返回
+        </button>
+    </form>
+    <div class="blank15"></div>
+    <div class="help-block">点击选择背景图片：</div>
+    <div class="blank15"></div>
+    <div class="row" style="margin:0">
+        <volist name="data" id="datalist">
+            <div class="col-sm-2 text-center selectedBg" style="border: 1px solid #ccc;">
+                <img src="__ROOT__{$datalist['thumb'][0]['thumb']}" width="100" <if condition="$datalist['status'] eq 0">onclick="selectedBg({$datalist.id})"</if>>
+                <if condition="$datalist['status'] eq 1">
+                    <img src="__IMG__/seldesk.png" alt="选中" style="position: absolute;top: 20px;left: 39%;">
+                </if>
+                <div class="blank15"></div>
+                <if condition='authCheck(MODULE_NAME."/".CONTROLLER_NAME."/del",session("uid")) eq 1'>
+                    <a class="btn btn-primary btn-sm" href="javascript:;" onclick="del('{:U('del')}',{$datalist.id})"><i class="fa fa-remove"></i> 删除</a>
+                </if>
+            </div>
+        </volist>
+    </div>
+</div>
+<script type="text/javascript">
+    /**
+     * [selectedBg 选择背景]
+     * @param  {[type]} id [description]
+     * @return {[type]}    [description]
+     */
+    function selectedBg(id) {
+        postUrl("{:U('setStatus')}",id);
+    }
+</script>

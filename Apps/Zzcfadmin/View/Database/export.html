@@ -1,0 +1,93 @@
+<include file="Public:head_iframe" />
+<div id="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{:U('Index/welcome')}"><i class="fa fa-home"></i>&nbsp;&nbsp;首页</a></li>
+        <li class="active">数据库备份</li>
+        <div class="pull-right refresh"><a href="javascript:;" onclick="refresh()"><i class="fa fa-refresh fa-xl" title="点击刷新"></i> 刷新页面</a></div>
+    </ol>
+</div>
+<div class="wrapper wrapper-content col-sm-12 animated fadeInRight">
+    <form name="myform" id="myform" method="post">
+        <div class="tabs-container">
+            <div class="btn-group">
+                <if condition='authCheck(MODULE_NAME."/".CONTROLLER_NAME."/exportsql",session("uid")) eq 1'>
+                    <a href='javascript:;' onclick="optimize_repaire('{:U('exportsql')}')" class="btn btn-success"><i class="fa fa-save"></i> 立即备份</a>
+                </if>
+                <if condition='authCheck(MODULE_NAME."/".CONTROLLER_NAME."/optimize",session("uid")) eq 1'>
+                    <a id="batchDel" href="javascript:void(0)" onclick="optimize_repaire('{:U('optimize')}')" class="btn btn-primary"><i class="fa fa-repeat"></i> 优化表</a>
+                </if>
+                <if condition='authCheck(MODULE_NAME."/".CONTROLLER_NAME."/repair",session("uid")) eq 1'>
+                    <a id="updateOrd" href="javascript:void(0)" onclick="optimize_repaire('{:U('repair')}')" class="btn btn-danger"><i class="fa fa-wrench"></i> 修复表</a>
+                </if>
+            </div>
+            <div class="blank10"></div>
+            <div class="tab-content">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="tb_checkbox">
+                                    <input type="checkbox" class="i-checks selectAll_ids_list">
+                                </th>
+                                <th>表名</th>
+                                <th>数据量</th>
+                                <th>数据大小</th>
+                                <th>描述</th>
+                                <th>引擎类型</th>
+                                <th>创建时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <volist name="data" id="datalist">
+                                <tr>
+                                    <td>
+                                       <input type="checkbox" class="i-checks select_ids" name="tables[]" value="{$datalist.name}">
+                                    </td>
+                                    <td>{$datalist.name}</td>
+                                    <td>{$datalist.rows}</td>
+                                    <td>{$datalist.data_length|format_bytes}</td>
+                                    <td>{$datalist.comment}</td>
+                                    <td>{$datalist.engine}</td>
+                                    <td>{$datalist.create_time}</td>
+                                    <td>
+                                        <if condition='authCheck(MODULE_NAME."/".CONTROLLER_NAME."/optimize",session("uid")) eq 1'>
+                                            <a href="javascript:;"  onclick="postUrl('{:U('optimize')}','{$datalist.name}')" class="btn btn-success btn-sm"><i class="fa fa-repeat"></i> 优化表</a>
+                                        </if>
+                                        <if condition='authCheck(MODULE_NAME."/".CONTROLLER_NAME."/repair",session("uid")) eq 1'>
+                                            <a href="javascript:;" onclick="postUrl('{:U('repair')}','{$datalist.name}')" class="btn btn-primary btn-sm"><i class="fa fa-wrench"></i> 修复表</a>
+                                        </if>
+                                    </td>
+                                </tr>
+                            </volist>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+/**
+ * [optimize_repaire 批量修复优化表]
+ * @param  {[string]} url [处理数据的url地址]
+ * @return {[json]}       [返回json格式]
+ */
+function optimize_repaire(url){
+    var tables = [];
+    $(".select_ids:checked").each(function(index, el) {
+        tables.push($(this).val());
+    });
+    if(tables.length == 0){
+        parent.layer.open({
+            content:'请选择要操作的数据！',
+            yes:function(index){
+                parent.layer.close(index);
+            },
+            icon:2
+        });
+        return false;
+    }
+    postUrl(url,tables);
+}
+</script>

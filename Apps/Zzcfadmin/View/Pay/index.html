@@ -1,0 +1,174 @@
+<include file="Public:head_iframe" />
+<div id="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{:U('Index/welcome')}"><i class="fa fa-home"></i>&nbsp;&nbsp;首页</a></li>
+        <li class="active">支付接口</li>
+        <div class="pull-right refresh"><a href="javascript:;" onclick="refresh()"><i class="fa fa-refresh fa-xl" title="点击刷新"></i> 刷新页面</a></div>
+    </ol>
+</div>
+<div class="wrapper wrapper-content col-sm-12 animated fadeInRight">
+    <form name="myform" id="myform" method="post">
+        <div class="tabs-container">
+            <div class="btn-group">
+                <if condition='authCheck(MODULE_NAME."/".CONTROLLER_NAME."/sort",session("uid")) eq 1'>
+                    <a href="javascript:void(0)" onclick="sort('{:U('sort')}')" class="btn btn-danger"><i class="fa fa-sort"></i> 更新排序</a>
+                </if>
+            </div>
+            <div class="blank10"></div>
+            <div class="tab-content">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="tb_checkbox">
+                                    <input type="checkbox" class="i-checks selectAll_ids_list">
+                                </th>
+                                <th class="tb_sort text-center">排序</th>
+                                <th>ID</th>
+                                <th>名称</th>
+                                <th>唯一类型名称</th>
+                                <th>logo</th>
+                                <th>状态</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <volist name="datas" id="datalist">
+                                <tr>
+                                    <td>
+                                       <input type="checkbox" class="i-checks select_ids" name="ids[]" value="{$datalist.id}">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control text-center sort" dataId="{$datalist.id}" name="sort[]" value="{$datalist.sort}">
+                                    </td>
+                                    <td>{$datalist.id}</td>
+                                    <td>{$datalist.payname}</td>
+                                    <td>{$datalist.typename}</td>
+                                    <td>
+                                        <notempty name="datalist.thumb" value="">
+                                            <div data-toggle="popover" data-trigger="hover" data-html="true" data-container="body" data-placement="left" title="logo" data-content="<img src='__ROOT__{$datalist[thumb][0][photo]}' width='150' />"><img src="__ROOT__{$datalist[thumb][0][thumb]}" height="30"/></div>
+                                        </notempty>
+                                    </td>
+                                    <td>
+                                        <eq name="datalist.status" value="1">
+                                            <i class="fa fa-check text-navy" title="开启"></i>
+                                        <else />
+                                            <i class="fa fa-remove" title="关闭"></i>
+                                        </eq>
+                                    </td>
+                                    <td>
+                                        <if condition='authCheck(MODULE_NAME."/".CONTROLLER_NAME."/set",session("uid")) eq 1'>
+                                            <a class="btn btn-success btn-sm" href='javascript:;' onclick="dialogContent('#{$datalist.typename}','{$datalist.typename} 配置','80%','auto')">配置</a>
+                                        </if>
+                                    </td>
+                                </tr>
+                            </volist>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+    <if condition='authCheck(MODULE_NAME."/".CONTROLLER_NAME."/setConfig",session("uid")) eq 1'>
+        <div class="blank15"></div>
+        <button type="button" class="btn btn-w-m btn-success" onclick='submitForm("{:U("setConfig")}","#myform")'>
+            <i class="fa fa-check-square-o"></i> 生成配置
+        </button>
+        <div class="help-block inline">（配置完接口后请生成配置文件，否则无法使用正常使用）</div>
+    </if>
+</div>
+<!--支付宝-->
+<volist name="datas" id="data">
+<if condition="strtolower($data['typename']) eq 'alipay'">
+<div id="Alipay" style='display:none;padding: 10px'>
+    <form action="" id="AlipayForm" onsubmit="return false">
+        <div class="form-group">
+            <label for="payname1" class="new_label"><i class="fa fa-info-circle required_icon"></i> 名称：</label>
+            <input class="form-control" id="payname1" name="payname" value="{$data.payname}" type="text" placeholder="请输入名称">
+        </div>
+        <div class="form-group">
+            <label for="accout1" class="new_label">帐户：</label>
+            <input class="form-control" id="accout1" name="config[accout]" value="{$data.configs.accout}" placeholder="支付宝账户"  type="text">
+        </div>
+        <div class="form-group">
+            <label for="key1" class="new_label">key：</label>
+            <input class="form-control" id="key1" name="config[key]" value="{$data.configs.key}" placeholder="交易安全校验码" type="text">
+        </div>
+        <div class="form-group">
+            <label for="parterid1" class="new_label">parterID：</label>
+            <input class="form-control" id="parterid1" name="config[parterid]" value="{$data.configs.parterid}" placeholder="合作者身份" type="text">
+        </div>
+        <div class="form-group">
+            <label for="parterid1" class="new_label">logo：</label>
+            <include file="fileedit" />
+        </div>
+        <div class="form-group">
+            <label for="description1" class="new_label">描述：</label>
+            <textarea name="description" id="description1" class="form-control" cols="30"  rows="3" placeholder="请输入描述">{$data.description}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="status1" class="new_label">状态：</label>
+            <select name="status" id="status1" class="form-control">
+                <option value="1" <eq name="data.status" value="1">selected="selected"</eq>>开启</option>
+                <option value="0" <eq name="data.status" value="0">selected="selected"</eq>>关闭</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <input class="btn btn-success" value="提交" type="submit" onclick='submitForm("{:U("set")}","#AlipayForm")'>
+        </div>
+        <input type="hidden" name="id" value="{$data.id}">
+    </form>
+</div>
+</if>
+</volist>
+<!--end 支付宝-->
+
+<!--微信支付-->
+<volist name="datas" id="data">
+<if condition="strtolower($data['typename']) eq 'wxpay'">
+<div id="Wxpay" style='display:none;padding: 10px'>
+    <form action="" id="wxpayForm" onsubmit="return false">
+        <div class="form-group">
+            <label for="payname2" class="new_label"><i class="fa fa-info-circle required_icon"></i> 名称：</label>
+            <input class="form-control" id="payname2" name="payname" value="{$data.payname}" type="text" placeholder="请输入名称">
+        </div>
+        <div class="form-group">
+            <label for="appid" class="new_label">唯一标识（APPID）：</label>
+            <input class="form-control" id="appid" name="config[appid]" value="{$data.configs.appid}" placeholder="微信公众号身份的唯一标识"  type="text">
+        </div>
+        <div class="form-group">
+            <label for="mchid" class="new_label">受理商ID（MCHID）：</label>
+            <input class="form-control" id="mchid" name="config[mchid]" value="{$data.configs.mchid}" placeholder="受理商ID，身份标识"  type="text">
+        </div>
+        <div class="form-group">
+            <label for="key2" class="new_label">支付密钥（Key）：</label>
+            <input class="form-control" id="key2" name="config[key]" value="{$data.configs.key}" placeholder="商户支付密钥Key" type="text">
+        </div>
+        <div class="form-group">
+            <label for="appsecret" class="new_label">JSAPI接口中获取openid（APPSECRET）：</label>
+            <input class="form-control" id="appsecret" name="config[appsecret]" value="{$data.configs.appsecret}" placeholder="JSAPI接口中获取openid" type="text">
+        </div>
+        <div class="form-group">
+            <label for="parterid1" class="new_label">logo：</label>
+            <include file="fileedit" />
+        </div>
+        <div class="form-group">
+            <label for="description2" class="new_label">描述：</label>
+            <textarea name="description" id="description2" class="form-control" cols="52"  rows="3" placeholder="请输入描述">{$data.description}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="status2" class="new_label">状态：</label>
+            <select name="status" id="status2" class="form-control">
+                <option value="1" <eq name="data.status" value="1">selected="selected"</eq>>开启</option>
+                <option value="0" <eq name="data.status" value="0">selected="selected"</eq>>关闭</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <input class="btn btn-success" value="提交" type="submit" onclick='submitForm("{:U("set")}","#wxpayForm")'>
+        </div>
+        <input type="hidden" name="id" value="{$data.id}">
+    </form>
+</div>
+</if>
+</volist>
+<!--end 微信支付-->

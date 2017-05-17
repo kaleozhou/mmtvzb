@@ -1,0 +1,90 @@
+<include file="Public:head_iframe" />
+<div id="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{:U('Index/welcome')}"><i class="fa fa-home"></i>&nbsp;&nbsp;首页</a></li>
+        <li><a href='{:U("index",decode($parameter))}'>老师战队</a></li>
+        <li class="active">编辑老师</li>
+        <div class="pull-right refresh"><a href="javascript:;" onclick="refresh()"><i class="fa fa-refresh fa-xl" title="点击刷新"></i> 刷新页面</a></div>
+    </ol>
+</div>
+<div class="wrapper wrapper-content col-sm-12 animated fadeInRight">
+    <form action="" method="post" id="myform" name="myform" onsubmit="return false">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 名字：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="name" name="name" value="{$data.name}" type="text" placeholder="请输入老师名字">
+                             <div class="help-block">例如：杨老师</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i>头像：</div>
+                        </td>
+                        <td>
+                            <include file="Uploadfile:fileedit" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 格言：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="motto" name="motto" value="{$data.motto}" type="text" placeholder="请输入格言">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 盈利点数：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="profit" name="profit" value="{$data.profit}" type="text" placeholder="请输入盈利点数">
+                            <div class="help-block">例如：92</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 战队名称：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="team_name" name="team_name" value="{$data.team_name}" type="text" placeholder="请输入战队名称">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 跳转地址：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="jump_url" name="jump_url" value="{$data.jump_url}" type="text" placeholder="请输入跳转地址">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">状态：</div>
+                        </td>
+                        <td>
+                             <select name="status" class="form-control">
+                                <option value="1" <eq name="data.status" value="1">selected="selected"</eq>>开启</option>
+                                <option value="0" <eq name="data.status" value="0">selected="selected"</eq>>关闭</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="blank15"></div>
+        <button type="button" class="btn btn-w-m btn-success" onclick='submitForm("{:U("edit")}","#myform")'>
+            <i class="fa fa-check-square-o"></i> 提交
+        </button>
+        <button type="button" class="btn btn-w-m btn-primary" onclick="history.go(-1)">
+            <i class="fa fa-chevron-circle-left"></i> 返回
+        </button>
+        <input type="hidden" name="siteid" value="{$data.siteid}">
+        <input type="hidden" name="id" value="{$data.id}">
+        <input type="hidden" name="parameter" value="{$parameter}">
+    </form>
+</div>

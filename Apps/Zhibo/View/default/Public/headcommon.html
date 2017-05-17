@@ -1,0 +1,122 @@
+	<link rel="stylesheet" href="__JQUERY__/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="__JQUERY__/jquery-scrollbar/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" href="__JQUERY__/Swiper-3.4.1/dist/css/swiper.min.css">
+	<link rel="stylesheet" type="text/css" href="__ZHIBO__/Css/cssy.css">
+    <link rel="stylesheet" type="text/css" href="__CSS__/base.css">
+    <script src="__JQUERY__/jquery-2.0.3.min.js"></script>
+    <script src="__JQUERY__/bootstrap/js/bootstrap.min.js"></script>
+    <script src="__JQUERY__/jquery-scrollbar/js/uncompressed/jquery.mousewheel-3.0.6.js"></script>
+    <script src="__JQUERY__/jquery-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script type="text/javascript" src="__ZHIBO__/Scripts/jquery.superslide.2.1.1.js"></script>
+    <script type="text/javascript" src="__ZHIBO__/Scripts/jquery.easing-1.3.pack.js"></script>
+    <script type="text/javascript" src="__ZHIBO__/Scripts/jquery.rotate.min.js"></script>
+    <script type="text/javascript" src="__JQUERY__/jquery.form.js"></script>
+    <script src="__JQUERY__/Swiper-3.4.1/dist/js/swiper.jquery.min.js"></script>
+    <script type="text/javascript" src="__ZHIBO__/Scripts/zhibo.js"></script>
+    <script src="__JQUERY__/layer/layer.js"></script>
+    <!-- <script type="text/javascript">
+		layer.config({
+    		skin: 'layer-ext-seaning',
+    		extend: 'seaning/style.css'
+		});
+	</script> -->
+	<!--[if lte IE 8 ]>
+	<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+	<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+	<script src="__JQUERY__/amazeui/js/amazeui.ie8polyfill.min.js"></script>
+	<![endif]-->
+	<script src="__JQUERY__/jquery.fixedsSerializeArray.js"></script>
+	<script src="__JS__/base.js"></script>
+	<script src='http://cdn.bootcss.com/socket.io/1.3.7/socket.io.js'></script>
+	<script type="text/javascript">
+        $(function(){
+            // 连接服务端
+            var socket = io('http://'+document.domain+':2120');
+            //用户id
+            var uid = '{$to_uid}';
+            // 连接后登录
+            socket.on('connect', function(){
+                socket.emit('login', uid);
+            });
+            // 后端推送来消息时
+            socket.on('new_msg', function(msg){
+                //送礼物弹幕
+                if(msg.indexOf('[推送礼物]:') != -1 ){
+                    var returnstr = '[推送礼物]:';
+                    msg = msg.substr(returnstr.length);
+                    var text = $('<div/>').html(msg).text();
+                    var div = "<div>"+text+"</div>";
+                    $(".d_show").append(div);
+                    init_screen();
+                } else {
+                	$("#zhiboscroll .content").append($('<div/>').html(msg).text());
+                	chat_ajax();
+                }
+                //console.log("收到消息："+msg);
+            });
+            // 后端推送来在线数据时
+		    socket.on('update_online_count', function(online_stat){
+                var arr = online_stat.split('，');
+                $('#onlineCount1').html(500+parseInt(arr[0].match(/\d+/g)));
+                //console.log(arr[0]);
+		        //$('#onlineCount1').html(100+parseInt(arr[0].match(/\d+/g)));
+		    });
+        })
+    </script>
+    <style>
+    	/* 聊天框当前用户的样式 */
+    	.chat .chatmain .top .myclass_{$to_uid} a{
+    		font-weight: bold;
+    		color: #FF0;
+    	}
+    </style>
+    <script type="text/javascript">
+        //统计在线用户在线时长
+        function useronline(){
+            $.ajax({
+                url: "{:U('Common/useronline')}",
+                type: 'POST',
+                dataType: 'json',
+                data:{time:60},
+                success:function(data){
+
+                }
+            });
+        }
+
+        /**
+         * [checkOnline 验证上线用户]
+         * @return {[type]} [description]
+         */
+        function checkOnline() {
+            $.ajax({
+                url: "{:U('Common/checkonline')}",
+                type: 'POST',
+                dataType: 'json',
+                data:{},
+                success:function(data){
+
+                }
+            });
+        }
+
+        //删除过期的在线用户
+        /*function deluseronline(){
+            $.ajax({
+                url: "{:U('Common/deluseronline')}",
+                type: 'POST',
+                dataType: 'json',
+                data:{time:86400},
+                success:function(data){
+
+                }
+            });
+        }*/
+        $(function(){
+            setInterval(useronline,60000);/*每60秒执行一次*/
+            //setInterval(deluseronline,86400000);/*每24小时（一天）执行一次*/
+            
+            //用户上线
+            setTimeout(checkOnline,2000);
+        });
+    </script>

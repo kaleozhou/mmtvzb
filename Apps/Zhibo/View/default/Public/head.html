@@ -1,0 +1,439 @@
+<notempty name="skinData">
+	<img id="imgbg" src="__ROOT__{$skinData['thumb'][0]['photo']}" width="100%" height="100%" style="position:absolute;top:0;left:0;z-index: -1" />
+<else/>
+	<img id="imgbg" src="__ZHIBO__/Picture/test.jpg" width="100%" height="100%" style="position:absolute;top:0;left:0;z-index: -1" />
+</notempty>
+<!--header-->
+<div class="header">
+    <div class="top">
+        <div class="toplogo"><img src="__ZHIBO__/Picture/logo.png" alt="{:C('BASE_WEBNAME')}" /></div>
+	    <div class="menu" style="float: left">
+		    <ul id="menuLeft" style="float: none;">
+		       <!--  <li class="active spec01"><a  href="{:U('url')}" target="_blank">保存到桌面</a><i class="hotImg hotImg2"></i></li> -->
+		        <li style="padding: 0;position: relative;top: -10px;margin-left: 15px;"><a href="{:U('url')}" target="_blank"><img src="__ZHIBO__/Images/home.jpg" alt=""></a></li>
+		        <li class="spec0">
+					<a class="cursorPointer" id="navigation" style="width: 74px;">福利中心<span></span></a>
+		            <ul id="navShow">
+		            	<li><a href="{:C('CONTENT_KEFU_QQ')}" target="_blank" style="font-weight:bold; text-decoration:none;">免费领取内参</a></li>
+		            	<li><a href="{:C('CONTENT_KEFU_QQ1')}" target="_blank" style="font-weight:bold; text-decoration:none;">免费领取战法</a></li>
+		            	<li><a href="{:C('CONTENT_KEFU_QQ2')}" target="_blank" style="font-weight:bold; text-decoration:none;">免费领取课件</a></li>
+		            	<li><a href="{:U('/sp/queryplartform')}" target="_blank" style="font-weight:bold; text-decoration:none;">查询平台</a></li>
+		            </ul>
+		        </li>
+		        <li class="spec05"><a href="javascript:;" onclick="dialogIframe('{:U('course')}',false,'900px','600px')">课程安排</a></li>
+		        <li class="spec02"><a id="download" href="javascript:;" onclick="dialogIframe('{:U('down')}',false,'900px','600px')">软件下载</a></li>
+		        <li class="spec06"><a href="javascript:;" onclick="dialogIframe('{:U('handan')}',false,'900px','600px')">投资建议</a></li>
+		        <!-- <li><a href="javascript:;" title="喵喵财经祝大家新年快乐！" onclick="dialogIframe('{:U('newyear')}',false,'900px','510px')"><img src="__ZHIBO__/Images/newyear.png" style="position: relative;top:-2px；left:-30px"></a></li> -->
+		        <div class="clear"></div>
+		    </ul>
+		    <div class="clear"></div>
+	    </div>
+		<div id="torightP">
+			<div class="erweima" id="erweima" style="float: left;margin-right: 15px;margin-top: 4px;" title="微信公众号" trigger="hover" data-container="body" data-toggle="popover" data-placement="bottom" data-html="true" data-content="<img src='__ZHIBO__/Picture/erweima.jpg' width='200'>"><img src="__ZHIBO__/Picture/wxtt.png"></div>
+			<div class="cjico">
+				<a href="javascript:void(0)" onmouseover="cjshow()">抽<img src="__ZHIBO__/Picture/choujiang.png" width="36" height="36" border="0" id="cjImg"/>奖</a>
+			</div>
+			<div class="topright">
+				<if condition="session('adminuid')">
+					<li class="txt welcometxt" style="margin: 0">欢迎您：{$userdata.authrole} - {$userdata.username}</li>
+				<else />
+					<if condition="session('memberid')">
+						<li class="txt welcometxt">欢迎您：{$userdata.username}</li>
+						<li class="txt" id="toMember"><a href="{:U('Member/index')}" target="_blank">用户中心</a></li>
+						<li class="txt" id="toLoginout"><a href="javascript:;" onclick="loginout()">退出</a></li>
+					<else/>
+						<li class="txt welcometxt">欢迎您：<span id="topNickName">{$userdata.username}</span></li>
+						<li class="txt" id="toLogin"><a href="javascript:void(0)" onclick="dialogContent('#loginNew',false,'600px','362px')">登录</a></li>
+						<li class="txt" id="toReg"><a href="javascript:void(0)" class="register" onclick="dialogContentcan('#regWind',false,'620px','454px')">免费注册</a></li>
+					</if>
+				</if>
+			</div>
+		</div>
+		<div class="clear"></div>
+    </div>
+</div>
+<!--end header-->
+<!--loginout-->
+<script>
+function loginout(){
+	$.post("{:U('Common/loginout')}", {}, function(data, textStatus, xhr) {
+        location.reload();
+    });
+}
+</script>
+<!--end loginout-->
+<!--register-->
+<script>
+var iTime = 59;
+var Account;
+//控制时间
+function RemainTime(buttonDom){
+    $(buttonDom).prop('disabled', true);
+    var iSecond,sSecond="",sTime="";
+    if (iTime >= 0){
+        iSecond = parseInt(iTime%60);
+        iMinute = parseInt(iTime/60)
+        if (iSecond >= 0){
+            if(iMinute>0){
+                sSecond = iMinute + "分" + iSecond + "秒";
+            }else{
+                sSecond = iSecond + "秒";
+            }
+        }
+        sTime=sSecond;
+        if(iTime==0){
+            clearTimeout(Account);
+            sTime='发送验证码';
+            iTime = 59;
+            $(buttonDom).prop('disabled', false);
+        }else{
+            Account = setTimeout("RemainTime('"+buttonDom+"')",1000);
+            iTime=iTime-1;
+        }
+    }else{
+        sTime='没有倒计时';
+    }
+    $(buttonDom).val(sTime);
+}
+
+/**
+ * [telsendyz 获取手机验证码]
+ * @param  {[type]} a [description]
+ * @return {[type]}   [description]
+ */
+function sendCode(a){
+	if(a == "" || a == '请输入您的手机号码'){
+		layer.msg('请先输入手机号码！',{icon: 0});
+		$('#regTel').focus();
+		return false;
+	} else if(!/1[345678]{1}\d{9}$/.test(a)){
+		layer.msg('手机格式不正确！',{icon: 0});
+		$('#regTel').focus();
+		return false;
+	} else{
+		$.ajax({
+	        type:"POST",
+	        dataType:"json",
+	        data:{mobile:a,source:'注册验证码'},
+	        url:"{:U('Common/getMessage')}",
+	        success:function(data){
+			    if(data.status){
+			   		RemainTime('#regCode');
+			    } else {
+			    	layer.msg(data.info,{icon: 0});
+			    }
+	        }
+  		});
+	}
+}
+
+/**
+ * [checkRegister 验证注册]
+ * @return {[type]} [description]
+ */
+function checkRegister() {
+	var regUser = $('#regUser');
+	var regPwd = $('#regPwd');
+	var regPwd2 = $('#regPwd2');
+	var regTel = $('#regTel');
+	var regyz = $('#regyz');
+	var registerCode = $('#registerCode');
+
+	if(regUser.val() == ''){
+		layer.msg('请输入昵称！',{icon: 0});
+		regUser.focus();
+		return false;
+	}
+	if(regUser.val().length < 2){
+		layer.msg('昵称长度必须是2位字符以上！',{icon: 0});
+		regUser.focus();
+		return false;
+	}
+	if(regPwd.val() == ''){
+		layer.msg('请输入密码！',{icon: 0});
+		regPwd.focus();
+		return false;
+	}
+	if(regPwd.val().length < 6){
+		layer.msg('密码必须是6位字符以上！',{icon: 0});
+		regPwd.focus();
+		return false;
+	}
+	if(regPwd2.val() != regPwd.val()){
+		layer.msg('确认密码不正确！',{icon: 0});
+		regPwd2.focus();
+		return false;
+	}
+	if(regTel.val() == '' ){
+		layer.msg('请输入手机号！',{icon: 0});
+		regTel.focus();
+		return false;
+	}
+	if(!/1[345678]{1}\d{9}$/.test(regTel.val())){
+		layer.msg('手机格式不正确！',{icon: 0});
+		regTel.focus();
+		return false;
+	}
+	if(registerCode.val() == ''){
+		layer.msg('请输入邀请代码！',{icon: 0});
+		registerCode.focus();
+		return false;
+	}
+	/*if(registerCode.length != 4){
+		layer.msg('邀请代码必须为4位数字！',{icon: 0});
+		registerCode.focus();
+		return false;
+	}*/
+	if(regyz.val() == ''){
+		layer.msg('请输入验证码！',{icon: 0});
+		regyz.focus();
+		return false;
+	}
+
+	//开始注册
+	$.post("{:U('Common/register')}", $("#regForm").serialize(), function(data, textStatus, xhr) {
+        //弹出消息
+        if(data.status){
+            layer.msg(data.info,{icon:6,time:2000,shade: [0.3,'#000']},function(){
+                if(data.url){
+                    location.href = data.url;
+                } else {
+                    //location.reload();
+                }
+                layer.closeAll('page');
+            });
+        } else {
+            layer.open({
+                content:data.info,
+                yes:function(index){
+                    if(data.url){
+                        location.href = data.url;
+                    } else {
+                        layer.close(index);
+                    }
+                },
+                icon:2
+            });
+            $('#codeImg').trigger('click');
+            //layer.msg(data.info,{icon:2});
+        }
+    });
+}
+</script>
+<div id="regWind" style="display: none">
+	<form name="form2" id="regForm" class="form-inline">
+		<div class="reg_form_input_wrap">
+			<span class="reg_hd">会员昵称:</span>
+			<input class="reg_form_input form-control" type="text" name="username" id="regUser" placeholder="请输入昵称" style="width: 220px;padding: 0;padding-left: 5px">
+		</div>
+		<div class="reg_form_input_wrap">
+			<span class="reg_hd">用户密码:</span>
+			<input class="reg_form_input form-control" type="password" name="password" id="regPwd" placeholder="请输入密码" style="width: 220px;padding: 0;padding-left: 5px">
+		</div>
+		<div class="reg_form_input_wrap">
+			<span class="reg_hd">确认密码:</span>
+			<input class="reg_form_input form-control" type="password" name="RetypePassword" name="password2" id="regPwd2" placeholder="请输入确认密码" style="width: 220px;padding: 0;padding-left: 5px">
+		</div>
+		<div class="reg_form_input_wrap">
+			<span class="reg_hd">手机号码:</span>
+			<input class="reg_form_input form-control" type="text" name="mobile" id="regTel" placeholder="请输入手机号" style="width: 220px;padding: 0;padding-left: 5px">
+		</div>
+		<div class="reg_form_input_wrap">
+			<span class="reg_hd">邀请代码:</span>
+			<input class="reg_form_input form-control" type="text" name="regcode" id="registerCode" value="" maxlength="4" placeholder="请输入邀请代码" style="width: 220px;padding: 0;padding-left: 5px">
+			<div style="font-size: 12px;padding-left: 97px;">如果没有邀请代码，请输入：8888</div>	
+		</div>
+		<div class="reg_form_input_wrap">
+			<span class="reg_hd">手机验证:</span>
+			<input class="reg_form_input form-control" type="text" id="regyz" name="code" placeholder="验证码" style="display: inline-block;">
+			<div class="reg_nav" id="Checkyz2"><input type="button" value="发送验证码" class="tybu" id="regCode" onclick='sendCode($("#regTel").val())'></div>
+		</div>
+		<div class="reg_form_input_wrap">
+			<span class="reg_hd"></span>
+			<div class="reg_form_input_wrap2" onclick="checkRegister()">立即注册</div>
+		</div>
+	</form>
+</div>
+<!--end register-->
+<!--login-->
+<script>
+
+/**
+ * [checkLogin 验证登录]
+ * @return {[type]} [description]
+ */
+function checkLogin() {
+	var loginname = $('#loginname');
+	var loginpassword = $('#loginpassword');
+	var logincode = $('#logincode');
+	if(loginname.val() == ''){
+		layer.msg('请输入昵称或手机号！',{icon: 0});
+		loginname.focus();
+		return false;
+	}
+	if(loginpassword.val() == ''){
+		layer.msg('请输入密码！',{icon: 0});
+		loginpassword.focus();
+		return false;
+	}
+	if(logincode.val() == ''){
+		layer.msg('请输入验证码！',{icon: 0});
+		logincode.focus();
+		return false;
+	}
+
+	//开始登录
+	//submitForm("{:U('Common/login')}","#submitLogin");
+	$.post("{:U('Common/login')}", $("#submitLogin").serialize(), function(data, textStatus, xhr) {
+        //弹出消息
+        if(data.status){
+            layer.msg(data.info,{icon:6,time:2000,shade: [0.3,'#000']},function(){
+                if(data.url){
+                    location.href = data.url;
+                } else {
+                    location.reload();
+                }
+            });
+        } else {
+            layer.open({
+                content:data.info,
+                yes:function(index){
+                    if(data.url){
+                        location.href = data.url;
+                    } else {
+                        layer.close(index);
+                    }
+                },
+                icon:2
+            });
+            $('#codeImg').trigger('click');
+            //layer.msg(data.info,{icon:2});
+        }
+    });
+}
+</script>
+<div id="loginNew" style="display:none">
+	<div class="login_left">
+		<div class="login_left_title">
+			现在登陆 <br>您就可以听讲师讲课、聊天互动！
+		</div>
+		<form id="submitLogin">
+			<label class="inboxTitle" for="loginname">会员账号</label>
+			<div class="inboxWap" ligertipid="Tip1009">
+				<input type="text" class='form-control' name="loginName" id="loginname" placeholder="请输入昵称 / 手机号">
+			</div>
+			<label class="inboxTitle" for="loginpassword">会员密码</label>
+			<div class="inboxWap">
+				<input type="password" class='form-control' name="loginPwd" id="loginpassword" placeholder="请输入密码">
+			</div>
+			<label class="inboxTitle" for="logincode">验证码</label>
+			<div class="inboxWap">
+				<input type="text" name="loginCode" id="logincode" class='form-control' placeholder="请输入验证码">
+				<img src="{:U('Common/verify',array('codeW'=>92,'codeH'=>31,'fontSize'=>14,'length'=>4))}" id="codeImg" alt="请点击刷新验证码" onclick="javascript:this.src='{:U('Common/verify',array('codeW'=>110,'codeH'=>31,'fontSize'=>14,'length'=>4))}'">
+			</div>
+			<button id="loginBtn" type="button" onclick="checkLogin()">立即登陆</button><span class="logintips">若忘记密码，请联系客服！</span>
+		</form>
+	</div>
+	<div class="login_right">
+		<div class="login_right_title">没有帐号<span><a href="javascript:void(0);" onclick="dialogContent('#regWind',false,'620px','454px')">立即注册</a></span>
+		</div>
+		<div class="mountain">
+			<img src="__ZHIBO__/Images/mountain.png">
+		</div>
+	</div>
+	<div class="clear"></div>
+	<div id="loginmaybe">或者</div>
+</div>
+<!--end login-->
+
+<if condition="!session('?adminuid') && !session('?memberid') && !session('?guestname')">
+<!--取名字-->
+<div class="makeName_1" id="makeName" style="display: none">
+	<div>
+		<input type="text" id="nickName" placeholder="给自己取个好听的名字">
+		<button value="确认" type="button" id="makeNameBtn">确认</button>
+	</div>
+	<ul class="queryRoad">
+		<li><a href="{:C('CONTENT_KEFU_QQ')}" target="_blank"><img src="__ZHIBO__/Images/topqqbtn.gif" alt="" width="70" height="20"></a></li>
+		<li><a href="{:C('CONTENT_KEFU_QQ')}" target="_blank"><img src="__ZHIBO__/Images/topqqbtn.gif" alt="" width="70" height="20"></a></li>
+		<li><a href="{:C('CONTENT_KEFU_QQ')}" target="_blank"><img src="__ZHIBO__/Images/topqqbtn.gif" alt="" width="70" height="20"></a></li>
+		<li><a href="{:C('CONTENT_KEFU_QQ')}" target="_blank"><img src="__ZHIBO__/Images/topqqbtn.gif" alt="" width="70" height="20"></a></li>
+		<li><a href="{:C('CONTENT_KEFU_QQ')}" target="_blank"><img src="__ZHIBO__/Images/topqqbtn.gif" alt="" width="70" height="20"></a></li>
+	</ul>
+</div>
+<script type="text/javascript">
+	$(function(){
+		var settimeout_1 = setTimeout(qmztc,120000);
+		var settimeout_1_index;
+		/*var interval_2 = setInterval(qmztc_2,900000);
+		var interval_2_index;*/
+
+		function qmztc(){
+			settimeout_1_index = layer.open({
+		        title:false,
+		        type:1,
+		        content:$('#makeName'),
+		        maxWidth:'auto',
+		        area:['700px','385px'],
+		        maxmin:false,
+		        cancel:function(index){
+		        	layer.close(index);
+		        }
+		    });
+		}
+
+		//分钟关闭第一次弹出
+		setTimeout(function(){
+	    	layer.close(settimeout_1_index);
+	    },180000);
+
+		/*function qmztc_2(){
+			interval_2_index = layer.open({
+		        title:false,
+		        type:1,
+		        content:$('#makeName'),
+		        maxWidth:'auto',
+		        area:['700px','385px'],
+		        maxmin:false,
+		        cancel:function(index){
+		        	layer.close(index);
+		        }
+		    });
+		}*/
+
+		//关闭第二次弹窗
+		/*setInterval(function(){
+			layer.close(interval_2_index);
+		},1080000)*/
+
+		$('#makeNameBtn').click(function(event) {
+			if($('#nickName').val() == ''){
+				layer.msg('请输入昵称！',{icon: 0});
+				$('#nickName').focus();
+				return false;
+			}
+			$('#topNickName').html($('#nickName').val());
+			$.ajax({
+				url: '{:U("Common/setGuestSession")}',
+				type: 'POST',
+				dataType: 'json',
+				data: {guestname: $('#nickName').val()},
+				success:function(data){
+					if(data.status){
+						//layer.close(interval_2_index);
+						layer.close(settimeout_1_index);
+						//clearInterval(interval_2);
+					}
+				}
+			});
+		});
+
+
+		//弹窗注册
+		setTimeout(function() {
+			$(".register").trigger('click');
+		},180000);
+	})
+</script>
+<!--end 取名字-->
+</if>

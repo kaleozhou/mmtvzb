@@ -1,0 +1,186 @@
+<include file="Public:head_iframe" />
+<div id="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{:U('Index/welcome')}"><i class="fa fa-home"></i>&nbsp;&nbsp;首页</a></li>
+        <li><a href='{:U("index",decode($parameter))}'>会员管理</a></li>
+        <li class="active">新增会员</li>
+        <div class="pull-right refresh"><a href="javascript:;" onclick="refresh()"><i class="fa fa-refresh fa-xl" title="点击刷新"></i> 刷新页面</a></div>
+    </ol>
+</div>
+<div class="wrapper wrapper-content col-sm-12 animated fadeInRight">
+    <form action="" method="post" id="myform" name="myform" onsubmit="return false" enctype="multipart/form-data">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 用户名：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="username" name="username" value="" type="text" placeholder="请输入用户名">
+                            <div class="help-block">例如：admin</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 用户组：</div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="iconimg"><img src="__PUBLIC__/images/member/user2.gif" style="max-height: 21px"></span>
+                                <select name="gid" class="form-control" id="gid">
+                                    <volist name="group" id="groupmember">
+                                        <option value="{$groupmember.id}" dataIcon="__ROOT__{$groupmember.icon}" <eq name="groupmember.id" value="2">selected="selected"</eq>>{$groupmember.name}</option>
+                                    </volist>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    <script type="text/javascript">
+                        $(function(){
+                            $('#gid').change(function(event) {
+                                $('#iconimg').find('img').attr({
+                                    src: $(this).find('option:selected').attr('dataIcon')
+                                });
+                            });
+                        })
+                    </script>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 密码：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="password" name="password" value="" type="password" placeholder="请输入密码">
+                            <div class="help-block">例如：admin123</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 确认密码：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="ckpassword" name="ckpassword" value="" type="password" placeholder="请输入确认密码">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">头像：</div>
+                        </td>
+                        <td>
+                            <include file="Uploadfile:fileadd" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">邮件：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="email" name="email" value="" type="email" placeholder="请输入邮件">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 手机：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="mobile" name="mobile" value="" type="tel" placeholder="请输入手机">
+                        </td>
+                    </tr>
+                    <script type="text/javascript" src="__PUBLIC__/jqueryui/layer/extendplugin/laydate/laydate.js"></script>
+                    <script type="text/javascript">
+                        $(function(){
+                            var start = {
+                                elem: '#birthday',
+                                format: 'YYYY/MM/DD hh:mm:ss',
+                                //min: laydate.now(), //设定最小日期为当前日期
+                                max: '2099-06-16 23:59:59', //最大日期
+                                istime: true,
+                                //istoday: true,
+                                choose: function(datas){
+                                     //end.min = datas; //开始日选好后，重置结束日的最小日期
+                                     //end.start = datas //将结束日的初始值设定为开始日
+                                }
+                            };
+                            laydate(start);
+                        });
+                    </script>
+                    <style type='text/css'>
+                        .laydate-icon{
+                            height: 34px;
+                        }
+                    </style>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">生日：</div>
+                        </td>
+                        <td>
+                            <input class="laydate-icon form-control" id="birthday" name="birthday" value="" type="text" placeholder="请输入生日">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">Q Q：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="qq" name="qq" value="" type="text" placeholder="请输入Q Q">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">性别：</div>
+                        </td>
+                        <td>
+                            <select name="sex" class="form-control">
+                                <option value="0" selected="selected">保密</option>
+                                <option value="1">男</option>
+                                <option value="2">女</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">机器人：</div>
+                        </td>
+                        <td>
+                            <select name="robots" class="form-control">
+                                <option value="0" selected="selected">否</option>
+                                <option value="1">是</option>
+                            </select>
+                            <div class="help-block">机器人代表的是内部人员注册的会员</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">锁定：</div>
+                        </td>
+                        <td>
+                            <select name="lock" class="form-control">
+                                <option value="0" selected="selected">未锁定</option>
+                                <option value="1">锁定</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">状态：</div>
+                        </td>
+                        <td>
+                            <select name="status" class="form-control">
+                                <option value="1" selected="selected">开启</option>
+                                <option value="0">关闭</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="blank15"></div>
+        <button type="button" class="btn btn-w-m btn-success" onclick='submitForm("{:U("add")}","#myform")'>
+            <i class="fa fa-check-square-o"></i> 提交
+        </button>
+        <button type="button" class="btn btn-w-m btn-primary" onclick="history.go(-1)">
+            <i class="fa fa-chevron-circle-left"></i> 返回
+        </button>
+        <input type="hidden" name="parameter" value="{$parameter}">
+    </form>
+</div>

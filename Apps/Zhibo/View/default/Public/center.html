@@ -1,0 +1,48 @@
+<!--center-->
+<div class="zhiboright">
+	<include file="Public:video" />
+	<!--视频直播开始-->
+	<div style="width:100%; height:50px; overflow:hidden; position:absolute; z-index:888; top:0px;pointer-events:none;" id="fpmarquee"></div>
+	<div class="zhibovideo">
+		<div class="touming"></div>
+		<div class="zhibovideomain" id="player"></div>
+	</div>
+	<!--end 视频直播-->
+	<notempty name="banner_show">
+		<div class="zhibonews">
+			<div class="slideGroup">
+				<div class="parBd">
+					<div class="slideBox" style="width: 1250px">
+	                    <div class="hd">
+	                    	<ul>
+	                    		<volist name="banner_show" id="bannerlist">
+						            <notempty name="bannerlist.thumb">
+	                    				<li></li>
+	                    			</notempty>
+				            	</volist>
+	                    	</ul>
+	                    </div>
+	                    <div class="bd">
+	                        <ul>
+	                        	<volist name="banner_show" id="bannerlist">
+						            <notempty name="bannerlist.thumb">
+				                       	<li>
+							            	<a <neq name="bannerlist.other" value="">{$bannerlist.other}</neq> <eq name="bannerlist.url" value="">href="javascript:;"<else/>href="{$bannerlist.url}"</eq> <eq name="bannerlist.open" value="1"> target="_blank"</eq>>
+							            		<img src="__ROOT__{$bannerlist[thumb][0][photo]}" alt="{$bannerlist.name}"/>
+							            	</a>
+							            	<div class="am-slider-desc" <notempty name="bannerlist.titlecolor">style="color:{$bannerlist.titlecolor}"</notempty>>{$bannerlist.name}</div>
+							            </li>
+				                    </notempty>
+				            	</volist>
+	                        </ul>
+	                    </div>
+	                </div>
+				</div>
+	        </div>
+			<script type="text/javascript">
+	            $(".slideGroup .slideBox").slide({titCell:".hd ul li", mainCell:".bd ul",vis:1,effect:"leftLoop",autoPlay:"true",interTime:5000});
+	        </script>
+	    </div>
+    </notempty>
+</div>
+<!--end center-->

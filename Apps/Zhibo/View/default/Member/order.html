@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="renderer" content="webkit">
+  <meta name="author" content="CopyLian">
+  <title>充值订单</title>
+  <meta name="keywords" content="充值订单" />
+  <meta name="description" content="充值订单" />
+  <include file="Public:memberhead" />
+</head>
+
+<body>
+<div class="blank15"></div>
+<div class="container" style="width: 100%">
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover" style="margin-bottom: 0">
+            <thead>
+                <tr>
+                    <th>订单号</th>
+                    <th>订单名称</th>
+                    <th>支付方式</th>
+                    <th>单价</th>
+                    <th>数量</th>
+                    <th>总金额</th>
+                    <th>钻石数</th>
+                    <th>支付状态</th>
+                    <th>下单时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <volist name="data" id="datalist">
+                    <tr>
+                        <td>{$datalist.sn}</td>
+                        <td>
+                            {$datalist.name}
+                        </td>
+                        <td>{$datalist.paytype}</td>
+                        <td>{$datalist.price}</td>
+                        <td>{$datalist.quantity}</td>
+                        <td><strong class='red'>{$datalist.money}</strong></td>
+                        <td>{$datalist.dhmoney}</td>
+                        <td>
+                            <eq name="datalist.status" value="1">
+                                <span class="green">已支付({$datalist.payoktime|date='Y-m-d H:i:s',###})</span>
+                            <else />
+                            <form action="{:U('Pay/pay')}" method="post" target="_blank" id="subPay_{$datalist.id}">
+                                <input type="hidden" name="rechargeid" value="{$datalist.proid}" />
+                                <input type="hidden" name="price" value="{$datalist.price}" />
+                                <input type="hidden" name="dhmoney" value="{$datalist.dhmoney}" />
+                                <input type="hidden" name="paytype" value="{$datalist.paytype}" />
+                                <input type="hidden" name="quantity" value="{$datalist.quantity}" />
+                                <input type="hidden" name="sn" value="{$datalist.sn}" />
+                                <button type="submit" class='btn btn-primary btn-sm qzfbtn'><i class="fa fa-money"></i> 去支付</button>
+                            </form>    
+                            </eq>
+                        </td>
+                        <script type="text/javascript">
+                            //发送ajax
+                            $('.qzfbtn').click(function(){
+                                var index = parent.layer.open({
+                                    title      : '提示',
+                                    content    : '请确认是否正确支付了订单？',
+                                    btn        : ['支付成功', '支付失败'],
+                                    icon       : 3,
+                                    yes        : function(index, layero){
+                                        parent.layer.close(index);
+                                        //直接跳转到完成订单
+                                        location.reload();
+                                    },
+                                    btn2       : function(index, layero){
+                                        parent.layer.close(index);
+                                        //直接跳转到完成订单
+                                        location.reload();
+                                    },
+                                    closeBtn    : 0
+                                });
+                            });
+                        </script>
+                        <td>{$datalist.create_time|date="Y-m-d H:i:s",###}</td>
+                        <td>
+                            <a class="btn btn-success btn-sm" href="javascript:;" onclick="del('{:U('delorder')}',{$datalist.id})"><i class="fa fa-remove"></i> 删除</a>
+                        </td>
+                    </tr>
+                </volist>
+            </tbody>
+        </table>
+    </div>
+    <div class="list-page">{$pagelist}</div>
+</div>
+</body>
+</html>

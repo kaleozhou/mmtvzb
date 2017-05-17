@@ -1,0 +1,32 @@
+<script type="text/javascript">
+
+/**
+ * [getBroadcast 获取广播]
+ * @return {[type]} [description]
+ */
+function getBroadcast(){
+	$.ajax({
+        type:"POST",
+        dataType:"json",
+        url:'{:U("getBroadcast")}',
+        data:{gbdata:window.gbdata},
+        success:function(data){
+		 	if(data.status){
+		 		window.gbdata = data.gbrdata.create_time;
+		 		$("#gbqtxt").html('<marquee loop="'+data.gbrdata.loop+'" scrollamount="'+data.gbrdata.scrollamount+'" scrolldelay="'+data.gbrdata.scrolldelay+'" onmouseenter="this.stop()" onmouseleave="this.start()" style="width: 425px; color: rgb(255, 255, 255);">'+data.gbrdata.content+'</marquee>');
+		 	} else {
+		 		if(!data.gbrdata){
+		 			window.gbdata = 1;
+		 			$("#gbqtxt").html('');
+		 		}
+		 	}
+        }
+  });
+}
+
+$(function(){
+	//获取最新广播
+	window.gbdata = "{$gbdata.create_time}";
+	setInterval(getBroadcast,10000);
+});
+</script>

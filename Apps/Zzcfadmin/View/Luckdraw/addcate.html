@@ -1,0 +1,65 @@
+<include file="Public:head_iframe" />
+<div id="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{:U('Index/welcome')}"><i class="fa fa-home"></i>&nbsp;&nbsp;首页</a></li>
+        <li><a href='{:U("indexcate",decode($linkcate_parameter))}'>奖品管理</a></li>
+        <li class="active">新增奖品</li>
+        <div class="pull-right refresh"><a href="javascript:;" onclick="refresh()"><i class="fa fa-refresh fa-xl" title="点击刷新"></i> 刷新页面</a></div>
+    </ol>
+</div>
+<div class="wrapper wrapper-content col-sm-12 animated fadeInRight">
+    <form action="" method="post" id="myform" name="myform" onsubmit="return false">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 名称：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="name" name="name" value="" type="text" placeholder="请输入名称">
+                            <div class="help-block">例如：iPhone 7s一部</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 数量：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="num" name="num" value="0" type="number" placeholder="请输入数量">
+                            <div class="help-block">请认真填写奖品数量，必须为 <span class='red'>整数</span>！</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 抽奖概率：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="probability" name="probability" value="0" type="text" placeholder="请输入抽奖概率">
+                            <div class="help-block">抽奖概率越大表示越容易抽到该奖项！</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"> 状态：</div>
+                        </td>
+                        <td>
+                            <select name="status" class="form-control">
+                                <option value="1" selected="selected">开启</option>
+                                <option value="0">关闭</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="blank15"></div>
+        <button type="button" class="btn btn-w-m btn-success" onclick='submitForm("{:U("addcate")}","#myform")'>
+            <i class="fa fa-check-square-o"></i> 提交
+        </button>
+        <button type="button" class="btn btn-w-m btn-primary" onclick="history.go(-1)">
+            <i class="fa fa-chevron-circle-left"></i> 返回
+        </button>
+        <input type="hidden" name="linkcate_parameter" value="{$linkcate_parameter}">
+    </form>
+</div>

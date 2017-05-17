@@ -1,0 +1,79 @@
+<include file="Public:head_iframe" />
+<div id="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{:U('Index/welcome')}"><i class="fa fa-home"></i>&nbsp;&nbsp;首页</a></li>
+        <li><a href='{:U("index",decode($parameter))}'>订单管理</a></li>
+        <li class="active">订单详情</li>
+        <div class="pull-right refresh"><a href="javascript:;" onclick="refresh()"><i class="fa fa-refresh fa-xl" title="点击刷新"></i> 刷新页面</a></div>
+    </ol>
+</div>
+<div class="wrapper wrapper-content col-sm-12 animated fadeInRight">
+    <form action="" method="post" id="myform" name="myform" onsubmit="return false">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr>
+                        <th>订单号：</th>
+                        <td>{$data.sn}</td>
+                    </tr>
+                    <tr>
+                        <th>订单名称：</th>
+                        <td>{$data.name}</td>
+                    </tr>
+                    <tr>
+                        <th>购买用户：</th>
+                        <td>
+                            {$data.member.username}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>支付方式：</th>
+                        <td>{$data.paytype}</td>
+                    </tr>
+                    <tr>
+                        <th>单价：</th>
+                        <td>{$data.price}</td>
+                    </tr>
+                    <tr>
+                        <th>数量：</th>
+                        <td>{$data.quantity}</td>
+                    </tr>
+                    <tr>
+                        <th>总金额：</th>
+                        <td><strong class='red'>{$data.money}</strong></td>
+                    </tr>
+                    <tr>
+                        <th>说明：</th>
+                        <td>{$data.description}</td>
+                    </tr>
+                    <tr>
+                        <th>ip：</th>
+                        <td>{$data.ip}</td>
+                    </tr>
+                    <tr>
+                        <th>地区：</th>
+                        <td>{$data.area.area} {$data.area.country}</td>
+                    </tr>
+                    <tr>
+                        <th>下单时间：</th>
+                        <td>{$data.create_time|date='Y-m-d H:i:s',###}</td>
+                    </tr>
+                    <tr>
+                        <th>支付状态：</th>
+                        <td>
+                            <eq name="data.status" value="1">
+                                <div data-toggle="popover" data-trigger="hover" data-html="true" data-placement='top' data-container="body" title="支付说明" data-content="支付时间：{$data.payoktime|date='Y-m-d H:i:s',###}"><span class="green">已支付</span></div>
+                            <else />
+                                <span class="red">未支付</span>
+                            </eq>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="blank15"></div>
+        <button type="button" class="btn btn-w-m btn-primary" onclick="history.go(-1)">
+            <i class="fa fa-chevron-circle-left"></i> 返回
+        </button>
+    </form>
+</div>

@@ -1,0 +1,92 @@
+<include file="Public:head_iframe" />
+<div id="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{:U('Index/welcome')}"><i class="fa fa-home"></i>&nbsp;&nbsp;首页</a></li>
+        <li><a href='{:U("index",decode($parameter))}'>角色管理</a></li>
+        <li class="active">编辑角色</li>
+        <div class="pull-right refresh"><a href="javascript:;" onclick="refresh()"><i class="fa fa-refresh fa-xl" title="点击刷新"></i> 刷新页面</a></div>
+    </ol>
+</div>
+<div class="wrapper wrapper-content col-sm-12 animated fadeInRight">
+    <form action="" method="post" id="myform" name="myform" onsubmit="return false">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 名称：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="title" name="title" size="50" value="{$data.title}" type="text" placeholder="请输入名称">
+                            <div class="help-block">例如：超级管理员</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">图标：</div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="iconimg">
+                                    <notempty name="data.icon">
+                                        <img src="__ROOT__{$data.icon}" alt="{$data.title}" style="height: 21px">
+                                    <else/>
+                                        <i class="fa fa-image"></i>
+                                    </notempty>
+                                </span>
+                                <select name="icon" class="form-control" id="icon">
+                                    <option value="">请选择图标</option>
+                                    <option value="__PUBLIC__/images/authgroup/xc01.png" <eq name="data.icon" value="__PUBLIC__/images/authgroup/xc01.png">selected="selected"</eq>>黑色图标</option>
+                                    <option value="__PUBLIC__/images/authgroup/xc02.png" <eq name="data.icon" value="__PUBLIC__/images/authgroup/xc02.png">selected="selected"</eq>>红色图标</option>
+                                    <option value="__PUBLIC__/images/authgroup/xc03.png" <eq name="data.icon" value="__PUBLIC__/images/authgroup/xc03.png">selected="selected"</eq>>紫色图标</option>
+                                    <option value="__PUBLIC__/images/authgroup/xc04.png" <eq name="data.icon" value="__PUBLIC__/images/authgroup/xc04.png">selected="selected"</eq>>灰色图标</option>
+                                    <option value="__PUBLIC__/images/authgroup/xc05.png" <eq name="data.icon" value="__PUBLIC__/images/authgroup/xc05.png">selected="selected"</eq>>黄色图标</option>
+                                    <option value="__PUBLIC__/images/authgroup/xc06.png" <eq name="data.icon" value="__PUBLIC__/images/authgroup/xc06.png">selected="selected"</eq>>蓝色图标</option>
+                                    <option value="__PUBLIC__/images/authgroup/xc07.png" <eq name="data.icon" value="__PUBLIC__/images/authgroup/xc07.png">selected="selected"</eq>>客服图标</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    <script type="text/javascript">
+                        $(function(){
+                            $('#icon').change(function(event) {
+                                if($(this).val() == ''){
+                                    $("#iconimg").html('<i class="fa fa-image"></i>');
+                                } else {
+                                    $("#iconimg").html('<img src="'+$(this).val()+'" alt="'+$(this).text()+'" style="max-height: 20px">');
+                                }
+                            });
+                        })
+                    </script>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">状态：</div>
+                        </td>
+                        <td>
+                            <select name="status" class="form-control">
+                                <option value="1" <eq name="data.status" value="1">selected="selected"</eq>>开启</option>
+                                <option value="0" <eq name="data.status" value="0">selected="selected"</eq>>关闭</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">描述：</div>
+                        </td>
+                        <td><textarea name="description" class="form-control" id="description" cols="30" rows="3" placeholder="请输入描述">{$data.description}</textarea></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="blank15"></div>
+        <button type="button" class="btn btn-w-m btn-success" onclick='submitForm("{:U("edit")}","#myform")'>
+            <i class="fa fa-check-square-o"></i> 提交
+        </button>
+        <button type="button" class="btn btn-w-m btn-primary" onclick="history.go(-1)">
+            <i class="fa fa-chevron-circle-left"></i> 返回
+        </button>
+        <input type="hidden" name="siteid" value="{$data.siteid}">
+        <input type="hidden" name="id" value="{$data.id}">
+        <input type="hidden" name="parameter" value="{$parameter}">
+    </form>
+</div>

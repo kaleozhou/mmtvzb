@@ -1,0 +1,90 @@
+﻿.hongbao{
+	width: 100%;
+	min-height:100%;
+	position: relative;
+	overflow: hidden;
+}
+.bg_1{
+	background: url(../images/bg_redrain.png) no-repeat;
+	background-size: cover;
+}
+.bg_2{
+	/*background: url(../images/bg_redrain2.png) no-repeat;
+	background-size: cover;*/
+}
+.hongbao > div{
+	width: 80px;
+	height: 90px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	/*background: red;*/
+	/*background: url(../images/test_package.png) no-repeat;
+	background-size: 100%;*/
+	background-image: url(../images/icon_package.png);
+	background-repeat: no-repeat;
+	background-size: 155px 215px;
+	background-position: 0px -1px;
+	/*background-position: 0px -100px;*/
+	
+}
+/*.hongbao > div > div{
+	width: 60px;
+	height: 80px;
+	
+	background: url(../images/test_package.png) no-repeat;
+	background-size: 100%;
+	position: absolute;
+	top: -2px;
+	right: -2px;
+}*/
+/*rain*/
+.page_rain{
+	/*background: url(../images/bg_redrain.png) no-repeat 0 0;*/
+	background-size: cover;
+	min-height: 100%;
+	position:absolute;
+	height:100%;
+	width:100%;
+	top:0;
+	z-index:198910;
+}
+
+#closehongbao{
+	position: absolute;
+    right: 0;
+    cursor: pointer;
+    z-index: 198933;
+}
+.page_rain .chuai_box{
+	width: 100%;
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(0,0,0,0.5);
+	text-align: center;
+	text-align: -webkit-center;
+}
+.page_rain .chuai_box .chuai{
+	width: 240px;
+	height: 160px;
+	background: url(../images/chuai.png) no-repeat center center;
+	background-size: cover;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	margin-left: -120px;
+	margin-top: -80px;
+	border-radius: 4px;
+}
+.page_rain .chuai_box .chuai p{
+	color: #ffe401;
+	font-size: 14px;
+	margin-top: 120px;
+}
+
+.hongbaodd,.chuai{
+	cursor: pointer;
+}

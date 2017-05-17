@@ -1,0 +1,88 @@
+<include file="Public:head_iframe" />
+<div id="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{:U('Index/welcome')}"><i class="fa fa-home"></i>&nbsp;&nbsp;首页</a></li>
+        <li><a href='{:U("photocate",decode($linkcate_parameter))}'>图片分类</a></li>
+        <li class="active">图片列表</li>
+        <div class="pull-right refresh"><a href="javascript:;" onclick="refresh()"><i class="fa fa-refresh fa-xl" title="点击刷新"></i> 刷新页面</a></div>
+    </ol>
+</div>
+<div class="wrapper wrapper-content col-sm-12 animated fadeInRight">
+    <form name="myform" id="myform" method="post">
+        <div class="tabs-container">
+            <div class="btn-group">
+                <if condition='authCheck(MODULE_NAME."/".CONTROLLER_NAME."/add",session("uid")) eq 1'>
+                    <a href="{:U('add','catid='.$catid.'&thumbw='.$cate['width'].'&thumbh='.$cate['height'].'&savedir=photo&parameter='.encode($parameter))}" class="btn btn-success"><i class="fa fa-plus"></i> 新增图片</a>
+                </if>
+                <if condition='authCheck(MODULE_NAME."/".CONTROLLER_NAME."/del",session("uid")) eq 1'>
+                    <a href="javascript:void(0)" onclick="delall('{:U('del')}')" class="btn btn-primary"><i class="fa fa-trash-o"></i> 批量删除</a>
+                </if>
+                <if condition='authCheck(MODULE_NAME."/".CONTROLLER_NAME."/sort",session("uid")) eq 1'>
+                    <a href="javascript:void(0)" onclick="sort('{:U('sort')}')" class="btn btn-danger"><i class="fa fa-sort"></i> 更新排序</a>
+                </if>
+            </div>
+            <div class="blank10"></div>
+            <div class="tab-content">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="tb_checkbox">
+                                    <input type="checkbox" class="i-checks selectAll_ids_list">
+                                </th>
+                                <th class="tb_sort text-center">排序</th>
+                                <th>ID</th>
+                                <th>名称</th>
+                                <th>分类</th>
+                                <th>名称颜色</th>
+                                <th>缩略图</th>
+                                <th>打开方式</th>
+                                <th>状态</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <volist name="data" id="datalist">
+                                <tr>
+                                    <td>
+                                       <input type="checkbox" class="i-checks select_ids" name="ids[]" value="{$datalist.id}">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control text-center sort" dataId="{$datalist.id}" name="sort[]" value="{$datalist.sort}">
+                                    </td>
+
+                                    <td>{$datalist.id}</td>
+                                    <td data-toggle="popover" data-trigger="hover" data-html="true" data-container="body" data-placement='top' title="URL" data-content="<eq name='datalist.url' value=''>javascript:;<else/>{$datalist.url}</eq>"><a <eq name="datalist.url" value="">href='javascript:;'<else/>href='{$datalist.url}'</eq> target="_blank" title="{$datalist.name}">{$datalist.name}</a></td>
+                                    <td>{$datalist.photocate.name}</td>
+                                    <td><span style="color:{$datalist.titlecolor}">{$datalist.titlecolor}</span></td>
+                                    <td>
+                                        <notempty name="datalist.thumb" value="">
+                                            <div data-toggle="popover" data-trigger="hover" data-html="true" data-container="body" data-placement="left" title="缩略图" data-content="<img src='__ROOT__{$datalist[thumb][0][thumb]}' class='img-circle' width='150' />"><a href="__ROOT__{$datalist[thumb][0][photo]}" target="_blank"><img src="__ROOT__{$datalist[thumb][0][thumb]}" class='img-circle' width="30" /></a></div>
+                                        </notempty>
+                                    </td>
+                                    <td><eq name="datalist.open" value='1'><span class="green">新窗口</span><else/>当前窗口</eq></td>
+                                    <td>
+                                        <eq name="datalist.status" value="1">
+                                            <i class="fa fa-check text-navy" title="开启"></i>
+                                        <else />
+                                            <i class="fa fa-remove" title="关闭"></i>
+                                        </eq>
+                                    </td>
+                                    <td>
+                                        <if condition='authCheck(MODULE_NAME."/".CONTROLLER_NAME."/edit",session("uid")) eq 1'>
+                                            <a class="btn btn-success btn-sm" href="{:U('edit','catid='.$catid.'&id='.$datalist['id'].'&thumbw='.$cate['width'].'&thumbh='.$cate['height'].'&savedir=photo&parameter='.encode($parameter))}"><i class="fa fa-edit"></i> 编辑</a>
+                                        </if>
+                                        <if condition='authCheck(MODULE_NAME."/".CONTROLLER_NAME."/del",session("uid")) eq 1'>
+                                            <a class="btn btn-primary btn-sm" href="javascript:;" onclick="del('{:U('del')}',{$datalist.id})"><i class="fa fa-remove"></i> 删除</a>
+                                        </if>
+                                    </td>
+                                </tr>
+                            </volist>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="list-page">{$pagelist}</div>
+    </form>
+</div>

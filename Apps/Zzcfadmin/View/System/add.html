@@ -1,0 +1,94 @@
+<include file="Public:head_iframe" />
+<div id="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{:U('Index/welcome')}"><i class="fa fa-home"></i>&nbsp;&nbsp;首页</a></li>
+        <li><a href='{:U("index",decode($parameter))}'>系统配置</a></li>
+        <li class="active">新增配置</li>
+        <div class="pull-right refresh"><a href="javascript:;" onclick="refresh()"><i class="fa fa-refresh fa-xl" title="点击刷新"></i> 刷新页面</a></div>
+    </ol>
+</div>
+<div class="wrapper wrapper-content col-sm-12 animated fadeInRight">
+    <form action="" method="post" id="myform" name="myform" onsubmit="return false">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 分组：</div>
+                        </td>
+                        <td>
+                            <select name="group" class="form-control">
+                                <option value="1" selected="selected">基本配置</option>
+                                <option value="2">内容配置</option>
+                                <option value="3">用户配置</option>
+                                <option value="4">系统配置</option>
+                                <option value="5">缓存配置</option>
+                                <option value="6">其他配置</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 名称：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="name" name="name" value="" type="text" placeholder="请输入名称">
+                            <div class="help-block">例如：BASE_WEBNAME，为了避免重复最好添加不同的前缀</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 显示标题：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="title" name="title" value="" type="text" placeholder="请输入显示标题">
+                            <div class="help-block">例如：网站名称</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 类型：</div>
+                        </td>
+                        <td>
+                            <select name="type" class="form-control">
+                                <option value="1" selected="selected">单文本</option>
+                                <option value="2">多文本</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">配置内容：</div>
+                        </td>
+                        <td><textarea name="value" class="form-control" id="value" cols="30" rows="3" placeholder="请输入配置内容"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">状态：</div>
+                        </td>
+                        <td>
+                            <select name="status" class="form-control">
+                                <option value="1" selected="selected">开启</option>
+                                <option value="0">关闭</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right">配置说明：</div>
+                        </td>
+                        <td><textarea name="remark" class="form-control" id="remark" cols="30" rows="3" placeholder="请输入配置说明"></textarea></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="blank15"></div>
+        <button type="button" class="btn btn-w-m btn-success" onclick='submitForm("{:U("add")}","#myform")'>
+            <i class="fa fa-check-square-o"></i> 提交
+        </button>
+        <button type="button" class="btn btn-w-m btn-primary" onclick="history.go(-1)">
+            <i class="fa fa-chevron-circle-left"></i> 返回
+        </button>
+        <input type="hidden" name="parameter" value="{$parameter}">
+    </form>
+</div>

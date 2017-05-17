@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="renderer" content="webkit">
+  <meta name="author" content="CopyLian">
+  <title>老师战队</title>
+  <meta name="keywords" content="老师战队" />
+  <meta name="description" content="老师战队" />
+  <link rel="stylesheet" type="text/css" href="__ZHIBO__/Css/cssy.css">
+</head>
+<body style="overflow:hidden;background:#FFF;">
+<div style="margin:0 auto;padding:0px;width:1020px;height:600px;">
+   <div style="height:40px;border-bottom:1px solid #F00;margin:10px;padding-bottom:10px;"><img src="__ZHIBO__/Picture/fxsname.png" border="0" /></div>
+   <div style="width:990px;margin:0px 15px;">
+
+        <volist name="teacher" id="teacherdata" mod='4'>
+        <div style="float:left;width:320px;margin:0px 0px 10px 10px;">
+            <div style="float:left;width:160px;height:260px;">
+               <div style="margin:0px auto;">
+                  <div style="float:left;"><img src="__ZHIBO__/Picture/f0{$mod+1}.png" width="40" height="40" border="0" /></div>
+                  <div style="float:left;color:#333;line-height:40px;font-size:24px;font-weight:bold;font-family:微软雅黑;">{$teacherdata.team_name}</div>
+               </div>
+               <div style="padding:0px;"><img src="{$teacherdata['photo'][0]['thumb']}" width="160" height="160" border="0" style="padding-top:10px;" alt="{$teacherdata.name}"/></div>
+            </div>
+            <div style="float:left;width:150px;margin:20px 0px 0px 10px;">
+                 <div style="color:#666;line-height:30px;">投资格言：</div>
+                 <div style="color:#F11616;font-size:12px;height:50px;">{$teacherdata.motto}</div>
+                 <div style="height:20px;color:#666;margin:25px 0px 0px 0px;">
+                     <div style="float:left;line-height:20px;">盈利能力：</div>
+                     <div style="float:right;width:50px;height:20px;font-size:12px;text-align:center;background:url(__ZHIBO__/Images/bfb.png);color:#FFF;line-height:20px;">{$teacherdata.profit}/100</div>
+                 </div>
+                 <div style="margin:5px auto;width:150px;height:15px;background:#666;">
+                     <div style="width:{$teacherdata.profit}%;height:100%;background:#F00;"></div>
+                 </div>
+                 <div style="margin:0px auto;"><a href="{$teacherdata.jump_url}" target="_blank"><img src="__ZHIBO__/Picture/button.png" border="0" style="width:150px;padding-top:10px;" /></a></div>
+            </div>
+         </div>
+         </volist>
+           </div>
+</div>
+
+</body>
+</html>

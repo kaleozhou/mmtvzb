@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="renderer" content="webkit">
+  <meta name="author" content="CopyLian">
+  <title>课程安排</title>
+  <meta name="keywords" content="课程安排" />
+  <meta name="description" content="课程安排" />
+  <link rel="stylesheet" type="text/css" href="__ZHIBO__/Css/cssy.css">
+</head>
+<body>
+<img id="imgbg" src="__ZHIBO__/Images/zbkcbg1.png" width="100%" height="100%" style="right: 0; bottom: 0; position: absolute; top: 0; left: 0; z-index: -1" />
+<div style="height:100px;"></div>
+<div style="width:90%;height:500px;padding:0px;margin:0px auto;overflow:auto;">
+<div style="width:100%;height:50px;line-height:60px;text-align:center;" class="font18 fontb font2">{:C('CONTENT_COURSE_TITLE')}</div>
+<table width="100%" class="td5">
+  <thead>
+    <tr>
+     <td width="150" height="39" align="center" class="td4 fontb" style="background:#37A6DE;color: #300000;font-size: 18px">讲课时间</td>
+     <td width="120" align="center" class="td4 fontb" style="background:#37A6DE;color: #300000;font-size: 18px">周一</td>
+     <td width="120" align="center" class="td4 fontb" style="background:#37A6DE;color: #300000;font-size: 18px">周二</td>
+     <td width="120" align="center" class="td4 fontb" style="background:#37A6DE;color: #300000;font-size: 18px">周三</td>
+     <td width="120" align="center" class="td4 fontb" style="background:#37A6DE;color: #300000;font-size: 18px">周四</td>
+     <td width="120" align="center" class="td4 fontb" style="background:#37A6DE;color: #300000;font-size: 18px">周五</td>
+    </tr>
+    </thead>
+    <tbody>
+      <volist name="Coursedata" id="datalist">
+          <tr>
+              <td align="center" class="td4" height="33">{$datalist.ctime}</td>
+              <td align="center" class="td4">{$datalist.mon_day}</td>
+              <td align="center" class="td4">{$datalist.tues_day}</td>
+              <td align="center" class="td4">{$datalist.wednes_day}</td>
+              <td align="center" class="td4">{$datalist.thurs_day}</td>
+              <td align="center" class="td4">{$datalist.fri_day}</td>
+          </tr>
+      </volist>
+    </tbody>
+</table>
+</div>
+
+</body>
+</html>

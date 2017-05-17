@@ -1,0 +1,142 @@
+/**
+ * Author：[ CopyLian ]
+ * Date：2016-11-07
+ * Description：[ 基础css ]
+ */
+body{
+    font-family: '微软雅黑',"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px/1.5;
+    color:#3c3e40;
+}
+
+[class*="col-"]{
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+/*login*/
+#login{
+	background: #30333F;
+	height:auto;
+}
+
+#login .reloadverify {
+    color: #69C3FF;
+    position: absolute;
+    top: 7px;
+    float: right;
+    right:4px;
+}
+/*end login*/
+
+/*nav*/
+.nav>li>a{
+	padding:14px 20px 14px 25px;
+}
+
+.minimalize-styl-2{
+	padding:0;
+	margin:7px 15px 7px 15px
+}
+
+@media (max-width: 768px){
+	.navbar-header {
+	    display: inline;
+	   	float:none;
+	}
+}
+
+@media (min-width: 768px){
+	.navbar {
+	    border-radius:0;
+	}
+}
+
+.navbar{
+	min-height:48px;
+	margin-bottom:10px;
+}
+
+.navbar-inverse {
+    background-color: #233645;
+    border-color: #233645;
+}
+
+.navbar-inverse .navbar-nav>li>a{
+	padding: 14px 23px 14px 23px;
+	color:#fff;
+	font-size: 1.6rem;
+}
+
+.navbar-inverse .navbar-nav>li>a:hover{
+	background:#1c84c6;
+}
+
+.navbar-inverse .navbar-nav>li>a.on{
+	background:#1c84c6;
+}
+
+@media (min-width: 768px){
+	.navbar-right {
+	    float: right!important;
+	     margin-right: 0; 
+	}
+}
+
+.roll-right.btn-group{
+	right:15px;
+}
+
+.roll-right.J_tabRight{
+	right:95px;
+}
+
+.navbar-toggle{
+	padding:0;
+}
+
+.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover{
+	background:#1C84C6;
+}
+
+.nav>li>a.childon{
+	color:#fff;
+	background:#1C84C6;
+}
+
+.nav>li.active{
+	border-left: 4px solid #1C84C6;
+}
+
+.navbar-default .nav>li>a:focus, .navbar-default .nav>li>a:hover{
+	background:#1C84C6;
+	color:#fff;
+}
+
+#side-menu i.pull-right{
+	margin-top:3px;
+}
+/*end nav*/
+
+.logo-name{
+	padding-bottom: 10px;
+    color: #8D9CAA;
+}
+
+.login-wrap{
+	padding: 20px;
+	padding-bottom: 10px;
+	background: #fff;
+	border-top:7px solid #1c84c6;
+}
+
+.loginscreen.middle-box{
+	width: 340px;
+	box-shadow: 0 0 26px #041A36;
+}
+
+img.verifyimg {
+    border: 1px solid #ececec;
+    width: 100%;
+    cursor: pointer;
+}

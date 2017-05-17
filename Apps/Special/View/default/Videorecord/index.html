@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>{:C('BASE_PINPAI')} - 录播视频</title>
+	<meta name="keywords" content="{:C('BASE_PINPAI')} - 录播视频">
+	<meta name="description" content="{:C('BASE_PINPAI')} - 录播视频">
+	<meta name="renderer" content="webkit">
+	<link rel="stylesheet" type="text/css" href="__JQUERY__/bootstrap/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="__JQUERY__/jquery-scrollbar/jquery.mCustomScrollbar.css" />
+	<link rel="stylesheet" href="__VIDEO__/css/video.css">
+
+	<script src="__VIDEO__/js/jquery.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="__JQUERY__/bootstrap/js/bootstrap.min.js"></script>
+	<script src="__JQUERY__/jquery-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script src="__VIDEO__/js/video.js" type="text/javascript"></script>
+</head>
+<body>
+	<div class="coursebox f-cb" id="j-coursebox" style="left: 320px;">
+		<div class="m-courselb">
+			<div id="j-hideRightBtn" class="u-hiderightbtn" title="隐藏目录"></div>
+			<div class="cl-bg"></div>
+			<notempty name="vid">
+				<a hidefocus="true" id="j-prev" class="cl-pre" style="" <notempty name="prev">href='{:U("/vrecord_v$prev[id]")}'<else />href="javascript:;"</notempty>></a>
+				<a hidefocus="true" id="j-next" class="cl-next" style="" <notempty name="next">href='{:U("/vrecord_v$next[id]")}'<else />href="javascript:;"</notempty>></a>
+			</notempty>
+			<notempty name="oneData">
+				<div id="course-learn-box" class="course-learn">
+					<div class="m-courselearn">
+						<p class="cl-title f-thide j-clTitle">
+							<span class="cl-chapter j-chapter"></span>
+							<span class="cl-lesson j-lessonIndex">录像</span>
+							<span class="cl-lessonnum j-lessonnum">{$oneData.id}</span>
+							<span class="cl-lessonname j-lessonname"></span>
+						</p>
+						<div class="learn-total">
+							<link rel="stylesheet" href="__VIDEO__/js/plyr/plyr.css">
+							<video poster="__ROOT__{$oneData['thumb'][0]['thumb']}" controls>
+			                    <source src="{$oneData.url}" type="video/mp4">
+			                </video>
+						    <script src="__VIDEO__/js/plyr/plyr.js"></script>
+							<script>
+						        plyr.setup();
+						    </script>
+						    <div class="jin-video-box_footer">
+				                <div class="jin-video-box_content-after"></div>
+				                <div class="jin-video-box_info">
+				                    <h3>{$oneData.title}</h3>
+				                    <p>{$oneData.content}</p>
+				                </div>
+				            </div>
+						</div>
+					</div>
+				</div>
+			</notempty>
+		</div>
+	</div>
+	<div id="course-toolbar-box" class="g-sd2">
+		<div class="m-ctb">
+			<div class="courseintro">
+				<a href="{:U('/')}" target="_blank"><img src="__VIDEO__/images/logo.png" /></a>
+			</div>
+			<div class="tabs j-tab-tabwrap">
+				<a class="tabitem j-tab-tabitem" id="auto-id-1484283327842">
+					<span class="f-fl tabicon tabicon-2"></span>
+					<span class="f-fl">视频列表</span>
+				</a>
+			</div>
+			<div id="toolbar-box" class="tabarea j-tabarea">
+				<div class="tabbox j-tabbox" id="talk-tabbox"></div>
+				<div class="tabbox j-tabbox" id="chapterList-tabbox" style="display: block;">
+					<div class="bd j-bd"></div>
+					<div id="tb-chapterlist-box" class="m-chapterlistBox">
+						<div class="m-chapterList">
+							<volist name="data" id="videolist" key="key">
+								<div class="chapter">
+									<span class="f-fl ch">日期</span>
+									<span class="f-fl f-thide chaptericon">
+									<span>{$videolist.datei}</span></span>
+									<span class="f-fl f-thide chaptername">{$key}</span>
+								</div>
+								<notempty name="videolist.child">
+									<volist name="videolist.child" id="videochildlist" key="childkey">
+										<if condition="$vid eq $videochildlist['id']">
+											<div class='section section-cur' data-toggle="popover" data-trigger="hover" data-html="true" data-container="body" data-placement="top" title="标题" data-content="{$videochildlist.title}">
+												<span class="f-fl f-thide ks" style="color: rgb(255, 255, 255);">录像{$videochildlist['id']}</span>
+												<span class="f-fl ksw" style="background: rgb(58, 62, 74);">
+												<span class="u-clicon ksicon ksicon-0-mark"></span>
+												</span>
+												<span class="f-fl ksname" title="{$videochildlist.title}"><a href='{:U("/vrecord_v$videochildlist[id]")}' style="color: rgb(255, 255, 255);">{$videochildlist.title}</a></span>
+												<span class="f-fr ksinfo">
+												<span class="f-fr ksinfoicon ksinfoicon-2" title="视频"></span>
+												<span class="f-fr kstime">{$videochildlist.time}</span>
+												</span>
+											</div>
+										<else/>
+											<div class="section" data-toggle="popover" data-trigger="hover" data-html="true" data-container="body" data-placement="top" title="标题" data-content="{$videochildlist.title}">
+												<span class="f-fl f-thide ks" style="color: rgb(153, 153, 153);">录像{$videochildlist['id']}</span>
+												<span class="f-fl ksw" style="background: rgb(245, 247, 250);">
+												<span class="u-clicon ksicon ksicon-0"></span>
+												</span>
+												<span class="f-fl ksname" title="{$videochildlist.title}"><a href='{:U("/vrecord_v$videochildlist[id]")}'  style="color: rgb(153, 153, 153);">{$videochildlist.title}</a></span>
+												<span class="f-fr ksinfo">
+												<span class="f-fr ksinfoicon ksinfoicon-2" title="视频"></span>
+												<span class="f-fr kstime">{$videochildlist.time}</span>
+												</span>
+											</div>
+										</if>
+									</volist>
+								</notempty>
+							</volist>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

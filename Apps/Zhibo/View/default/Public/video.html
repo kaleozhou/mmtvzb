@@ -1,0 +1,66 @@
+<if condition="C('VIDEO_STATUS') eq 1">
+	<if condition="C('VIDEO_TYPE') eq 2">
+		<script type="text/javascript" charset="utf-8" src="http://yuntv.letv.com/player/live/blive.js"></script>
+	<elseif condition="C('VIDEO_TYPE') eq 3"/>
+		<script type="text/javascript" src="http://cdn.aodianyun.com/lss/aodianplay/player.js"></script>
+	<elseif condition="C('VIDEO_TYPE') eq 4"/>
+		<script type="text/javascript" src="http://static.gensee.com/webcast/static/sdk/js/gssdk.js"></script>
+	</if>
+</if>
+<script type="text/javascript">
+/**
+ * [getvideo 读取视频]
+ * @return {[type]} [description]
+ */
+function getvideo(){
+	<?php echo getvideo()."\n";?>
+}
+
+/**
+ * [getFlyscreen 获取飞屏]
+ * @return {[type]} [description]
+ */
+function getFlyscreen(){
+	$.ajax({
+        type:"POST",
+        dataType:"json",
+        url:'{:U("getFlyscreen")}',
+        data:{fpdata:window.fpdata},
+        success:function(data){
+		 	if(data.status){
+		 		window.fpdata = data.fprdata.create_time;
+		 		$("#fpmarquee").html('<marquee loop="'+data.fprdata.loop+'" scrollamount="'+data.fprdata.scrollamount+'" scrolldelay="'+data.fprdata.scrolldelay+'" class="fptext">'+data.fprdata.content+'</marquee>');
+		 	} else {
+		 		if(!data.fprdata){
+		 			window.fpdata = 1;
+		 			$("#fpmarquee").html('');
+		 		} else {
+		 			window.fpdata = data.fprdata.create_time;
+		 		}
+		 	}
+        }
+  });
+}
+
+$(function(){
+	//执行视频
+	getvideo();
+
+	//获取最新飞屏
+	window.fpdata = "";
+	setInterval(getFlyscreen,8000);
+
+	//加载视频api
+	/*$.ajax({
+        type:"GET",
+        dataType:"json",
+        url:'{:U("Api/getvedio")}',
+        data:{'type':'vedio'},
+        success:function(data){
+		 	if(data.status){
+		 		$("head").append(data.vedio);
+		 	}
+        }
+    });*/
+});
+</script>

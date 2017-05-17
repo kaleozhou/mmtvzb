@@ -1,0 +1,58 @@
+<include file="Public:head_iframe" />
+<style>
+body{
+    background: #f3f3f4;
+}
+</style>
+<div id="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{:U('Index/welcome')}"><i class="fa fa-home"></i>&nbsp;&nbsp;首页</a></li>
+        <li><a href='{:U("index",decode($parameter))}'>管理员管理</a></li>
+        <li class="active">分配角色</li>
+        <div class="pull-right refresh"><a href="javascript:;" onclick="refresh()"><i class="fa fa-refresh fa-xl" title="点击刷新"></i> 刷新页面</a></div>
+    </ol>
+</div>
+<div class="wrapper wrapper-content col-sm-12 animated fadeInRight">
+    <form name="myform" id="myform" action='' method="post" onsubmit="return false;">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5><i class="fa fa-user"></i> 给管理员：<span class="red">{$userinfo.username}</span> 分配角色</h5>
+            </div>
+            <div class="ibox-content" id="fenpei">
+                <p>
+                    <input type="checkbox" name="mid" value="" class="newcheckBox" id="newcheckBox"><label class='label' for="newcheckBox">角色列表</label>
+                </p>
+                <div class="rulelist">
+                    <notempty name="data">
+                        <volist name="data" id="list" key="key_list">
+                            <p><input type="checkbox" name="groups[]" class="newcheckBoxids" <in name="list.id" value="$userinfo.groupid">checked="checked"</in> value="{$list.id}" id="newcheckBoxids_{$list.id}"><label class='label' title="{$list.title}" for="newcheckBoxids_{$list.id}">{$list.title}</label></p>
+                        </volist>
+                    </notempty>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="btn btn-w-m btn-success" onclick='submitForm("{:U("fenpei")}","#myform")'>
+            <i class="fa fa-check-square-o"></i> 提交
+        </button>
+        <button type="button" class="btn btn-w-m btn-primary" onclick="history.go(-1)">
+            <i class="fa fa-chevron-circle-left"></i> 返回
+        </button>
+        <input type="hidden" name="uid" value="{$userinfo.id}">
+        <input type="hidden" name="parameter" value="{$parameter}">
+    </form>
+</div>
+<script type="text/javascript">
+    $(function(){
+        //设置选择框
+        $(".newcheckBox,.newcheckBoxids").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green"});
+
+        //系统配置全选
+        $('.newcheckBox').on('ifChanged', function(event){
+            if($(this).is(':checked')){
+                $(this).parents('#fenpei').find('.newcheckBoxids').iCheck('check');
+            } else {
+                $(this).parents('#fenpei').find('.newcheckBoxids').iCheck('uncheck');
+            }
+        });
+    });
+</script>

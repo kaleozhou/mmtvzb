@@ -1,0 +1,88 @@
+<include file="Public:head_iframe" />
+<div id="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{:U('Index/welcome')}"><i class="fa fa-home"></i>&nbsp;&nbsp;首页</a></li>
+        <li><a href='{:U("index",decode($parameter))}'>课程安排</a></li>
+        <li class="active">新增课程</li>
+        <div class="pull-right refresh"><a href="javascript:;" onclick="refresh()"><i class="fa fa-refresh fa-xl" title="点击刷新"></i> 刷新页面</a></div>
+    </ol>
+</div>
+<div class="wrapper wrapper-content col-sm-12 animated fadeInRight">
+    <form action="" method="post" id="myform" name="myform" onsubmit="return false">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 课程时间：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="ctime" name="ctime" value="" type="text" placeholder="请输入课程时间">
+                            <div class="help-block">例如：9:00-11:00，请严格按照实例格式，不要留空白！</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 周一：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="mon_day" name="mon_day" value="" type="text" placeholder="请输入周一课程安排">
+                            <div class="help-block">例如：万老师 ／ 思思 或者 万老师，请严格按照实例格式，不要留空白！</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 周二：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="tues_day" name="tues_day" value="" type="text" placeholder="请输入周二课程安排">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 周三：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="wednes_day" name="wednes_day" value="" type="text" placeholder="请输入周三课程安排">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 周四：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="thurs_day" name="thurs_day" value="" type="text" placeholder="请输入周四课程安排">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"><i class="fa fa-info-circle required_icon"></i> 周五：</div>
+                        </td>
+                        <td>
+                            <input class="form-control" id="fri_day" name="fri_day" value="" type="text" placeholder="请输入周五课程安排">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_add_edit">
+                            <div class="text-right"> 状态：</div>
+                        </td>
+                        <td>
+                            <select name="status" class="form-control">
+                                <option value="1" selected="selected">开启</option>
+                                <option value="0">关闭</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="blank15"></div>
+        <button type="button" class="btn btn-w-m btn-success" onclick='submitForm("{:U("add")}","#myform")'>
+            <i class="fa fa-check-square-o"></i> 提交
+        </button>
+        <button type="button" class="btn btn-w-m btn-primary" onclick="history.go(-1)">
+            <i class="fa fa-chevron-circle-left"></i> 返回
+        </button>
+        <input type="hidden" name="parameter" value="{$parameter}">
+    </form>
+</div>
