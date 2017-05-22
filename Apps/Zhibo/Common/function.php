@@ -67,7 +67,7 @@ function getvideo(){
 		$videotext = 'var videodivtxt = \'';
 		if(ismobile()){
 			$videotext .= '<video controls autoplay width="100%" height="100%">';
-			$videotext .= '<source src="http://hls.duowan.com/newlive/74453847_74453847.m3u8?org=yyweb&appid=0&uuid=57354ab3a68e40c2a709b810ae28595b&t=1495170227&tk=84b6611a4bc01c83e3b996cc42027adf&uid=0&ex_audio=0&ex_coderate=700&ex_spkuid=0">';
+			$videotext .= '<source src="http://hls.duowan.com/newlive/74453847_74453847.m3u8?org=yyweb&appid=0&uuid=46156af747db42f69b891089dc1b0f20&t=1495423026&tk=3264c384deaec1d778c9ca771e776dd7&uid=0&ex_audio=0&ex_coderate=700&ex_spkuid=0">';
 			$videotext .= '</video>';
 		} else {
 			//$videotext .= '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="100%" height="100%"><param name="movie" value="http://yy.com/s/'.$roomurl.'/'.$roomurl.'/yyscene.swf" />';
